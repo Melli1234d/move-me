@@ -10,7 +10,7 @@ const HomeCategorieItem = (props) => {
     return (
         <div>
             <TopDividingLine/>
-            <img src={props.picture}/>
+            <img src={props.picture} alt="alt"/>
 
            <BottomDividingLine/>
             <h2>{props.title}</h2>
