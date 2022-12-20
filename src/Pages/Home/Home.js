@@ -1,16 +1,25 @@
 import './Home.css'
-import React, {useRef} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import { IoIosArrowBack } from "react-icons/io";
 import {Link} from "react-router-dom";
 import HomeCategories from "../../components/HomeCategories/HomeCategories";
 import {firestore} from "../../firebase";
+import firebase from "firebase/app";
 import {addDoc, collection} from "@firebase/firestore";
-
+import TapBarList from "../../components/TapBar/TapBarList";
+import TapBar from "../../components/TapBar/TapBar";
+import HomeCategorieList from "../../components/HomeCategories/HomeCategorieList";
 
 //tutorial: https://www.youtube.com/watch?v=ad6IavyAHsQ&t=328s
 
 
 const Home = (props) => {
+    // const [bilder, setBilder] = useState([]);
+    //
+    // const ref= firestore().collection("bilder");
+
+
+
     //  const messageRef = useRef();
     //  const ref = collection(firestore,"messages"); // wenn die collection in firebase nicht vorhanden ist, dann wird sie neu erstellt
     // //
@@ -29,42 +38,35 @@ const Home = (props) => {
     //      }
     //
     //  };
+    // const db= firebase.firestore();
+    // const bilderCollection = db.collection("bilder");
+    //
+    // bilderCollection.doc("bilder").get().then((doc) => {
+    //     console.log(doc.data().foto); //damit man auf die felder zugreifen kann
+    // });
 
 
-    const homecategories = [
-        {
-            id: 'e1',
-            title: 'Home',
-            button: 'weiter',
-            paragraph: 'test',
-            picture: require('../../components/Pictures/BildUmzug.png'),
-        },
-        {
-            id: 'e2',
-            title: 'Testc2',
-            paragraph: 'test',
-            button: 'weiter',
-            picture: require('../../components/Pictures/BildPlanen.png'),
-        },
-        {
-            id: 'e3',
-            title: 'vghfhfjzgz ',
-            paragraph: 'test',
-            button: 'weiter',
-            picture: require('../../components/Pictures/BildMöbel.png'),
-        },
-        {
-            id: 'e4',
-            title: 'hftfutguzg',
-            paragraph: 'test',
-            button: 'weiter',
-            picture: require('../../components/Pictures/BildCommunity.png'),
-        },
-    ];
+    // function getBilder() {
+    //     ref.onSnapshot((querySnapshot) => {
+    //         const items = []; //initialisieren des arrays
+    //         querySnapshot.forEach((doc) => {
+    //             items.push(doc.data());
+    //         });
+    //         setBilder(items);
+    //     });
+    // }
+
+
+    // useEffect(() => {
+    //     getBilder();
+    // }, []);
+
 
     return (
 
-        <div className="c-backbutton__container">
+
+
+        <div className="primary-background">
 
 
             <Link to={'/Profil'}>
@@ -72,6 +74,16 @@ const Home = (props) => {
                     <IoIosArrowBack className="c-profilsettings__menu-icon" size={25} color="#368BFF"/>
                 </div>
             </Link>
+
+           {/* <div>
+            {bilder.map((bilder) => (
+                <div key={bilder.id}>
+                    <h2>{bilder.name}</h2>
+                    <div>{bilder.picture}</div>
+                </div>
+            ))}
+            </div>*/}
+
             {/*<form onSubmit={handleSave}>*/}
             {/*    <label> Enter Message</label>*/}
             {/*    <input type="text" ref={messageRef}/>*/}
@@ -79,9 +91,9 @@ const Home = (props) => {
             {/*</form>*/}
 
             <div>
-                <HomeCategories items={homecategories} />
+                <HomeCategorieList/>
             </div>
-
+            <TapBarList/>
 
 
         </div>

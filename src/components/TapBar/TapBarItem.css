@@ -1,0 +1,13 @@
+.tapbar-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.tapbar-item-name {
+    font-size: 8pt;
+    color: #113352;
+}
+
+.tapbar-item-icon{
+    color: #113352;
+}

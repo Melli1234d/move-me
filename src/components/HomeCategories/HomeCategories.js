@@ -4,8 +4,11 @@ import HomeCategorieItem from "./HomeCategorieItem";
 
 
 const HomeCategories = (props) => {
+
+
     return (
         <div className="homecategories">
+
             <HomeCategorieItem
                 title={props.items[0].title}
                 paragraph={props.items[0].paragraph}
