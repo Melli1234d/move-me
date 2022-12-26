@@ -1,15 +1,20 @@
 import React from 'react';
 import './TapBarItem.css';
+import {IoIosArrowBack} from "react-icons/io";
+import {Link} from "react-router-dom";
 
 
 const TapBarItem = (props) => {
 
 
     return (
-        <div className="tapbar-item">
-            <div className="tapbar-item-icon">{props.icon}</div>
-            <div className="tapbar-item-name">{props.name}</div>
-        </div>
+        <Link to={props.link}>
+            <div className="tapbar-item">
+                <div className="tapbar-item-icon">{props.icon}</div>
+                <div className="tapbar-item-name">{props.name}</div>
+            </div>
+        </Link>
+
     );
 }
 

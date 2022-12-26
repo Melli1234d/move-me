@@ -14,34 +14,42 @@ const TapBarList = (props) => {
             id: 'e1',
             icon: <BiHome size={25} />,
             name: 'Home',
+            link: '/Home',
         },
         {
             id: 'e2',
             icon: <TbArmchair2 size={25}/>,
             name: 'Erkennung',
+            link: '/Profil',
         },
         {
             id: 'e3',
             icon: <GrList size={25}/>,
             name: 'Möbelliste',
+            link: '/Profil',
 
         },
         {
             id: 'e4',
             icon: <TbCalendarTime size={25}/>,
             name: 'Zeitplan',
+            link: '/Home',
         },
         {
             id: 'e5',
             icon:  <TbTruckDelivery size={25}/>,
             name: 'Firmen',
+            link: '/Home',
         },
     ];
 
     return (
-        <div className="tapbar-list">
-            <TapBar items={tapbar} />
-        </div>
+        <ul className="tapbar-list">
+            <li>
+                <TapBar items={tapbar} />
+            </li>
+
+        </ul>
     );
 }
 
