@@ -1,12 +1,12 @@
 import './Moebelerkennung.css'
 import React from 'react';
-
+import * as tf from '@tensorflow/tfjs';
 import * as tmImage from '@teachablemachine/image';
  //CODE VON WEBSITE: https://medium.com/@baruahd5/create-image-classifier-with-node-js-tensorflow-js-google-teachable-machine-280ee5f92bad
 const Moebelerkennung = (props) => {
     const URL = '../static/tm-my-image-model';
 
-    let model, webcam, maxPredictions, barhocker,bürostuhl,drehhocker, sofa, stühle, tisch;
+    let model, webcam, maxPredictions, barhocker, buerostuhl, drehhocker, sofa, stuehle, tisch;
     let refresh = true;
 
 // Load the image model and setup the webcam
@@ -17,8 +17,8 @@ const Moebelerkennung = (props) => {
             const metadataURL = URL + "metadata.json";
 
             // load the model and metadata
-
-            model = await tmImage.load(modelURL, metadataURL);
+            model = await tf.loadGraphModel(modelURL, metadataURL);
+            //model = await tmImage.load(modelURL, metadataURL);
             maxPredictions = model.getTotalClasses();
 
             // Convenience function to setup a webcam
@@ -29,14 +29,15 @@ const Moebelerkennung = (props) => {
             // append elements to the DOM
             document.getElementById("webcam-container").appendChild(webcam.canvas);
             barhocker = document.getElementById("barhocker");
-            bürostuhl = document.getElementById("bürostuhl");
+            buerostuhl = document.getElementById("bürostuhl");
             drehhocker = document.getElementById("drehhocker");
             sofa = document.getElementById("sofa");
-            stühle = document.getElementById("stühle");
+            stuehle = document.getElementById("stühle");
             tisch = document.getElementById("tisch");
             window.requestAnimationFrame(loop);
         }
         else {
+
             // eslint-disable-next-line no-restricted-globals
             location.reload();
         }
@@ -54,27 +55,27 @@ const Moebelerkennung = (props) => {
         // predict can take in an image, video or canvas html element
         const prediction = await model.predict(webcam.canvas);
         for (let i = 0; i < maxPredictions; i++) {
-            if (prediction[i].className === "barhocker") {
+            if (prediction[i].className == "Barhocker") {
                 barhocker.innerHTML = prediction[i].probability.toFixed(2);
                 document.getElementById("barhocker-progress").value = prediction[i].probability.toFixed(2);
             }
-            if (prediction[i].className === "bürostuhl") {
-                bürostuhl.innerHTML = prediction[i].probability.toFixed(2);
+            if (prediction[i].className == "Bürostuhl") {
+                buerostuhl.innerHTML = prediction[i].probability.toFixed(2);
                 document.getElementById("bürostuhl-progress").value = prediction[i].probability.toFixed(2);
             }
-            if (prediction[i].className === "drehhocker") {
+            if (prediction[i].className == "Drehhocker") {
                 drehhocker.innerHTML = prediction[i].probability.toFixed(2);
                 document.getElementById("drehhocker-progress").value = prediction[i].probability.toFixed(2);
             }
-            if (prediction[i].className === "sofa") {
+            if (prediction[i].className == "Sofa") {
                 sofa.innerHTML = prediction[i].probability.toFixed(2);
                 document.getElementById("sofa-progress").value = prediction[i].probability.toFixed(2);
             }
-            if (prediction[i].className === "stühle") {
-                stühle.innerHTML = prediction[i].probability.toFixed(2);
+            if (prediction[i].className == "Stühle") {
+                stuehle.innerHTML = prediction[i].probability.toFixed(2);
                 document.getElementById("stühle-progress").value = prediction[i].probability.toFixed(2);
             }
-            if (prediction[i].className === "tisch") {
+            if (prediction[i].className == "Tisch") {
                 tisch.innerHTML = prediction[i].probability.toFixed(2);
                 document.getElementById("tisch-progress").value = prediction[i].probability.toFixed(2);
             }
@@ -114,8 +115,7 @@ const Moebelerkennung = (props) => {
                 </div>
 
             </div>
-            <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"/>
-            <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"/>
+
 
 
         </div>

@@ -1,22 +1,25 @@
-<!DOCTYPE html>
-<html>
 
-<head>
-    <title>dhiraj's emotion detection app</title>
+import React, { useCallback, useState } from "react";
+import useSound from "use-sound";
+import { NAIL_BITING_DETECTOR_MODEL } from "../app/Model";
+import { routes } from "../app/Routes";
+import { Page } from "../components/Page";
+import { Webcam } from "../components/Webcam";
+import { useModel } from "../hooks/useModel";
+import { useNotification } from "../hooks/useNotification";
 
-</head>
+import * as tmImage from '@teachablemachine/image';
+//CODE VON TEACHABLE MACHINE, DER BEIM DOWNLOAD VORGESCHLAGEN WIRD
 
-<body>
 
-<div>Teachable Machine Image Model</div>
-<button type="button" onclick="init()">Start</button>
-<div id="webcam-container"></div>
-<div id="label-container"></div>
+const Predict = (props) => {
 
-<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script>
-<script type="text/javascript">
     const URL = "../Pages/Moebelerkennung/tm-my-image-model-3/";
+
+// More API functions here:
+    // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/image
+
+    // the link to your model provided by Teachable Machine export panel
 
     let model, webcam, labelContainer, maxPredictions;
 
@@ -58,16 +61,23 @@
         // predict can take in an image, video or canvas html element
         const prediction = await model.predict(webcam.canvas);
         for (let i = 0; i < maxPredictions; i++) {
-            const classPrediction =
-                prediction[i].className + ": " + prediction[i].probability.toFixed(2);
+            const classPrediction = prediction[i].className + ": " + prediction[i].probability.toFixed(2);
             labelContainer.childNodes[i].innerHTML = classPrediction;
         }
     }
 
-</script>
 
-</body>
 
-</html>
 
-</html>
+    return (
+
+        <div className="c-backbutton__container">
+            <div>Teachable Machine Image Model</div>
+            <button type="button" onClick={init}>Start</button>
+            <div id="webcam-container"/>
+            <div id="label-container"/>
+        </div>
+    );
+}
+
+export default Predict;

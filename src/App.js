@@ -7,7 +7,9 @@ import {
 } from 'react-router-dom'
 import Home from "./Pages/Home/Home";
 import Profil from "./Pages/Profil/Profil";
-import Moebelerkennung from "./Pages/Möbelerkennung/Moebelerkennung";
+import Moebelerkennung from "./Pages/Moebelerkennung/Moebelerkennung";
+import Moebelerkennungtest from "./Pages/Moebelerkennung/Moebelerkennungtest";
+import Predict from "./static/Predict";
 
 
 
@@ -19,8 +21,8 @@ function App() {
         <Routes>
           <Route index element={<Home/>}/>
           <Route path="/profil" element={<Profil/>}/>
-          <Route path="/moebelerkennung" element={<Moebelerkennung/>}/>
-
+          <Route path="/moebelerkennungtest" element={<Moebelerkennungtest/>}/>
+            <Route path="/predict" element={<Predict/>}/>
         </Routes>
       </BrowserRouter>
   );
