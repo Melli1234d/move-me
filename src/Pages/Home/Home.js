@@ -11,6 +11,7 @@ import TapBar from "../../components/TapBar/TapBar";
 import HomeCategorieList from "../../components/HomeCategories/HomeCategorieList";
 import KartonShoppingList from "../../components/KartonShopping/KartonShoppingList";
 import Einkaufsmoeglichkeit from './../../components/Pictures/wagen2.png';
+import Header from "../../components/Header/Header";
 //tutorial: https://www.youtube.com/watch?v=ad6IavyAHsQ&t=328s
 
 
@@ -68,6 +69,7 @@ const Home = (props) => {
 
 
         <div className="primary-background">
+            <Header/>
 
 
             <Link to={'/Profil'}>

@@ -5,6 +5,7 @@ import {Link} from "react-router-dom";
 import TapBarList from "../../components/TapBar/TapBarList";
 import KartonShoppingList from "../../components/KartonShopping/KartonShoppingList";
 import Einkaufsmoeglichkeit from './../../components/Pictures/wagen2.png';
+import Header from "../../components/Header/Header";
 
 
 
@@ -17,6 +18,7 @@ const Home = (props) => {
 
 
         <div className="secondary-background">
+            <Header/>
 
 
             <Link to={'/Home'}>
