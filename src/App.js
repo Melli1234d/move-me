@@ -10,6 +10,7 @@ import Profil from "./Pages/Profil/Profil";
 import Moebelerkennung from "./Pages/Moebelerkennung/Moebelerkennung";
 import Moebelerkennungtest from "./Pages/Moebelerkennung/Moebelerkennungtest";
 import Predict from "./static/Predict";
+import Shop from "./Pages/Shop/Shop";
 
 
 
@@ -17,14 +18,19 @@ import Predict from "./static/Predict";
 function App() {
 
   return (
-      <BrowserRouter>
-        <Routes>
-          <Route index element={<Home/>}/>
-          <Route path="/profil" element={<Profil/>}/>
-          <Route path="/moebelerkennungtest" element={<Moebelerkennungtest/>}/>
-            <Route path="/predict" element={<Predict/>}/>
-        </Routes>
-      </BrowserRouter>
+      <div className="app-body">
+          <BrowserRouter>
+              <Routes>
+                  <Route index element={<Home/>}/>
+                  <Route path="/home" element={<Home/>}/>
+                  <Route path="/profil" element={<Profil/>}/>
+                  <Route path="/moebelerkennungtest" element={<Moebelerkennungtest/>}/>
+                  <Route path="/predict" element={<Predict/>}/>
+                  <Route path="/shop" element={<Shop/>}/>
+              </Routes>
+          </BrowserRouter>
+      </div>
+
   );
 }
 

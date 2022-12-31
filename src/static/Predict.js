@@ -1,3 +1,4 @@
+/*
 
 import React, { useCallback, useState } from "react";
 import useSound from "use-sound";
@@ -20,6 +21,7 @@ const Predict = (props) => {
     // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/image
 
     // the link to your model provided by Teachable Machine export panel
+/!*
 
     let model, webcam, labelContainer, maxPredictions;
 
@@ -65,6 +67,7 @@ const Predict = (props) => {
             labelContainer.childNodes[i].innerHTML = classPrediction;
         }
     }
+*!/
 
 
 
@@ -73,7 +76,7 @@ const Predict = (props) => {
 
         <div className="c-backbutton__container">
             <div>Teachable Machine Image Model</div>
-            <button type="button" onClick={init}>Start</button>
+            {/!*<button type="button" onClick={init}>Start</button>*!/}
             <div id="webcam-container"/>
             <div id="label-container"/>
         </div>
@@ -81,3 +84,4 @@ const Predict = (props) => {
 }
 
 export default Predict;
+*/

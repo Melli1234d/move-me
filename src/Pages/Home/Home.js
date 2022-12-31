@@ -9,7 +9,8 @@ import {addDoc, collection} from "@firebase/firestore";
 import TapBarList from "../../components/TapBar/TapBarList";
 import TapBar from "../../components/TapBar/TapBar";
 import HomeCategorieList from "../../components/HomeCategories/HomeCategorieList";
-
+import KartonShoppingList from "../../components/KartonShopping/KartonShoppingList";
+import Einkaufsmoeglichkeit from './../../components/Pictures/wagen2.png';
 //tutorial: https://www.youtube.com/watch?v=ad6IavyAHsQ&t=328s
 
 
@@ -89,10 +90,18 @@ const Home = (props) => {
             {/*    <input type="text" ref={messageRef}/>*/}
             {/*    <button type="submit">Save</button>*/}
             {/*</form>*/}
+            <div className="icon-shopping">
+                <div id="einkaufswagen" ><img id="einkaufenicon" src={Einkaufsmoeglichkeit} alt="Einkaufswagen Icon" height={18} width={18} /></div>
+            </div>
 
+
+            <div>
+                <KartonShoppingList/>
+            </div>
             <div>
                 <HomeCategorieList/>
             </div>
+
             <TapBarList/>
 
 

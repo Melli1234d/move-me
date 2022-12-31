@@ -2,3 +2,18 @@
     width: 100%;
     height: auto;
 }
+
+.home-categorie-item-title{
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+}
+
+.home-categorie-item-paragraph{
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+}
+
+.home-categorie-item-button{
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+}

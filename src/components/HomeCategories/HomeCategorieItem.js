@@ -9,13 +9,13 @@ const HomeCategorieItem = (props) => {
 
     return (
         <div>
-            <TopDividingLine/>
+
             <img className="home-categorie-item-picture" src={props.picture} alt="alt"/>
 
-           <BottomDividingLine/>
-            <h2>{props.title}</h2>
-            <div>{props.paragraph}</div>
-            <div>{props.button}</div>
+
+            <h2 className="home-categorie-item-title">{props.title}</h2>
+            <div className="home-categorie-item-paragraph">{props.paragraph}</div>
+            <div className="home-categorie-item-button">{props.button}</div>
 
         </div>
     );
