@@ -13,6 +13,7 @@ import Predict from "./static/Predict";
 import Shop from "./Pages/Shop/Shop";
 import Zeitplan from "./Pages/Zeitplan/Zeitplan";
 import MoebelerkennungScannStarten from "./Pages/Moebelerkennung/MoebelerkennungScannStarten";
+import Moebelliste from "./Pages/Moebelerkennung/Moebelliste";
 
 
 
@@ -30,6 +31,7 @@ function App() {
                   <Route path="/predict" element={<Predict/>}/>
                   <Route path="/shop" element={<Shop/>}/>
                   <Route path="/zeitplan" element={<Zeitplan/>}/>
+                  <Route path="/Moebelliste" element={<Moebelliste/>}/>
                   <Route path="/MoebelerkennungScannStarten" element={<MoebelerkennungScannStarten/>}/>
               </Routes>
           </BrowserRouter>

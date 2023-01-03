@@ -15,17 +15,20 @@ const MoebelerkennungScannStarten = (props) => {
 
 
         <div className="secondary-background">
-            <Header/>
-            <h1> Möbelerfassung</h1>
-            <Card>
-                {/*Das Bild ist von: https://de.freepik.com/fotos-kostenlos/skandinavischer-wohnzimmer-innenarchitektur-zoom-hintergrund_18835794.htm#page=2&query=couch&position=0&from_view=search&track=sph*/}
-                <img id="Möbelerkennung" src={Moebelerkennung} alt="Möbelerkennung Standardbild" height={150} width={200} />
-                <p>
-                    Scannen Sie Ihr Mobiliar ein,  was Sie beim Umzug mitnehmen wollen.
-                    Bitte achten Sie darauf, dass das Möbelstück gut zu erkennen ist.
-                </p>
-                <button id="primary-button"> Scannen </button>
-            </Card>
+            <div className="moebelscann-container">
+                <Header/>
+                <h1> Möbelerfassung</h1>
+                <Card>
+                    {/*Das Bild ist von: https://de.freepik.com/fotos-kostenlos/skandinavischer-wohnzimmer-innenarchitektur-zoom-hintergrund_18835794.htm#page=2&query=couch&position=0&from_view=search&track=sph*/}
+                    <img id="Möbelerkennung" src={Moebelerkennung} alt="Möbelerkennung Standardbild" height={150} width={200} />
+                    <p>
+                        Scannen Sie Ihr Mobiliar ein,  was Sie beim Umzug mitnehmen wollen.
+                        Bitte achten Sie darauf, dass das Möbelstück gut zu erkennen ist.
+                    </p>
+                    <button id="primary-button"> Scannen </button>
+                </Card>
+            </div>
+
 
             <TapBarList/>
 

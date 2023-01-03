@@ -26,7 +26,7 @@ const TapBarList = (props) => {
             id: 'e3',
             icon: <GrList size={25}/>,
             name: 'Möbelliste',
-            link: '/Profil',
+            link: '/Moebelliste',
 
         },
         {
