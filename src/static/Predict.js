@@ -9,13 +9,16 @@ import { Webcam } from "../components/Webcam";
 import { useModel } from "../hooks/useModel";
 import { useNotification } from "../hooks/useNotification";
 
+
+
+
 import * as tmImage from '@teachablemachine/image';
 //CODE VON TEACHABLE MACHINE, DER BEIM DOWNLOAD VORGESCHLAGEN WIRD
 
 
 const Predict = (props) => {
 
-    const URL = "../Pages/Moebelerkennung/tm-my-image-model-3/";
+    const URL = "./tm-my-image-model-3/";
 
 // More API functions here:
     // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/image

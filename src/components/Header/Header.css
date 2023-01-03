@@ -3,6 +3,8 @@
     padding-right: 2.5rem;
     padding-bottom: 1rem;
     background-color: #113352;
+    position: fixed;
+    width: 81%;
 }
 
 #logo {
@@ -12,15 +14,19 @@
 .header-navigation {
     display: flex;
     float:right;
-    margin-top: 2.5rem
+    margin-top: 2.5rem;
+    justify-content: center;
 }
 
 #chat {
     margin-right: 1.5rem;
 }
 
-
-
+nav {
+    align-items: center;
+    display: flex;
+}
+/* CODE VON: https://codepen.io/erikterwan/pen/EVzeRP , lediglich Farben, Positionn angepasst*/
 
 
 #menuToggle
@@ -47,8 +53,8 @@
 #menuToggle input
 {
     display: block;
-    width: 40px;
-    height: 32px;
+    width: 20px;
+    height: 20px;
     position: absolute;
     top: -7px;
     left: -5px;
@@ -67,8 +73,8 @@
 #menuToggle span
 {
     display: block;
-    width: 25px;
-    height: 3px;
+    width: 18px;
+    height: 1.5px;
     margin-bottom: 5px;
     position: relative;
 
@@ -84,6 +90,7 @@
     opacity 0.55s ease;
 }
 
+
 #menuToggle span:first-child
 {
     transform-origin: 0% 0%;
@@ -92,6 +99,7 @@
 #menuToggle span:nth-last-child(2)
 {
     transform-origin: 0% 100%;
+    margin-bottom: 0;
 }
 
 /*
@@ -133,8 +141,8 @@ input:checked{
 #menu
 {
     position: absolute;
-    width: 314px;
-    margin: 11px 0 0 65px;
+    width: 315px;
+    margin: 18px 0 0 58px;
     padding: 50px;
     padding-top: 0;
 

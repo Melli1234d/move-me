@@ -1,9 +1,29 @@
 
-h2 {
+h2, p, button, h3,h4 {
     padding-left: 2.5rem;
     padding-right: 2.5rem;
 }
-p {
-    padding-left: 2.5rem;
-    padding-right: 2.5rem;
+p,button {
+    font-size: 12pt;
+}
+
+h1,h2,h3,h4,p,button {
+    font-family: Verdana, sans-serif;
+    margin-bottom: 2rem;
+}
+
+h1 {
+    font-size: 22pt;
+}
+
+h2 {
+    font-size: 20pt;
+}
+
+h3 {
+    font-size: 18pt;
+}
+
+h4 {
+    font-size: 16pt;
 }

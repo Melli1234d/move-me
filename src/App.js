@@ -11,6 +11,8 @@ import Moebelerkennung from "./Pages/Moebelerkennung/Moebelerkennung";
 import Moebelerkennungtest from "./Pages/Moebelerkennung/Moebelerkennungtest";
 import Predict from "./static/Predict";
 import Shop from "./Pages/Shop/Shop";
+import Zeitplan from "./Pages/Zeitplan/Zeitplan";
+import MoebelerkennungScannStarten from "./Pages/Moebelerkennung/MoebelerkennungScannStarten";
 
 
 
@@ -27,6 +29,8 @@ function App() {
                   <Route path="/moebelerkennungtest" element={<Moebelerkennungtest/>}/>
                   <Route path="/predict" element={<Predict/>}/>
                   <Route path="/shop" element={<Shop/>}/>
+                  <Route path="/zeitplan" element={<Zeitplan/>}/>
+                  <Route path="/MoebelerkennungScannStarten" element={<MoebelerkennungScannStarten/>}/>
               </Routes>
           </BrowserRouter>
       </div>

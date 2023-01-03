@@ -3,7 +3,7 @@ import './TapBarItem.css';
 import {IoIosArrowBack} from "react-icons/io";
 import {Link} from "react-router-dom";
 
-
+//HTML wie das Icon am Ende aussehen soll
 const TapBarItem = (props) => {
 
 

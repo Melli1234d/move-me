@@ -7,7 +7,7 @@ import {GrList} from "react-icons/gr";
 
 
 
-
+//Liste mit dem Inhalt der Items in einem Array
 const TapBarList = (props) => {
     const tapbar = [
         {
@@ -20,7 +20,7 @@ const TapBarList = (props) => {
             id: 'e2',
             icon: <TbArmchair2 size={25}/>,
             name: 'Erkennung',
-            link: '/Profil',
+            link: '/MoebelerkennungScannStarten',
         },
         {
             id: 'e3',
@@ -33,7 +33,7 @@ const TapBarList = (props) => {
             id: 'e4',
             icon: <TbCalendarTime size={25}/>,
             name: 'Zeitplan',
-            link: '/Home',
+            link: '/Zeitplan',
         },
         {
             id: 'e5',

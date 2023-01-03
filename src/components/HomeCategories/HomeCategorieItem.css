@@ -13,7 +13,40 @@
     padding-right: 2.5rem;
 }
 
-.home-categorie-item-button{
-    padding-left: 2.5rem;
-    padding-right: 2.5rem;
+.left button, .right button{
+    margin-left: 2.5rem;
+    background-color: #113352;
+    color: white;
+    border: none;
+    padding: 1rem 2rem 1rem 2rem;
+    border-radius: 25px;
+    display:flex;
+}
+button.right {
+    margin-left: auto;
+    margin-right: 2.5rem;
+}
+p{
+    font-size: 12pt;
+    margin-botton: 1rem;
+}
+
+.left{
+    flex-direction: column;
+    text-align: left;
+}
+
+.right{
+    flex-direction: column;
+    text-align: right;
+}
+.home-categorie-container {
+    display: flex;
+    flex-direction: column;
+}
+.home-categorie-container:first-child{
+    padding-top: 5.6rem;
+}
+.home-categorie-container:last-child {
+    padding-bottom: 5rem;
 }

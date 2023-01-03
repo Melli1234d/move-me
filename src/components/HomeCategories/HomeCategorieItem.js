@@ -8,14 +8,16 @@ const HomeCategorieItem = (props) => {
 
 
     return (
-        <div>
+        <div className="home-categorie-container">
 
             <img className="home-categorie-item-picture" src={props.picture} alt="alt"/>
 
+            <div className={props.contentclass}>
+                <h2 className="home-categorie-item-title">{props.title}</h2>
+                <p className="home-categorie-item-paragraph">{props.paragraph}</p>
+                <button className={props.contentclass}>{props.button}</button>
+            </div>
 
-            <h2 className="home-categorie-item-title">{props.title}</h2>
-            <div className="home-categorie-item-paragraph">{props.paragraph}</div>
-            <div className="home-categorie-item-button">{props.button}</div>
 
         </div>
     );

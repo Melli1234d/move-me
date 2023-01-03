@@ -1,3 +1,28 @@
 .webcam-container {
     background-color: pink;
 }
+
+h1 {
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+    justify-content: center;
+    display: flex;
+}
+
+#Möbelerkennung {
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    width: 100%;
+    height: auto;
+}
+
+#primary-button {
+    background-color: #113352;
+    color: white;
+    border: none;
+    padding: 1rem 2rem 1rem 2rem;
+    border-radius: 25px;
+    display:flex;
+    margin-left: 2.5rem;
+
+}

@@ -65,6 +65,7 @@ const Moebelerkennungtest = (props) => {
     return (
 
         <div className="c-backbutton__container">
+            <h1> Möbelerkennung</h1>
             <div>Teachable Machine Image Model</div>
             <button type="button" onClick={init}>Start</button>
             <div id="webcam-container"/>

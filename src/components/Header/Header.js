@@ -2,13 +2,14 @@ import React from 'react';
 import './Header.css';
 import Logo from "../Pictures/Header/movemelogo.png";
 import Chat from "../Pictures/Header/chat-icon.png";
+import Hamburger from "../Pictures/Header/Hamburger-Icon.png";
 import Menu from "../Pictures/Header/Hamburger-Icon.png";
 import {IoIosArrowBack} from "react-icons/io";
 import {Link} from "react-router-dom";
 
 
 
-//HAMBURGER MENU CODE: https://codepen.io/erikterwan/pen/EVzeRP
+//HAMBURGER MENU CODE: https://codepen.io/erikterwan/pen/EVzeRP CSS UND HTML, Links angepasst!
 
 const Header = (props) => {
 
@@ -17,14 +18,12 @@ const Header = (props) => {
         <div className="header">
             <img id="logo" src={Logo} alt="Logo" height={30} width={80} />
             <div className="header-navigation">
-                <img id="chat" src={Chat} alt="Nachrichten Icon" height={18} width={18} />
+                <img id="chat" src={Chat} alt="Nachrichten Icon" height={25} width={25} />
                 <nav role="navigation">
                     <div id="menuToggle">
 
                         <input type="checkbox" />
-                        <span></span>
-                        <span></span>
-                        <span></span>
+                        <img id="hamburgericon" src={Hamburger} alt="Nachrichten Icon" height={25} width={25} />
                         <ul id="menu">
                             <Link to={'/Profil'}>
                                 <li>Profil</li>

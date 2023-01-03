@@ -2,7 +2,7 @@ import React from 'react';
 import './TapBar.css';
 import TapBarItem from "./TapBarItem";
 
-
+//Darstellung der 5 Icons in der Tabbar
 const TapbBar = (props) => {
 
 

@@ -1,0 +1,38 @@
+import './Moebelerkennung.css'
+import React  from 'react';
+import TapBarList from "../../components/TapBar/TapBarList";
+import Header from "../../components/Header/Header";
+import Card from "../../components/UI/Card";
+import Moebelerkennung from "../../components/Pictures/Moebelerkennung/Couchbild.png";
+
+
+
+const MoebelerkennungScannStarten = (props) => {
+
+
+    return (
+
+
+
+        <div className="secondary-background">
+            <Header/>
+            <h1> Möbelerfassung</h1>
+            <Card>
+                {/*Das Bild ist von: https://de.freepik.com/fotos-kostenlos/skandinavischer-wohnzimmer-innenarchitektur-zoom-hintergrund_18835794.htm#page=2&query=couch&position=0&from_view=search&track=sph*/}
+                <img id="Möbelerkennung" src={Moebelerkennung} alt="Möbelerkennung Standardbild" height={150} width={200} />
+                <p>
+                    Scannen Sie Ihr Mobiliar ein,  was Sie beim Umzug mitnehmen wollen.
+                    Bitte achten Sie darauf, dass das Möbelstück gut zu erkennen ist.
+                </p>
+                <button id="primary-button"> Scannen </button>
+            </Card>
+
+            <TapBarList/>
+
+
+        </div>
+    );
+}
+
+
+export default MoebelerkennungScannStarten;

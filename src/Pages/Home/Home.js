@@ -72,11 +72,6 @@ const Home = (props) => {
             <Header/>
 
 
-            <Link to={'/Profil'}>
-                <div>
-                    <IoIosArrowBack className="c-profilsettings__menu-icon" size={25} color="#368BFF"/>
-                </div>
-            </Link>
 
            {/* <div>
             {bilder.map((bilder) => (
@@ -92,14 +87,10 @@ const Home = (props) => {
             {/*    <input type="text" ref={messageRef}/>*/}
             {/*    <button type="submit">Save</button>*/}
             {/*</form>*/}
-            <div className="icon-shopping">
-                <div id="einkaufswagen" ><img id="einkaufenicon" src={Einkaufsmoeglichkeit} alt="Einkaufswagen Icon" height={18} width={18} /></div>
-            </div>
 
 
-            <div>
-                <KartonShoppingList/>
-            </div>
+
+
             <div>
                 <HomeCategorieList/>
             </div>
