@@ -4,7 +4,7 @@ import TapBarList from "../../components/TapBar/TapBarList";
 import Header from "../../components/Header/Header";
 import Card from "../../components/UI/Card";
 import Moebelerkennung from "../../components/Pictures/Moebelerkennung/Couchbild.png";
-
+import {Link} from "react-router-dom";
 
 
 const MoebelerkennungScannStarten = (props) => {
@@ -25,7 +25,9 @@ const MoebelerkennungScannStarten = (props) => {
                         Scannen Sie Ihr Mobiliar ein,  was Sie beim Umzug mitnehmen wollen.
                         Bitte achten Sie darauf, dass das Möbelstück gut zu erkennen ist.
                     </p>
-                    <button id="primary-button"> Scannen </button>
+                    <Link to="/Moebelangaben">
+                        <button id="primary-button"> Scannen </button>
+                    </Link>
                 </Card>
             </div>
 

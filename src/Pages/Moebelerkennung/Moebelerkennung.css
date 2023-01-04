@@ -15,6 +15,9 @@ h1 {
     width: 100%;
     height: auto;
 }
+.moebelliste {
+
+}
 
 #primary-button {
     background-color: #113352;
@@ -27,6 +30,17 @@ h1 {
 
 }
 
-.moebelscann-container {
+.moebelscann-container, .moebel-data-container {
     padding-top: 5.6rem;
+}
+
+
+.moebel-data {
+    display: flex;
+    flex-direction: row;
+}
+
+.moebel-data-item {
+    display: flex;
+    flex-direction: column;
 }

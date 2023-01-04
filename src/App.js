@@ -13,7 +13,9 @@ import Predict from "./static/Predict";
 import Shop from "./Pages/Shop/Shop";
 import Zeitplan from "./Pages/Zeitplan/Zeitplan";
 import MoebelerkennungScannStarten from "./Pages/Moebelerkennung/MoebelerkennungScannStarten";
-import Moebelliste from "./Pages/Moebelerkennung/Moebelliste";
+import MoebelListeAll from "./Pages/Moebelerkennung/MoebelListeAll";
+import MoebelAngaben from "./Pages/Moebelerkennung/MoebelAngaben";
+import Testmobiliar from "./Pages/Moebelerkennung/Testmobiliar";
 
 
 
@@ -28,10 +30,12 @@ function App() {
                   <Route path="/home" element={<Home/>}/>
                   <Route path="/profil" element={<Profil/>}/>
                   <Route path="/moebelerkennungtest" element={<Moebelerkennungtest/>}/>
-                  <Route path="/predict" element={<Predict/>}/>
+                  {/*<Route path="/predict" element={<Predict/>}/>*/}
                   <Route path="/shop" element={<Shop/>}/>
                   <Route path="/zeitplan" element={<Zeitplan/>}/>
-                  <Route path="/Moebelliste" element={<Moebelliste/>}/>
+                  <Route path="/Testmobiliar" element={<Testmobiliar/>}/>
+                  <Route path="/Moebelangaben" element={<MoebelAngaben/>}/>
+                  <Route path="/Moebelliste-alle-Moebel" element={<MoebelListeAll/>}/>
                   <Route path="/MoebelerkennungScannStarten" element={<MoebelerkennungScannStarten/>}/>
               </Routes>
           </BrowserRouter>

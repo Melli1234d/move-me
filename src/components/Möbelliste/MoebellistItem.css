@@ -1,0 +1,50 @@
+.besonderheiten {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    margin-right: 0.5rem;
+}
+.verpackung, .zerbrechlich {
+    width: 15px;
+    height: 15px;
+    margin-left: 0.5rem;
+    border: 1px solid #113352;
+    border-radius: 30px;
+    padding: 0.3rem;
+}
+.square {
+    margin-right: 2.5rem;
+    margin-left: 2.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 15px;
+}
+
+.moebelitem {
+    width: 100%;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    border-bottom-right-radius: 2px;
+    border-bottom-left-radius: 2px;
+    display: flex;
+    flex-direction: row;
+    box-shadow: 0 0px 8px rgb(0 0 0 / 25%);
+}
+
+img.home-categorie-item-picture {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.h5-moebelitem {
+    margin-left: 1rem;
+    margin-bottom: 0.2rem;
+    margin-top: 1.5rem;
+}
+.moebeldetails {
+    margin-left: 1rem;
+    top: 0;
+    margin-bottom: 1rem;
+    font-size: 10pt;
+    color: rgba(17,51,82 ,0.7);
+}
