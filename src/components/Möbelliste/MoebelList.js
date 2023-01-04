@@ -2,8 +2,9 @@ import React from 'react';
 import MoebelCategories from "./MoebelCategories";
 import './MoebelList.css'
 
+//Struktur vom React js Udemy Kurs " The Complete Guide" von Maximilian Schwarzmüller übernommen
 //Icon: Fontawesome
-//Bild 1:https://de.freepik.com/fotos-kostenlos/junges-paar-zog-in-ein-neues-haus-oder-eine-neue-wohnung-spass-mit-pappkartons-haben-nach-dem-reinigen-und-auspacken-am-umzugstag-entspannen_12701225.htm#query=umzug&position=45&from_view=search&track=sph
+//picture :https://de.freepik.com/fotos-kostenlos/junges-paar-zog-in-ein-neues-haus-oder-eine-neue-wohnung-spass-mit-pappkartons-haben-nach-dem-reinigen-und-auspacken-am-umzugstag-entspannen_12701225.htm#query=umzug&position=45&from_view=search&track=sph
 const MoebelList = (props) => {
     const moebelcategories = [
         {

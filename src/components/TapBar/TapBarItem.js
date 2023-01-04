@@ -1,7 +1,10 @@
 import React from 'react';
 import './TapBarItem.css';
-import {IoIosArrowBack} from "react-icons/io";
+
 import {Link} from "react-router-dom";
+
+//Struktur vom React js Udemy Kurs " The Complete Guide" von Maximilian Schwarzmüller übernommen
+
 
 //HTML wie das Icon am Ende aussehen soll
 const TapBarItem = (props) => {

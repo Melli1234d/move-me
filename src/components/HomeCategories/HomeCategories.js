@@ -2,6 +2,7 @@ import React from 'react';
 import './HomeCategories.css';
 import HomeCategorieItem from "./HomeCategorieItem";
 
+//Struktur vom React js Udemy Kurs " The Complete Guide" von Maximilian Schwarzmüller übernommen
 
 const HomeCategories = (props) => {
 

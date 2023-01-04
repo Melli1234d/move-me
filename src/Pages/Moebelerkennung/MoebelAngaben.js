@@ -13,7 +13,7 @@ import Moebelerkennung from "../../components/Pictures/Moebelerkennung/Couchbild
 
 
 
-//Bildschirm um die Details festzulegen
+//Bildschirm um die Details festzulegen, nachdem das Foto gemacht wurde
 
 const MoebelAngaben = (props) => {
 

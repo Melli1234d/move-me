@@ -6,6 +6,8 @@ import {TbArmchair2, TbTruckDelivery, TbCalendarTime} from "react-icons/tb";
 import {GrList} from "react-icons/gr";
 
 
+//Struktur vom React js Udemy Kurs " The Complete Guide" von Maximilian Schwarzmüller übernommen
+
 
 //Liste mit dem Inhalt der Items in einem Array
 const TapBarList = (props) => {

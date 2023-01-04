@@ -1,7 +1,7 @@
 import React from 'react';
 
 import './Card.css';
-//Tutorial Udemy React js von Maximilian Schwarzmüller
+//Struktur vom React js Udemy Kurs " The Complete Guide" von Maximilian Schwarzmüller übernommen
 const Card = (props) => {
     const classes = 'card ' + props.className;
 

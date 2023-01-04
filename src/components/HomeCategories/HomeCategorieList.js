@@ -3,7 +3,7 @@ import './HomeCategorieList.css';
 
 import HomeCategories from "./HomeCategories";
 
-
+//Struktur vom React js Udemy Kurs " The Complete Guide" von Maximilian Schwarzmüller übernommen
 //Bild 1:https://de.freepik.com/fotos-kostenlos/junges-paar-zog-in-ein-neues-haus-oder-eine-neue-wohnung-spass-mit-pappkartons-haben-nach-dem-reinigen-und-auspacken-am-umzugstag-entspannen_12701225.htm#query=umzug&position=45&from_view=search&track=sph
 //BIld 2:https://de.freepik.com/fotos-kostenlos/glueckliche-familie-die-beim-umzug-in-ein-neues-zuhause-wohnungsplaene-durchgeht_26922775.htm#query=Umzug%20planen&position=8&from_view=search&track=sph
 //Bild 3:https://de.freepik.com/fotos-kostenlos/schliessen-sie-die-elegante-dekoration-des-hauses_19867506.htm#query=Möbel&position=25&from_view=search&track=ais

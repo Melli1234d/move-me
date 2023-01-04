@@ -6,7 +6,7 @@ import Card from "../../components/UI/Card";
 import Moebelerkennung from "../../components/Pictures/Moebelerkennung/Couchbild.png";
 import {Link} from "react-router-dom";
 
-
+//Start Bildschirm wenn man das erste mal auf "Erkennen" drückt
 const MoebelerkennungScannStarten = (props) => {
 
 

@@ -2,6 +2,10 @@ import React from 'react';
 import './TapBar.css';
 import TapBarItem from "./TapBarItem";
 
+//Struktur vom React js Udemy Kurs " The Complete Guide" von Maximilian Schwarzmüller übernommen
+
+
+
 //Darstellung der 5 Icons in der Tabbar
 const TapbBar = (props) => {
 

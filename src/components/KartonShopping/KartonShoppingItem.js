@@ -1,7 +1,7 @@
 import React,{useState} from 'react';
 import './KartonShoppingItem.css';
 
-
+//Struktur vom React js Udemy Kurs " The Complete Guide" von Maximilian Schwarzmüller übernommen
 
 const KartonShoppingItem = (props) => {
     const [count, setCount] = useState(1);

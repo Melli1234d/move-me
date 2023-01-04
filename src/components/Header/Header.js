@@ -3,13 +3,11 @@ import './Header.css';
 import Logo from "../Pictures/Header/movemelogo.png";
 import Chat from "../Pictures/Header/chat-icon.png";
 import Hamburger from "../Pictures/Header/Hamburger-Icon.png";
-import Menu from "../Pictures/Header/Hamburger-Icon.png";
-import {IoIosArrowBack} from "react-icons/io";
 import {Link} from "react-router-dom";
 
 
 
-//HAMBURGER MENU CODE: https://codepen.io/erikterwan/pen/EVzeRP CSS UND HTML, Links angepasst!
+//HAMBURGER MENU CODE: https://codepen.io/erikterwan/pen/EVzeRP CSS UND HTML, Links angepasst
 
 const Header = (props) => {
 

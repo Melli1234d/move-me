@@ -2,11 +2,7 @@ import './MoebellistItem.css'
 import React  from 'react';
 
 
-import Square from "../UI/Square";
-import Card from "../UI/Card";
-
-
-
+//Struktur vom React js Udemy Kurs " The Complete Guide" von Maximilian Schwarzmüller übernommen
 
 const MoebellistItem = (props) => {
 

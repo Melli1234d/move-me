@@ -1,7 +1,7 @@
 import React from 'react';
 import './KartonShopping.css';
 import KartonShoppingItem from "./KartonShoppingItem";
-
+//Struktur vom React js Udemy Kurs " The Complete Guide" von Maximilian Schwarzmüller übernommen
 
 const KartonShopping = (props) => {
 

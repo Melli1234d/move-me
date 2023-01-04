@@ -1,8 +1,7 @@
 import React from 'react';
 import './HomeCategorieItem.css';
-import BottomDividingLine from "../UI/BottomDividingLine";
-import TopDividingLine from "../UI/TopDividingLine";
 
+//Struktur vom React js Udemy Kurs " The Complete Guide" von Maximilian Schwarzmüller übernommen
 
 const HomeCategorieItem = (props) => {
 
