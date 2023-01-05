@@ -2,9 +2,20 @@ import './Moebelerkennung.css'
 import React from 'react';
 import * as tf from '@tensorflow/tfjs';
 import * as tmImage from '@teachablemachine/image';
+import {collection} from "@firebase/firestore";
+import {firestore} from "../../firebase";
+
+
  //CODE VON WEBSITE: https://medium.com/@baruahd5/create-image-classifier-with-node-js-tensorflow-js-google-teachable-machine-280ee5f92bad
+
+
+
+
 const Moebelerkennung = (props) => {
-    const URL = '../static/tm-my-image-model';
+
+    const moebelBilderCollectionRef = collection(firestore, "moebel-pictures");
+
+    const URL = '../../static/tm-my-image-model-5';
 
     let model, webcam, maxPredictions, barhocker, buerostuhl, drehhocker, sofa, stuehle, tisch;
     let refresh = true;

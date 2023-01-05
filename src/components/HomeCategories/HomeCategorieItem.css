@@ -13,7 +13,7 @@
     padding-right: 2.5rem;
 }
 
-.left button, .right button{
+.left button, .right button, button{
     margin-left: 2.5rem;
     background-color: #113352;
     color: white;

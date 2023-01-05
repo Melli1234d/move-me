@@ -1,7 +1,9 @@
+/*
 // the link to your model provided by Teachable Machine export panel
 
 
 import * as tmImage from '@teachablemachine/image';
+
 const URL = "./../static/tm-my-image-model-3/";
 
 let model, webcam, labelContainer, maxPredictions;
@@ -48,3 +50,8 @@ async function predict() {
         labelContainer.childNodes[i].innerHTML = classPrediction;
     }
 }
+*/
+
+export const Predict = () => <script type="javascript">
+
+</script>

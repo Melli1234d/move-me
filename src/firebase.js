@@ -4,7 +4,7 @@ import {getFirestore} from "@firebase/firestore";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 // TUTORIAL: MIN. 50 https://www.youtube.com/results?search_query=firebase+in+react+js
-
+import firebase from "firebase/firestore";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {

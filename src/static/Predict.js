@@ -77,6 +77,14 @@ const Predict = (props) => {
 
     return (
 
+
+    <div>Teachable Machine Image Model</div>
+  <button type="button" onclick="init()">
+    Start
+  </button>
+  <div id="webcam-container" />
+  <div id="label-container" />
+
         <div className="c-backbutton__container">
             <div>Teachable Machine Image Model</div>
             {/!*<button type="button" onClick={init}>Start</button>*!/}

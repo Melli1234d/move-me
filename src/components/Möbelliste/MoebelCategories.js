@@ -1,6 +1,9 @@
 import React from 'react';
 import './Moebelcategories.css'
 import MoebellistItem from "./MoebellistItem";
+import {useState} from "react";
+import {collection} from "@firebase/firestore";
+import {firestore} from "../../firebase";
 //Struktur vom React js Udemy Kurs " The Complete Guide" von Maximilian Schwarzmüller übernommen
 
 const MoebelCategories = (props) => {
@@ -8,6 +11,8 @@ const MoebelCategories = (props) => {
 
     return (
         <div className="moebelcategories">
+
+
 
             <MoebellistItem
                 title={props.items[0].title}

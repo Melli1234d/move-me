@@ -1,13 +1,16 @@
 import './Moebelerkennung.css'
 import React from 'react';
-
+import * as tf from '@tensorflow/tfjs';
 import * as tmImage from '@teachablemachine/image';
+import { initializeApp } from 'firebase/app';
+import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
+
 //CODE VON TEACHABLE MACHINE, DER BEIM DOWNLOAD VORGESCHLAGEN WIRD
 
 
 const Moebelerkennungtest = (props) => {
 
-    const URL = "../../static/tm-my-image-model-3/";
+
 
 // More API functions here:
     // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/image
@@ -18,9 +21,10 @@ const Moebelerkennungtest = (props) => {
 
     // Load the image model and setup the webcam
     async function init() {
+        const URL = "../../static/tm-my-image-model-5/";
         const modelURL = URL + "model.json";
         const metadataURL = URL + "metadata.json";
-
+        model = await tf.loadGraphModel(modelURL)
         // load the model and metadata
         // Refer to tmImage.loadFromFiles() in the API to support files from a file picker
         // or files from your local hard drive

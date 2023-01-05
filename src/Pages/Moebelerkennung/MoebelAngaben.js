@@ -48,14 +48,14 @@ const MoebelAngaben = (props) => {
                 <form className="moebel-data">
                     <div className="moebel-data-item">
                         <label> Anzahl</label>
-                        <input type="text" placeholder="Enter full name"
+                        <input type="text" placeholder="Anzahl..."
                                onChange={(event)=>{
                                    setAmount(event.target.value);
                                }}/>
                     </div>
                     <div className="moebel-data-item">
                         <label>Länge</label>
-                        <input type="text" placeholder="Enter email"
+                        <input type="text" placeholder="Länge.."
                                onChange={(event)=>{
                                    setLength(event.target.value);
                                }}/>
@@ -63,7 +63,7 @@ const MoebelAngaben = (props) => {
 
                     <div className="moebel-data-item">
                         <label> Gewicht</label>
-                        <input type="text" placeholder="Enter feedback"
+                        <input type="text" placeholder="Gewicht.."
                                onChange={(event)=>{
                                    setWeight(event.target.value);
                                }}/>
@@ -73,7 +73,7 @@ const MoebelAngaben = (props) => {
                 </form>
 
 
-                <button onClick={handleSubmit}> Submit</button>
+                <button className="right" onClick={handleSubmit}> Hinzufügen</button>
             </div>
 
 

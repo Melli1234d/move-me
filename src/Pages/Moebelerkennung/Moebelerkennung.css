@@ -38,9 +38,38 @@ h1 {
 .moebel-data {
     display: flex;
     flex-direction: row;
+    margin-left: 2.5rem;
+    margin-right: 2.5rem;
+    width: 80%;
+    justify-content: space-between;
 }
 
 .moebel-data-item {
     display: flex;
     flex-direction: column;
+    box-shadow: 0 0px 8px rgb(0 0 0 / 12%);
+    height: 80px;
+    width: 100px;
+    border-radius: 5px;
+
+}
+label{
+    font-size: 10pt;
+    font-weight: bold;
+    margin-left: 1rem;
+    display: flex;
+    margin-bottom: 0.5rem;
+    margin-top: 1rem;
+}
+
+input {
+    margin-left: 1rem;
+    margin-right: 1rem;
+    background-color: #F4F5F7;
+    padding: 0.4rem;
+    border-radius: 5px;
+    border: none;
+}
+input::placeholder {
+    color: transparent;
 }
