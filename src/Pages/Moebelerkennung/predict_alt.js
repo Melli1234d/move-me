@@ -52,6 +52,6 @@ async function predict() {
 }
 */
 
-export const Predict = () => <script type="javascript">
+export const Predict_alt = () => <script type="javascript">
 
 </script>

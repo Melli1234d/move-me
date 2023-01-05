@@ -1,9 +1,12 @@
-
+import './Moebelerkennung.css'
 import React, {useContext, useEffect, useRef, useState} from 'react';
 import * as tf from '@tensorflow/tfjs';
 import * as tmImage from '@teachablemachine/image';
 import {TeachableMachineContext} from "./TeachableMachineContext";
 import {useAnimationFrame} from "./useAnimationFrame";
+import Header from "../../components/Header/Header";
+import TapBarList from "../../components/TapBar/TapBarList";
+import {Link} from "react-router-dom";
 
 
 //const URL = 'tm-my-image-model-5/';
@@ -35,11 +38,11 @@ const TestMoebelerkennung = (props) => {
     });*/
 
     const divEl = useRef(null);
-
+//Animation Frame läuft immer
     useAnimationFrame(deltaTime => {
         if(tm.started){
-            tm.webcam.update();
-            tm.model.predict(tm.webcam.canvas).then(setPredictions)
+            tm.webcam.update(); //webcam wird immer geupdatet, damit neustes build entsteht
+            tm.model.predict(tm.webcam.canvas).then(setPredictions) //vorhersagen der erkannten Klassen werden gesetzt
 
             //for (let i = 0; i < maxPredictions; i++) {
             //    const classPrediction =
@@ -47,13 +50,20 @@ const TestMoebelerkennung = (props) => {
             //    labelContainer.childNodes[i].innerHTML = classPrediction;
             //}
         }
+        if(tm.stopped){
+            tm.webcam.stop();
+        }
     })
-
+//beim Button klicken soll die Kamera angehen, die Vorhersagen werden abgebildet und das Kamera Bild wird angezeigt
     const handleClick = async () => {
         await tm.start();
         divEl.current.appendChild(tm.webcam.canvas);
         setPredicting(true);
     }
+
+    /*const handleStop = async () => {
+        await tm.stop();
+    }*/
 
 
     return (
@@ -61,7 +71,7 @@ const TestMoebelerkennung = (props) => {
 
 
         <div className="primary-background">
-
+            <Header/>
             {/*<button type="button" onClick={}{init()}>Start</button>*/}
             <div ref={divEl} id="webcam-container"></div>
             <div id="label-container">
@@ -74,6 +84,11 @@ const TestMoebelerkennung = (props) => {
             </div>
 
             <button onClick={handleClick}>add something</button>
+            <button /*{onClick={handleStop}}*/>Foto machen</button>
+            <Link to="/Moebelangaben">
+                <button /*{onClick={handleStop}}*/>weiter</button>
+            </Link>
+            <TapBarList/>
         </div>
     );
 }

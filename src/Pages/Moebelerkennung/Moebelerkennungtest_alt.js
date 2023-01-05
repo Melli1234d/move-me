@@ -8,7 +8,7 @@ import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
 //CODE VON TEACHABLE MACHINE, DER BEIM DOWNLOAD VORGESCHLAGEN WIRD
 
 
-const Moebelerkennungtest = (props) => {
+const Moebelerkennungtest_alt = (props) => {
 
 
 
@@ -78,4 +78,4 @@ const Moebelerkennungtest = (props) => {
     );
 }
 
-export default Moebelerkennungtest;
+export default Moebelerkennungtest_alt;

@@ -73,3 +73,12 @@ input {
 input::placeholder {
     color: transparent;
 }
+
+canvas {
+    width: 100%;
+    height: auto;
+}
+
+#webcam-container {
+    padding-top: 5.6rem;
+}

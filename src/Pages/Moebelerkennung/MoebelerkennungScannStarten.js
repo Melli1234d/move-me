@@ -25,7 +25,7 @@ const MoebelerkennungScannStarten = (props) => {
                         Scannen Sie Ihr Mobiliar ein,  was Sie beim Umzug mitnehmen wollen.
                         Bitte achten Sie darauf, dass das Möbelstück gut zu erkennen ist.
                     </p>
-                    <Link to="/Moebelangaben">
+                    <Link to="/TestMoebelerkennung">
                         <button id="primary-button"> Scannen </button>
                     </Link>
                 </Card>

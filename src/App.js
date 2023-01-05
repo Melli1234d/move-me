@@ -8,7 +8,7 @@ import {
 import Home from "./Pages/Home/Home";
 import Profil from "./Pages/Profil/Profil";
 
-import Moebelerkennungtest from "./Pages/Moebelerkennung/Moebelerkennungtest";
+import Moebelerkennungtest_alt from "./Pages/Moebelerkennung/Moebelerkennungtest_alt";
 import Predict from "./static/Predict";
 import Shop from "./Pages/Shop/Shop";
 import Zeitplan from "./Pages/Zeitplan/Zeitplan";
@@ -33,7 +33,7 @@ function App() {
                   <Route path="/home" element={<Home/>}/>
                   <Route path="/profil" element={<Profil/>}/>
                   <Route path="/Moebelerkennung" element={<Moebelerkennung/>}/>
-                  <Route path="/moebelerkennungtest" element={<Moebelerkennungtest/>}/>
+                  {/*<Route path="/moebelerkennungtest" element={<Moebelerkennungtest_alt/>}/>*/}
                   {/*<Route path="/predict" element={<Predict/>}/>*/}
                   <Route path="/TestMoebelerkennung" element={<TestMoebelerkennung/>}/>
                   <Route path="/shop" element={<Shop/>}/>
