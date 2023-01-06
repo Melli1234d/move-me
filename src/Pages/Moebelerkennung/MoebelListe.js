@@ -4,16 +4,7 @@ import TapBarList from "../../components/TapBar/TapBarList";
 import Header from "../../components/Header/Header";
 import {
     onSnapshot,
-    updateDoc,
-    setDoc,
-    deleteDoc,
     collection,
-    serverTimestamp,
-    getDocs,
-    query,
-    where,
-    orderBy,
-    limit,
 } from 'firebase/firestore';
 import {firebase, firestore} from "../../firebase";
 
@@ -29,10 +20,6 @@ const MoebelListe = (props) => {
 
 
     const colletionRef = collection(firestore, 'moebel-data');
-
-    const [title, setTitle] = useState('');
-    const [desc, setDesc] = useState('');
-    const [score, setScore] = useState('');
     const [moebelData, setMoebelData] = useState([]);
     const [loading, setLoading] = useState(false);
 
@@ -40,14 +27,6 @@ const MoebelListe = (props) => {
 
 
     useEffect(() => {
-        /*const q = query(
-            colletionRef,
-            //  where('owner', '==', currentUserId),
-            // where('title', '==', 'School1') // does not need index
-            //  where('score', '<=', 100) // needs index  https://firebase.google.com/docs/firestore/query-data/indexing?authuser=1&hl=en
-            // orderBy('score', 'asc'), // be aware of limitations: https://firebase.google.com/docs/firestore/query-data/order-limit-data#limitations
-            // limit(1)
-        );*/
 
         setLoading(true);
         // const unsub = onSnapshot(q, (querySnapshot) => {
@@ -81,16 +60,33 @@ const MoebelListe = (props) => {
             <Header/>
             <div className="Moebel-list-container">
                 <h2> Möbel Liste </h2>
+                <div className="grid">
+                    {moebelData.map((moebel) => (
+                        <div className="moebel" key={moebel.id}>
+                            <div className="moebel-container">
+                                <div className="moebel-container-item">
+                                    <div className="moebel-daten-icon">
+                                        <div className="moebel-item-content">{moebel.besonderheiten}</div>
+                                        <div className="moebel-item-content">{moebel.room}</div>
+                                    </div>
+                                    <div className="moebel-daten-title-amount">
+                                        <div className="moebel-title"> Sofa ({moebel.amount})</div>
+                                    </div>
+                                    <div className="moebel-daten-length-width">
+                                        <div className="moebel-laenge-gewicht">{moebel.length}cm, {moebel.weight}kg</div>
 
-                {moebelData.map((moebel) => (
-                    <div className="moebel" key={moebel.id}>
-                        <h2>{moebel.amount}</h2>
-                        <p>{moebel.besonderheiten}</p>
-                        <p>{moebel.length}</p>
-                        <p>{moebel.room}</p>
-                        <p>{moebel.weight}</p>
-                    </div>
-                ))}
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+
+                        </div>
+                    ))}
+                </div>
+
             </div>
 
 

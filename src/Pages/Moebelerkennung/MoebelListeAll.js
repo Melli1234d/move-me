@@ -32,7 +32,6 @@ const MoebelListeAll = (props) => {
 
 
 
-
             <TapBarList/>
 
 
