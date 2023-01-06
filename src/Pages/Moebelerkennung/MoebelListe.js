@@ -67,7 +67,7 @@ const MoebelListe = (props) => {
                                 <div className="moebel-container-item">
                                     <div className="moebel-daten-icon">
                                         <div className="moebel-item-content">{moebel.besonderheiten}</div>
-                                        <div className="moebel-item-content">{moebel.room}</div>
+                                        {/*<div className="moebel-item-content">{moebel.room}</div>*/}
                                     </div>
                                     <div className="moebel-daten-title-amount">
                                         <div className="moebel-title"> Sofa ({moebel.amount})</div>

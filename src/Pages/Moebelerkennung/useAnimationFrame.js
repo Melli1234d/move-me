@@ -1,4 +1,8 @@
 import React from "react";
+
+//code: https://css-tricks.com/using-requestanimationframe-with-react-hooks/
+
+
 export const useAnimationFrame = callback => {
     // Use useRef for mutable variables that we want to persist
     // without triggering a re-render on their change
