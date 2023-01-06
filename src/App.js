@@ -32,7 +32,7 @@ function App() {
                   <Route index element={<Home/>}/>
                   <Route path="/home" element={<Home/>}/>
                   <Route path="/profil" element={<Profil/>}/>
-                  <Route path="/Moebelerkennung" element={<Moebelerkennung/>}/>
+                  {/*<Route path="/Moebelerkennung" element={<Moebelerkennung/>}/>*/}
                   {/*<Route path="/moebelerkennungtest" element={<Moebelerkennungtest_alt/>}/>*/}
                   {/*<Route path="/predict" element={<Predict/>}/>*/}
                   <Route path="/TestMoebelerkennung" element={<TestMoebelerkennung/>}/>

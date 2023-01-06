@@ -1,3 +1,4 @@
+/*
 import './Moebelerkennung.css'
 import React from 'react';
 import * as tf from '@tensorflow/tfjs';
@@ -134,3 +135,4 @@ const Moebelerkennung = (props) => {
 }
 
 export default Moebelerkennung;
+*/

@@ -164,6 +164,7 @@ fieldset {
     border: 2px solid #69D1FF;
 }
 
+
 .moebel-specials-item  input[type=radio]:checked +label .label-input {
     color:  #69D1FF;
 }

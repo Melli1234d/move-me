@@ -9,6 +9,12 @@ import Header from "../../components/Header/Header";
 import Kitchen from "../../components/Pictures/Moebel-Angaben/Raum/kitchen.png";
 import Bedroom from "../../components/Pictures/Moebel-Angaben/Raum/bedroom.png";
 import Livingroom from "../../components/Pictures/Moebel-Angaben/Raum/livingroom.png";
+import Zerbrechlich from "../../components/Pictures/MoebelAngaben/zerbrechlich.png";
+import Verpackung from "../../components/Pictures/MoebelAngaben/verpckung.png";
+import Kratzer from "../../components/Pictures/MoebelAngaben/kratzer.png";
+
+
+//Kratzer Icon: https://fontawesome.com/icons/claw-marks?s=light&f=classic
 
 // Tutorial von: https://www.youtube.com/watch?v=PhDq-QrdIko
 
@@ -135,7 +141,7 @@ const MoebelAngaben = (props) => {
                                }}/>
                         <label className="label-special-data" htmlFor="verpackung">
                             <div className="picture-div">
-                                <img id="küche" src={Kitchen} alt="Kitchen" height={18} width={18} />
+                                <img id="verpackung-img" src={Verpackung} alt="Kitchen" height={18} width={18} />
                             </div>
                             <p className="label-input">Verpackung</p>
                         </label>
@@ -146,7 +152,7 @@ const MoebelAngaben = (props) => {
                                }}/>
                         <label className="label-special-data" htmlFor="zerbrechlich">
                             <div className="picture-div">
-                                <img id="küche" src={Kitchen} alt="Kitchen" height={18} width={18} />
+                                <img id="zerbrechlich-img" src={Zerbrechlich} alt="Kitchen" height={18} width={18} />
                             </div>
                             <p className="label-input">Zerbrechlich</p>
                             </label>
@@ -157,7 +163,7 @@ const MoebelAngaben = (props) => {
                                }}/>
                         <label className="label-special-data" htmlFor="kratzer">
                             <div className="picture-div">
-                                <img id="küche" src={Kitchen} alt="Kitchen" height={18} width={18} />
+                                <img id="kratzspuren" src={Kratzer} alt="Kitchen" height={18} width={18} />
                             </div>
                             <p className="label-input">Kratzer</p>
                             </label>
