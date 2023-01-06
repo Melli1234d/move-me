@@ -3,7 +3,6 @@ import React, {useContext, useEffect, useState} from 'react';
 import TapBarList from "../../components/TapBar/TapBarList";
 import Header from "../../components/Header/Header";
 import {
-    doc,
     onSnapshot,
     updateDoc,
     setDoc,
@@ -22,22 +21,21 @@ import MoebellistItem from "../../components/Möbelliste/MoebellistItem";
 //tutorial: https://www.youtube.com/watch?v=ad6IavyAHsQ&t=328s
 //tutorial: https://www.youtube.com/watch?v=3ZEz-iposj8
 //link: https://github.com/samfromaway/firebase-tutorial/blob/master/src/SnapshotFirebaseAdvanced.js
-
+// code: https://github.com/samfromaway/firebase-tutorial/blob/master/src/SnapshotFirebaseAdvanced.js
 
 //Möbelliste
 
-const MoebellistTesting = (props) => {
+const MoebelListe = (props) => {
 
 
-    const colletionRef = collection(firestore, 'schools');
+    const colletionRef = collection(firestore, 'moebel-data');
 
     const [title, setTitle] = useState('');
     const [desc, setDesc] = useState('');
     const [score, setScore] = useState('');
-    const [schools, setSchools] = useState([]);
-const [loading, setLoading] = useState(false);
+    const [moebelData, setMoebelData] = useState([]);
+    const [loading, setLoading] = useState(false);
 
-const ref = collection(firestore, "schools");
 
 
 
@@ -58,7 +56,7 @@ const ref = collection(firestore, "schools");
             querySnapshot.forEach((doc) => {
                 items.push(doc.data());
             });
-            setSchools(items);
+            setMoebelData(items);
             setLoading(false);
         });
         return () => {
@@ -80,17 +78,24 @@ const ref = collection(firestore, "schools");
 
 
         <div className="secondary-background">
-            <h2> Möbel Liste Testen sachen aus Firebase </h2>
+            <Header/>
+            <div className="Moebel-list-container">
+                <h2> Möbel Liste </h2>
+
+                {moebelData.map((moebel) => (
+                    <div className="moebel" key={moebel.id}>
+                        <h2>{moebel.amount}</h2>
+                        <p>{moebel.besonderheiten}</p>
+                        <p>{moebel.length}</p>
+                        <p>{moebel.room}</p>
+                        <p>{moebel.weight}</p>
+                    </div>
+                ))}
+            </div>
 
 
-            <h1> Schools</h1>
-            {schools.map((school) => (
-                <div className="school" key={school.id}>
-                    <h2>{school.title}</h2>
-                    <p>{school.desc}</p>
-                    <p>{school.score}</p>
-                </div>
-            ))}
+
+
 
             <TapBarList/>
 
@@ -100,4 +105,4 @@ const ref = collection(firestore, "schools");
 }
 
 
-export default MoebellistTesting;
+export default MoebelListe;

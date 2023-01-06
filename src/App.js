@@ -18,6 +18,7 @@ import MoebelAngaben from "./Pages/Moebelerkennung/MoebelAngaben";
 import Moebelerkennung from "./Pages/Moebelerkennung/Moebelerkennung";
 import TestMoebelerkennung from "./Pages/Moebelerkennung/TestMoebelerkennung";
 import MoebellistTesting from "./Pages/Moebelerkennung/MoebellistTesting";
+import MoebelListe from "./Pages/Moebelerkennung/MoebelListe";
 
 
 
@@ -37,6 +38,7 @@ function App() {
                   {/*<Route path="/predict" element={<Predict/>}/>*/}
                   <Route path="/TestMoebelerkennung" element={<TestMoebelerkennung/>}/>
                   <Route path="/shop" element={<Shop/>}/>
+                  <Route path="/MoebelListe" element={<MoebelListe/>}/>
                   <Route path="/zeitplan" element={<Zeitplan/>}/>
                   <Route path="/MoebellistTesting" element={<MoebellistTesting/>}/>
                   <Route path="/Moebelangaben" element={<MoebelAngaben/>}/>

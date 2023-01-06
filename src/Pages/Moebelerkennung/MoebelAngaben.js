@@ -1,6 +1,6 @@
 
 import React, {useEffect, useRef, useState} from 'react';
-
+import { v4 as uuid } from 'uuid';
 import {firestore} from "../../firebase";
 import {addDoc, collection} from "@firebase/firestore";
 import TapBarList from "../../components/TapBar/TapBarList";
@@ -17,19 +17,25 @@ import Kratzer from "../../components/Pictures/MoebelAngaben/kratzer.png";
 //Kratzer Icon: https://fontawesome.com/icons/claw-marks?s=light&f=classic
 
 // Tutorial von: https://www.youtube.com/watch?v=PhDq-QrdIko
-
+//set id: https://www.geeksforgeeks.org/how-to-create-an-unique-id-in-reactjs/
 
 
 
 //Bildschirm um die Details festzulegen, nachdem das Foto gemacht wurde
 
 const MoebelAngaben = (props) => {
-
     const [amount, setAmount] = useState();
+    const [count, setCount] = useState(0);
     const [length, setLength] = useState();
     const [weight, setWeight] = useState();
     const [room, setRoom] = useState();
+    const [id, setId] = useState();
     const [besonderheiten, setBesonderheiten] = useState();
+
+
+    const unique_id = uuid();
+
+
 
     //der Pfad für die Sammlung in Firebase, falls noch nciht vorhanden wird es angelegt
     const moebelCollectionRef = collection(firestore, "moebel-data");
@@ -37,6 +43,7 @@ const MoebelAngaben = (props) => {
     //beim Klick auf den Button werden sie Sachen an Firebase geschickt
     const handleSubmit =()=>{
         addDoc(moebelCollectionRef,{
+            id:id,
             amount: amount,
             length: length,
             weight: weight,
@@ -46,6 +53,8 @@ const MoebelAngaben = (props) => {
             document.location = '/MoebelerkennungScannStarten'
         })
     }
+
+
 //then gibt ne mitteilung, dass es hinzugefügt wurde und leitet dich weiter an die scan seite!!
     return (
 
@@ -65,6 +74,7 @@ const MoebelAngaben = (props) => {
                         <input type="text" placeholder="Anzahl..."
                                onChange={(event)=>{
                                    setAmount(event.target.value);
+                                   setId(unique_id);
                                }}/>
                     </div>
                     <div className="moebel-data-item">
