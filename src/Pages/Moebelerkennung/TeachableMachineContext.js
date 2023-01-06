@@ -24,15 +24,10 @@ const TeachableMachineWrapper = {
         this.webcam = webcam;
         this.started = true; //wird gestartet
     },
-
-    /*async stop(){
+//funktioniert noch nicht
+    async stop(){
         const modelURL = URL + "model.json";
        const metadataURL = URL + "metadata.json";
-        let stream = this.webcam.video.srcObject;
-        const tracks = stream.getTracks();
-
-        tracks.forEach(track => track.stop());
-        this.webcam.video.srcObject = null;
         // load the model and metadata
         // Refer to tmImage.loadFromFiles() in the API to support files from a file picker
         // or files from your local hard drive
@@ -46,10 +41,11 @@ const TeachableMachineWrapper = {
         await webcam.stop(); //webcam geht  aus
 
         this.model = model;
-        this.webcam = webcam;
+        this.webcam = null;
         this.started = false;
         this.stopped = true; //wird gestoppt
-    }*/
+
+    }
 
 }
 

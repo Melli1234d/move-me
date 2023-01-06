@@ -12,9 +12,9 @@ import {Link} from "react-router-dom";
 //const URL = 'tm-my-image-model-5/';
 
 const TestMoebelerkennung = (props) => {
-
+    const [hasPhoto, setHasPhoto]=useState(false);
     const tm = useContext(TeachableMachineContext);
-
+    const photoRef = useRef(null);
 
     const [isPredicting, setPredicting] = useState(false);
     const [predictions, setPredictions] = useState();
@@ -37,6 +37,8 @@ const TestMoebelerkennung = (props) => {
         console.log("ERROR", e);
     });*/
 
+
+
     const divEl = useRef(null);
 //Animation Frame läuft immer
     useAnimationFrame(deltaTime => {
@@ -52,13 +54,32 @@ const TestMoebelerkennung = (props) => {
         }
         if(tm.stopped){
             tm.webcam.stop();
+
         }
     })
+
+//funktioniert nicht
+    const takePhoto= async () => {
+        await tm.stop();
+        divEl.current.appendChild(photoRef);
+        const width = 414;
+        const height = width / (16/9);
+        let video = tm.webcam.current;
+        let photo =  photoRef.current;
+
+        photo.width = width;
+        photo.height= height;
+        let ctx= photo.getContext('2d');
+        ctx.drawImage(video, 0,0,width,height);
+        setHasPhoto(true);
+    }
+
+    //funktioniert wieder
 //beim Button klicken soll die Kamera angehen, die Vorhersagen werden abgebildet und das Kamera Bild wird angezeigt
     const handleClick = async () => {
-        await tm.start();
-        divEl.current.appendChild(tm.webcam.canvas);
-        setPredicting(true);
+        await tm.start(); //starten
+        divEl.current.appendChild(tm.webcam.canvas); //in dem div das webcam canvas erscheinen lassen
+        setPredicting(true); //die klassensollen jetzt angehen
     }
 
     /*const handleStop = async () => {
@@ -74,6 +95,11 @@ const TestMoebelerkennung = (props) => {
             <Header/>
             {/*<button type="button" onClick={}{init()}>Start</button>*/}
             <div ref={divEl} id="webcam-container"></div>
+            <div  ref={divEl} className={'result' + (hasPhoto ? 'hasPhoto' : '')}>
+                <canvas ref={photoRef}></canvas>
+            </div>
+
+
             <div id="label-container">
                 {predictions
                     ? predictions.map((prediction) =>
@@ -83,10 +109,12 @@ const TestMoebelerkennung = (props) => {
                 : 'No predictions yet'}
             </div>
 
-            <button onClick={handleClick}>add something</button>
-            <button /*{onClick={handleStop}}*/>Foto machen</button>
+
+
+            <button onClick={handleClick}>Scann starten</button>
+            <button onClick={takePhoto}>Foto machen</button>
             <Link to="/Moebelangaben">
-                <button /*{onClick={handleStop}}*/>weiter</button>
+                <button>weiter</button>
             </Link>
             <TapBarList/>
         </div>
