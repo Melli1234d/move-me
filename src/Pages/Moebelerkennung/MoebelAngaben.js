@@ -1,4 +1,4 @@
-
+import './Moebelerkennung.css'
 import React, {useEffect, useRef, useState} from 'react';
 import { v4 as uuid } from 'uuid';
 import {firestore} from "../../firebase";
@@ -34,7 +34,6 @@ const MoebelAngaben = (props) => {
 
 
     const unique_id = uuid();
-
 
 
     //der Pfad für die Sammlung in Firebase, falls noch nciht vorhanden wird es angelegt

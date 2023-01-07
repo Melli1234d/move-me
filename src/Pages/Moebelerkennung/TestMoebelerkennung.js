@@ -14,7 +14,6 @@ import {Link} from "react-router-dom";
 const TestMoebelerkennung = (props) => {
     const [hasPhoto, setHasPhoto]=useState(false);
     const tm = useContext(TeachableMachineContext);
-    const photoRef = useRef(null);
 
     const [isPredicting, setPredicting] = useState(false);
     const [predictions, setPredictions] = useState();
@@ -58,23 +57,33 @@ const TestMoebelerkennung = (props) => {
         }
     })
 
+    //WENN BUTTON GEKLICKT, DANN FOTO MACHEN
+
 //funktioniert nicht
+
+    let photoRef = useRef(null);
+
     const takePhoto= async () => {
-        await tm.stop();
-        divEl.current.appendChild(photoRef);
+       /* await tm.stop();*/
         const width = 414;
         const height = width / (16/9);
-        let video = tm.webcam.current;
+        let video = divEl.current;
         let photo =  photoRef.current;
+
+        photoRef.current.appendChild(video);
 
         photo.width = width;
         photo.height= height;
         let ctx= photo.getContext('2d');
-        ctx.drawImage(video, 0,0,width,height);
+        ctx.drawImage(video, 0,0,photo.width,photo.height);
         setHasPhoto(true);
     }
 
-    //funktioniert wieder
+
+
+    //WENN BUTTON GEKLICKT, DANN KAMERA STARTEN
+
+    //funktioniert
 //beim Button klicken soll die Kamera angehen, die Vorhersagen werden abgebildet und das Kamera Bild wird angezeigt
     const handleClick = async () => {
         await tm.start(); //starten
@@ -82,7 +91,9 @@ const TestMoebelerkennung = (props) => {
         setPredicting(true); //die klassensollen jetzt angehen
     }
 
-    /*const handleStop = async () => {
+    //WENN BUTTON GEKLICKT, DANN CAMERA STOPPEN
+//funktioniert nicht
+  /*  const handleStop = async () => {
         await tm.stop();
     }*/
 
@@ -95,16 +106,14 @@ const TestMoebelerkennung = (props) => {
             <Header/>
             {/*<button type="button" onClick={}{init()}>Start</button>*/}
             <div ref={divEl} id="webcam-container"></div>
-            <div  ref={divEl} className={'result' + (hasPhoto ? 'hasPhoto' : '')}>
-                <canvas ref={photoRef}></canvas>
-            </div>
+            <div ref={photoRef} className="photo"></div>
 
 
             <div id="label-container">
                 {predictions
                     ? predictions.map((prediction) =>
                 <div key={prediction.className}>
-                    { prediction.className + ": " + prediction.probability.toFixed(2) }
+                    { prediction.className + ": " + prediction.probability.toFixed(2) } {/*auf 2 nachkomma stellen aufgerundet*/}
                 </div>)
                 : 'No predictions yet'}
             </div>
@@ -114,7 +123,7 @@ const TestMoebelerkennung = (props) => {
             <button onClick={handleClick}>Scann starten</button>
             <button onClick={takePhoto}>Foto machen</button>
             <Link to="/Moebelangaben">
-                <button>weiter</button>
+                <button /*{onClick={handleStop}}*/>weiter</button>
             </Link>
             <TapBarList/>
         </div>

@@ -9,6 +9,10 @@ import {
 import {firebase, firestore} from "../../firebase";
 
 import MoebellistItem from "../../components/Möbelliste/MoebellistItem";
+import Verpackung from "../../components/Pictures/MoebelAngaben/verpckung.png";
+import Zerbrechlich from "../../components/Pictures/MoebelAngaben/zerbrechlich.png";
+import Kratzer from "../../components/Pictures/MoebelAngaben/kratzer.png";
+import moebelAngaben from "./MoebelAngaben";
 //tutorial: https://www.youtube.com/watch?v=ad6IavyAHsQ&t=328s
 //tutorial: https://www.youtube.com/watch?v=3ZEz-iposj8
 //link: https://github.com/samfromaway/firebase-tutorial/blob/master/src/SnapshotFirebaseAdvanced.js
@@ -16,7 +20,7 @@ import MoebellistItem from "../../components/Möbelliste/MoebellistItem";
 
 //Möbelliste
 
-const MoebelListe = (props) => {
+const MoebelListe = (besonderheiten) => {
 
 
     const colletionRef = collection(firestore, 'moebel-data');
@@ -27,7 +31,6 @@ const MoebelListe = (props) => {
 
 
     useEffect(() => {
-
         setLoading(true);
         // const unsub = onSnapshot(q, (querySnapshot) => {
         const unsub = onSnapshot(colletionRef, (querySnapshot) => {
@@ -40,6 +43,7 @@ const MoebelListe = (props) => {
         });
         return () => {
             unsub();
+
         };
 
         // eslint-disable-next-line
@@ -47,6 +51,26 @@ const MoebelListe = (props) => {
 
 
 
+/*    //versuch den String in ein Icon umzuwandeln!
+    useEffect(() => {
+        if (besonderheiten) {
+            stringToIcon()
+        }
+    }, [besonderheiten]);
+
+
+    function stringToIcon() {
+
+        if (besonderheiten=== "Verpackung") {
+            return <img id="verpackung-img" src={Verpackung} alt="Kitchen" height={18} width={18} />
+        }
+        else if (besonderheiten === "Zerbrechlich") {
+            return <img id="zerbrechlich-img" src={Zerbrechlich} alt="Kitchen" height={18} width={18} />
+        }
+        else if (besonderheiten === "Kratzer"){
+            return <img id="kratzspuren" src={Kratzer} alt="Kitchen" height={18} width={18} />
+        }
+    }*/
 
 
 

@@ -25,7 +25,7 @@ const TeachableMachineWrapper = {
         this.started = true; //wird gestartet
     },
 //funktioniert noch nicht
-    async stop(){
+    /*async stop(){
         const modelURL = URL + "model.json";
        const metadataURL = URL + "metadata.json";
         // load the model and metadata
@@ -37,7 +37,7 @@ const TeachableMachineWrapper = {
 
         // Convenience function to setup a webcam
         const flip = true; // whether to flip the webcam
-        const webcam = new tmImage.Webcam(200, 200, flip); // width, height, flip
+        const webcam = await tmImage.Webcam(200, 200, flip); // width, height, flip
         await webcam.stop(); //webcam geht  aus
 
         this.model = model;
@@ -45,7 +45,7 @@ const TeachableMachineWrapper = {
         this.started = false;
         this.stopped = true; //wird gestoppt
 
-    }
+    }*/
 
 }
 
