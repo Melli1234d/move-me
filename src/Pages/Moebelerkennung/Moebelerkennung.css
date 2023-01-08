@@ -204,6 +204,7 @@ fieldset {
 
 
 .grid {
+    padding-top: 3rem;
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-gap: 20px;
@@ -225,5 +226,10 @@ fieldset {
 
 
 .margin-top {
-    margin-top: 5.6rem;
+    padding-top: 5.6rem;
+}
+
+.firma-row {
+    width: 90%;
+    margin: auto auto;
 }

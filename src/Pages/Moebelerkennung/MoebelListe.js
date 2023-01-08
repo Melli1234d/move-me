@@ -13,6 +13,11 @@ import Verpackung from "../../components/Pictures/MoebelAngaben/verpckung.png";
 import Zerbrechlich from "../../components/Pictures/MoebelAngaben/zerbrechlich.png";
 import Kratzer from "../../components/Pictures/MoebelAngaben/kratzer.png";
 import moebelAngaben from "./MoebelAngaben";
+import Kitchen from "../../components/Pictures/Moebel-Angaben/Raum/kitchen.png";
+import Bedroom from "../../components/Pictures/Moebel-Angaben/Raum/bedroom.png";
+import Livingroom from "../../components/Pictures/Moebel-Angaben/Raum/Wohnzimmer-white.png";
+
+
 //tutorial: https://www.youtube.com/watch?v=ad6IavyAHsQ&t=328s
 //tutorial: https://www.youtube.com/watch?v=3ZEz-iposj8
 //link: https://github.com/samfromaway/firebase-tutorial/blob/master/src/SnapshotFirebaseAdvanced.js
@@ -84,6 +89,28 @@ const MoebelListe = (besonderheiten) => {
             <Header/>
             <div className="Moebel-list-container">
                 <h2> Möbel Liste </h2>
+                <div className="firma-row">
+                    <div className="center">
+                        <div className="icon-checked">
+                            <img className="firma-img" src={Livingroom} alt="Kitchen" height={18} width={19}/>
+                        </div>
+                        <div className="icon-label-checked">Wohnzimmer</div>
+                    </div>
+                    <div className="center">
+                        <div className="icon-unchecked">
+                            <img className="firma-img" src={Kitchen} alt="Livingroom" height={18} width={18}/>
+                        </div>
+                        <div className="icon-label">Küche</div>
+                    </div>
+                    <div className="center">
+                        <div className="icon-unchecked">
+                            <img className="firma-img" src={Bedroom} alt="Bedroom" height={18} width={18}/>
+                        </div>
+                        <div className="icon-label">Schlafzimmer</div>
+                    </div>
+
+
+                </div>
                 <div className="grid">
                     {moebelData.map((moebel) => (
                         <div className="moebel" key={moebel.id}>

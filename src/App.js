@@ -21,7 +21,7 @@ import MoebellistTesting from "./Pages/Moebelerkennung/MoebellistTesting";
 import MoebelListe from "./Pages/Moebelerkennung/MoebelListe";
 import FileUpload from "./Pages/Moebelerkennung/FileUpload";
 import Firmen from "./Pages/Firmen/Firmen";
-
+import FirmenDetail from "./Pages/Firmen/FirmenDetail";
 
 
 
@@ -41,6 +41,7 @@ function App() {
                   <Route path="/TestMoebelerkennung" element={<TestMoebelerkennung/>}/>
                   <Route path="/shop" element={<Shop/>}/>
                   <Route path="/Firmen" element={<Firmen/>}/>
+                  <Route path="/FirmenDetail" element={<FirmenDetail/>}/>
                   <Route path="/MoebelListe" element={<MoebelListe/>}/>
                   <Route path="/zeitplan" element={<Zeitplan/>}/>
                   <Route path="/MoebellistTesting" element={<MoebellistTesting/>}/>

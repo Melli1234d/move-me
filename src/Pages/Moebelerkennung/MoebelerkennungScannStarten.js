@@ -17,7 +17,7 @@ const MoebelerkennungScannStarten = (props) => {
         <div className="secondary-background">
             <div className="moebelscann-container">
                 <Header/>
-                <h1> Möbelerfassung</h1>
+                <h2> Möbelerfassung</h2>
                 <Card>
                     {/*Das Bild ist von: https://de.freepik.com/fotos-kostenlos/skandinavischer-wohnzimmer-innenarchitektur-zoom-hintergrund_18835794.htm#page=2&query=couch&position=0&from_view=search&track=sph*/}
                     <img id="Möbelerkennung" src={Moebelerkennung} alt="Möbelerkennung Standardbild" height={150} width={200} />

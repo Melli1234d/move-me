@@ -15,7 +15,10 @@ const Zeitplan = (props) => {
 
         <div className="secondary-background">
             <Header/>
-            <h1> Zeitplan</h1>
+            <div className="margin-top">
+                <h2> Zeitplan</h2>
+            </div>
+
 
 
 

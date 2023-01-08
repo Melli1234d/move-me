@@ -25,7 +25,7 @@ const FileUpload = (props) => {
     const [imageUrls, setImageUrls] = useState([]);
 
 const storage= getStorage();
-    const imagesListRef = ref(storage, "images/");
+    const imagesListRef = ref(firestore, "images/");
     const uploadImage = () => {
         if (imageUpload == null) return;
         const imageRef = collection(firestore, `images/${imageUpload.name+v4()}`); //namen für bild samndom angeben

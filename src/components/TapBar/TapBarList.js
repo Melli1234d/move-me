@@ -41,7 +41,7 @@ const TapBarList = (props) => {
             id: 'e5',
             icon:  <TbTruckDelivery size={25}/>,
             name: 'Firmen',
-            link: '/Home',
+            link: '/firmen',
         },
     ];
 

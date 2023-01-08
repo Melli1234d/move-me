@@ -1,6 +1,7 @@
 .scroll-container {
     margin-left: 2.5rem;
     margin-right: 2.5rem;
+    margin-bottom: 7rem;
 
 }
 
@@ -25,11 +26,22 @@
     box-shadow: 0 0px 8px rgb(0 0 0 / 25%);
 }
 
+.blue-background {
+    background-color: #113352;
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
 #firma {
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
     width: 100%;
     height: auto;
+
+}
+#firma-big {
+    width: 100%;
+
+    margin-bottom: 2rem;
 }
 
 .firma-title {
@@ -104,4 +116,80 @@
     margin-top: 1rem;
     margin-bottom: 0.5rem;
     font-weight: normal;
+}
+
+a {
+    color: #113352;
+}
+
+.h5-firma {
+    margin-left: 2.5rem;
+    margin-right: 2.5rem;
+}
+
+.firma-container {
+    padding-top: 5.6rem;
+    padding-bottom: 7rem;
+}
+
+#rezensionen-trucks {
+    width: 5rem;
+    height: 1rem;
+    margin: auto auto;
+    display: flex
+}
+.container-row {
+    display: flex;
+    flex-direction: row;
+    margin-left: 2.5rem;
+    margin-right: 2.5rem;
+    justify-content: space-between;
+}
+
+.graueBox {
+    background-color: #F4F5F7;
+    width: 6rem;
+    height: 6rem;
+    border-radius: 5px;
+}
+
+.number {
+    color: #113352;
+    font-size: 20pt;
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.kriterium {
+    color: rgba(17,51,82 ,0.7);
+    font-weight: bold;
+    font-size: 9pt;
+    text-align: center;
+    margin-bottom: 0.5rem;
+}
+
+
+#backarrow {
+    margin-left: 2.5rem;
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.row-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.biggreybox-bewertungen {
+    margin-left: 2.5rem;
+    margin-right: 2.5rem;
+    border-radius: 10px;
+    width: 80%;
+    background-color: #F4F5F7;
+}
+
+.bewertung-nutzer {
+    display: flex;
+    flex-direction: row;
 }

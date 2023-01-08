@@ -2,7 +2,7 @@ import './Firmen.css'
 import React, {useEffect, useState} from 'react';
 
 import TapBarList from "../../components/TapBar/TapBarList";
-
+//bild: https://de.freepik.com/fotos-kostenlos/junger-kurier-und-sein-kollege-entladen-kartons-aus-lieferwagen_25630693.htm#query=umzug&position=3&from_view=search&track=sph
 import Umzugsunternehmen from "../../components/Pictures/Umzugsunternehmen/unternehmen1.png"
 
 import Header from "../../components/Header/Header";
@@ -11,6 +11,7 @@ import {firestore} from "../../firebase";
 import Umzug from "../../components/Pictures/Umzugsunternehmen/Umzug.png";
 import Entrumpeln from "../../components/Pictures/Umzugsunternehmen/Entrümpeln.png";
 import Renovieren from "../../components/Pictures/Umzugsunternehmen/Renovieren.png";
+import {Link} from "react-router-dom";
 
 
 const Firmen = (props) => {
@@ -20,7 +21,6 @@ const Firmen = (props) => {
 
 
     useEffect(() => {
-        console.log(firma)
         setLoading(true);
         // const unsub = onSnapshot(q, (querySnapshot) => {
         const unsub = onSnapshot(colletionRef, (querySnapshot) => {
@@ -44,7 +44,6 @@ const Firmen = (props) => {
 
 
         <div className="secondary-background">
-            <Header/>
             <Header/>
             <div className="Moebel-list-container">
                 <h2> Firmen </h2>
@@ -77,11 +76,14 @@ const Firmen = (props) => {
                     sed diam voluptua</p>
                 <div className="scroll-container">
                     <div className="scrollen">
+
                         {firma.map((firmen) => (
+
                             <div className="firma" key={firmen.id}>
+
                                 <img id="firma" src={Umzugsunternehmen} alt="Firma" height={100} width={100}/>
                                 <div className="firma-bewertung">{firmen.bewertung}</div>
-
+                                <Link to="/FirmenDetail">
                                 <div>
                                     <div>
                                         <div>
@@ -93,9 +95,11 @@ const Firmen = (props) => {
                                         </div>
                                     </div>
                                 </div>
+                                </Link>
 
 
                             </div>
+
                         ))}
                     </div>
                 </div>
