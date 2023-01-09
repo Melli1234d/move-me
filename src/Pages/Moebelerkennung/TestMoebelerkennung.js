@@ -70,9 +70,7 @@ const TestMoebelerkennung = (props) => {
     let photoRef = useRef(null); //foto am anfang leer
 
     const takePhoto= async () => {
-       /* await tm.stop();*/
-       // const width = 414;
-        // const height = width / (16/9);
+        //await tm.stop();
         let video = document.querySelector('#webcam-container canvas'); //das element von dem das foto gemacht wird
         let photo = document.querySelector('.photo canvas'); //foto muss ein canvas sein
         photoRef.current.appendChild(video); // div element wird hinzugefügt
@@ -82,6 +80,10 @@ const TestMoebelerkennung = (props) => {
         let ctx= photo.getContext('2d');  //foto context wird gebraucht
         ctx.drawImage(video, 0,0,video.width,video.height); //foto wird abgebildet
         setHasPhoto(true); //foto wurde gemacht
+        setPredicting(false);
+        setPredictions();
+        //await tm.stop();
+        tm.webcam.canvas.remove(); //camera Canvas wird removt wenn Foto aufgenommen
     }
 
 
@@ -95,7 +97,6 @@ const TestMoebelerkennung = (props) => {
         await tm.start(); //starten
         divEl.current.appendChild(tm.webcam.canvas); //in dem div das webcam canvas erscheinen lassen
         setPredicting(true); //die klassen sollen jetzt angehen
-        showTextonLabels();
     }
 
     //WENN BUTTON GEKLICKT, DANN CAMERA STOPPEN
@@ -113,7 +114,7 @@ const TestMoebelerkennung = (props) => {
             <Header/>
             {/*<button type="button" onClick={}{init()}>Start</button>*/}
             <div ref={divEl} id="webcam-container"></div>
-            <div ref={photoRef} className="photo"><canvas /></div>
+            <div ref={photoRef} className="photo"><canvas width={200} height={200}/></div>
 
 
             <div id="label-container">
