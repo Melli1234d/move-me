@@ -22,34 +22,19 @@ const TestMoebelerkennung = (props) => {
 
 
     })*/
-   /* const TeachableMachine = require("@sashido/teachablemachine-node");
 
-    const model = new TeachableMachine({
-        modelUrl: "https://teachablemachine.withgoogle.com/models/r6BBk-hiN/"
-    });
 
-    model.classify({
-        imageUrl: "https://media-blog.sashido.io/content/images/2020/09/SashiDo_Dog.jpg",
-    }).then((predictions) => {
-        console.log("Predictions:", predictions);
-    }).catch((e) => {
-        console.log("ERROR", e);
-    });*/
 
 
 
     const divEl = useRef(null);
 //Animation Frame läuft immer
     useAnimationFrame(deltaTime => {
+
         if(tm.started){
             tm.webcam.update(); //webcam wird immer geupdatet, damit neustes build entsteht
             tm.model.predict(tm.webcam.canvas).then(setPredictions) //vorhersagen der erkannten Klassen werden gesetzt
 
-            //for (let i = 0; i < maxPredictions; i++) {
-            //    const classPrediction =
-            //        prediction[i].className + ": " + prediction[i].probability.toFixed(2);
-            //    labelContainer.childNodes[i].innerHTML = classPrediction;
-            //}
         }
         if(tm.stopped){
             tm.webcam.stop();
@@ -57,26 +42,46 @@ const TestMoebelerkennung = (props) => {
         }
     })
 
+
+
+    // Switch name von ClassNames
+    function showTextonLabels(predictions) {
+        switch (predictions) {
+            case "Drehhocker":
+                return "Drehhocker";
+            case "Drehstuhl":
+                return "Drehstuhl";
+            case "Sofa":
+                return "Sofa";
+            case "Stuhl":
+                return "Stuhl";
+            case "Tisch":
+                return "Tisch";
+            default:
+                return "Es wurde ncihts erkannt";
+        }
+    }
+
+
+
     //WENN BUTTON GEKLICKT, DANN FOTO MACHEN
 
-//funktioniert nicht
 
-    let photoRef = useRef(null);
+    let photoRef = useRef(null); //foto am anfang leer
 
     const takePhoto= async () => {
        /* await tm.stop();*/
-        const width = 414;
-        const height = width / (16/9);
-        let video = divEl.current;
-        let photo =  photoRef.current;
-
-        photoRef.current.appendChild(video);
-
-        photo.width = width;
-        photo.height= height;
-        let ctx= photo.getContext('2d');
-        ctx.drawImage(video, 0,0,photo.width,photo.height);
-        setHasPhoto(true);
+       // const width = 414;
+        // const height = width / (16/9);
+        let video = document.querySelector('#webcam-container canvas'); //das element von dem das foto gemacht wird
+        let photo = document.querySelector('.photo canvas'); //foto muss ein canvas sein
+        photoRef.current.appendChild(video); // div element wird hinzugefügt
+        console.log(video);
+        console.log(photo);
+        //console.log(photoCanvas);
+        let ctx= photo.getContext('2d');  //foto context wird gebraucht
+        ctx.drawImage(video, 0,0,video.width,video.height); //foto wird abgebildet
+        setHasPhoto(true); //foto wurde gemacht
     }
 
 
@@ -86,9 +91,11 @@ const TestMoebelerkennung = (props) => {
     //funktioniert
 //beim Button klicken soll die Kamera angehen, die Vorhersagen werden abgebildet und das Kamera Bild wird angezeigt
     const handleClick = async () => {
+
         await tm.start(); //starten
         divEl.current.appendChild(tm.webcam.canvas); //in dem div das webcam canvas erscheinen lassen
-        setPredicting(true); //die klassensollen jetzt angehen
+        setPredicting(true); //die klassen sollen jetzt angehen
+        showTextonLabels();
     }
 
     //WENN BUTTON GEKLICKT, DANN CAMERA STOPPEN
@@ -106,14 +113,15 @@ const TestMoebelerkennung = (props) => {
             <Header/>
             {/*<button type="button" onClick={}{init()}>Start</button>*/}
             <div ref={divEl} id="webcam-container"></div>
-            <div ref={photoRef} className="photo"></div>
+            <div ref={photoRef} className="photo"><canvas /></div>
 
 
             <div id="label-container">
                 {predictions
                     ? predictions.map((prediction) =>
                 <div key={prediction.className}>
-                    { prediction.className + ": " + prediction.probability.toFixed(2) } {/*auf 2 nachkomma stellen aufgerundet*/}
+                    {/*{showTextonLabels + ": " + (prediction.probability * 100).toFixed(2) + "%"}*/}
+                    { prediction.className + ": " + (prediction.probability * 100).toFixed(2) + "%"} {/*auf 2 nachkomma stellen aufgerundet*/}
                 </div>)
                 : 'No predictions yet'}
             </div>

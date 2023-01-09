@@ -12,11 +12,14 @@ const TeachableMachineWrapper = {
         // or files from your local hard drive
         // Note: the pose library adds "tmImage" object to your window (window.tmImage)
         const model = await tmImage.load(modelURL, metadataURL);
-        //maxPredictions = model.getTotalClasses();
+
+        const maxPredictions = model.getTotalClasses();
+
+
 
         // Convenience function to setup a webcam
         const flip = true; // whether to flip the webcam
-        const webcam = new tmImage.Webcam(200, 200, flip); // width, height, flip
+        const webcam = new tmImage.Webcam(200, 200, maxPredictions, flip); // width, height, flip
         await webcam.setup(); // request access to the webcam
         await webcam.play(); //webcam geht an
 

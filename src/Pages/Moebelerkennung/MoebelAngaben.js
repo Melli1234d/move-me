@@ -49,7 +49,7 @@ const MoebelAngaben = (props) => {
             room: room,
             besonderheiten: besonderheiten,
         }).then(()=>{
-            document.location = '/MoebelerkennungScannStarten'
+            document.location = '/MoebelerkennungScannStarten' //weiterleitung an den Screen
         })
     }
 
