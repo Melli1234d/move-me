@@ -40,6 +40,7 @@ function App() {
                   {/*<Route path="/predict" element={<Predict/>}/>*/}
                   <Route path="/TestMoebelerkennung" element={<TestMoebelerkennung/>}/>
                   <Route path="/shop" element={<Shop/>}/>
+
                   <Route path="/Firmen" element={<Firmen/>}/>
                   <Route path="/FirmenDetail" element={<FirmenDetail/>}/>
                   <Route path="/MoebelListe" element={<MoebelListe/>}/>

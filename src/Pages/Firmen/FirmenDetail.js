@@ -55,7 +55,7 @@ const FirmenDetail = (props) => {
                         <div className="kriterium">
                             Bewertungen
                         </div>
-                        <img id="rezensionen-trucks" src={Rezensionen} alt="Rezensionen" />
+                        {/*<img id="rezensionen-trucks" src={Rezensionen} alt="Rezensionen" />*/}
                     </div>
                 </div>
                 <p> Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua</p>

@@ -25,16 +25,18 @@ const FileUpload = (props) => {
     const [imageUrls, setImageUrls] = useState([]);
 
 const storage= getStorage();
-    const imagesListRef = ref(firestore, "images/");
+    const imagesListRef = ref(storage, "images/");
+
+    //Beim Klick auf Button soll das Bild in Firebase geuploadet werden
     const uploadImage = () => {
         if (imageUpload == null) return;
-        const imageRef = collection(firestore, `images/${imageUpload.name+v4()}`); //namen für bild samndom angeben
+        const imageRef = collection(firestore, `${imageUpload.name+v4()}`); //namen für bild samndom angeben
         uploadBytes(imageRef, imageUpload).then((snapshot) => {
 
-            /*getDownloadURL(snapshot.ref).then((url) => {
+            getDownloadURL(snapshot.ref).then((url) => {
                 setImageUrls((prev) => [...prev, url]);
-           );
-        }*/ });
+            });
+        });
     };
 
     useEffect(() => {
@@ -59,12 +61,13 @@ const storage= getStorage();
                 <input
                     type="file"
                     onChange={(event) => {
+                        //setzen von dem Bild, immer nur das letzte
                         setImageUpload(event.target.files[0]);
                     }}
                 />
                 <button onClick={uploadImage}> Upload Image</button>
                 {imageUrls.map((url) => {
-                    return <img src={url} />;
+                    return <img className="imgfirebase" src={url} />;
                 })}
             </div>
 
