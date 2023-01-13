@@ -2,6 +2,8 @@ import * as tmImage from "@teachablemachine/image";
 import React from 'react';
 const URL = 'tm-my-image-model-5/';
 
+//Code angelehnt an Code Beispiel der automatisch von Teachable Machine generiert wird
+
 const TeachableMachineWrapper = {
     async start(){
         const modelURL = URL + "model.json";

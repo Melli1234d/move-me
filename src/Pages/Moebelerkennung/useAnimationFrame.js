@@ -1,5 +1,7 @@
 import React from "react";
 
+
+//Code angelehnt an Code Beispiel der automatisch von Teachable Machine generiert wird
 //code: https://css-tricks.com/using-requestanimationframe-with-react-hooks/
 
 

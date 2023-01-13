@@ -21,6 +21,7 @@ const Firmen = (props) => {
 
 
     useEffect(() => {
+        console.log(firma);
         setLoading(true);
         // const unsub = onSnapshot(q, (querySnapshot) => {
         const unsub = onSnapshot(colletionRef, (querySnapshot) => {

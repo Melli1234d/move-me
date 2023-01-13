@@ -7,6 +7,9 @@ import {useAnimationFrame} from "./useAnimationFrame";
 import Header from "../../components/Header/Header";
 import TapBarList from "../../components/TapBar/TapBarList";
 import {Link} from "react-router-dom";
+
+import {collection} from "@firebase/firestore";
+import {firestore} from "../../firebase";
 import {
     ref,
     getStorage,
@@ -17,17 +20,15 @@ import {
 } from "firebase/storage";
 import {v4} from "uuid";
 
-
-//Code angelehnt an Code Beispiel der automatisch von Teachable Machine generiert wird
-// Code Photo nach Firebase hochladen: tutorial: https://www.youtube.com/watch?v=YOAeBSCkArA&t=84s or github: https://github.com/machadop1407/firebase-file-upload
 //const URL = 'tm-my-image-model-5/';
 
-const TestMoebelerkennung = (props) => {
-    const [hasPhoto, setHasPhoto]=useState(false);
+const TestMoebelerkennungPhotoFirebase = (props) => {
+    const [hasPhoto, setHasPhoto] = useState(false);
     const tm = useContext(TeachableMachineContext);
 
     const [isPredicting, setPredicting] = useState(false);
-    const [predictions, setPredictions] = useState(null);
+    const [predictions, setPredictions] = useState();
+
 
     //FOTOUPLOAD
 
@@ -60,26 +61,21 @@ const TestMoebelerkennung = (props) => {
         });
     }, []);
 
-
-
-
 //KAMERA CONTAINER
-
     const divEl = useRef(null);
 //Animation Frame läuft immer
     useAnimationFrame(deltaTime => {
 
-        if(tm.started){
+        if (tm.started) {
             tm.webcam.update(); //webcam wird immer geupdatet, damit neustes build entsteht
             tm.model.predict(tm.webcam.canvas).then(setPredictions) //vorhersagen der erkannten Klassen werden gesetzt
 
         }
-        if(tm.stopped){
+        if (tm.stopped) {
             tm.webcam.stop();
 
         }
     })
-
 
 
     // Switch name von ClassNames
@@ -101,13 +97,12 @@ const TestMoebelerkennung = (props) => {
     }
 
 
-
     //WENN BUTTON GEKLICKT, DANN FOTO MACHEN
 
 
     let photoRef = useRef(null); //foto am anfang leer
 
-    const takePhoto= async () => {
+    const takePhoto = async () => {
         //await tm.stop();
         let video = document.querySelector('#webcam-container canvas'); //das element von dem das foto gemacht wird
         let photo = document.querySelector('.photo canvas'); //foto muss ein canvas sein
@@ -115,14 +110,15 @@ const TestMoebelerkennung = (props) => {
         console.log(video);
         console.log(photo);
         //console.log(photoCanvas);
-        let ctx= photo.getContext('2d');  //foto context wird gebraucht
-        ctx.drawImage(video, 0,0,video.width,video.height); //foto wird abgebildet
+        let ctx = photo.getContext('2d');  //foto context wird gebraucht
+        ctx.drawImage(video, 0, 0, video.width, video.height); //foto wird abgebildet
         setHasPhoto(true); //foto wurde gemacht
         setPredicting(false);
-        setPredictions(false);
+        setPredictions();
         setImageUpload(hasPhoto);
         //await tm.stop();
         tm.webcam.canvas.remove(); //camera Canvas wird removt wenn Foto aufgenommen
+
 
     }
 
@@ -141,32 +137,32 @@ const TestMoebelerkennung = (props) => {
 
     //WENN BUTTON GEKLICKT, DANN CAMERA STOPPEN
 //funktioniert nicht
-  /*  const handleStop = async () => {
-        await tm.stop();
-    }*/
+    /*  const handleStop = async () => {
+          await tm.stop();
+      }*/
 
 
     return (
-
 
 
         <div className="primary-background">
             <Header/>
             {/*<button type="button" onClick={}{init()}>Start</button>*/}
             <div ref={divEl} id="webcam-container"></div>
-            <div ref={photoRef} className="photo"><canvas width={200} height={200}/></div>
+            <div ref={photoRef} className="photo">
+                <canvas width={200} height={200}/>
+            </div>
 
 
             <div id="label-container">
                 {predictions
                     ? predictions.map((prediction) =>
-                <div key={prediction.className}>
-                    {/*{showTextonLabels + ": " + (prediction.probability * 100).toFixed(2) + "%"}*/}
-                    { prediction.className + ": " + (prediction.probability * 100).toFixed(2) + "%"} {/*auf 2 nachkomma stellen aufgerundet*/}
-                </div>)
-                : 'No predictions yet'}
+                        <div key={prediction.className}>
+                            {/*{showTextonLabels + ": " + (prediction.probability * 100).toFixed(2) + "%"}*/}
+                            {prediction.className + ": " + (prediction.probability * 100).toFixed(2) + "%"} {/*auf 2 nachkomma stellen aufgerundet*/}
+                        </div>)
+                    : 'No predictions yet'}
             </div>
-
 
 
             <button onClick={handleClick}>Scann starten</button>
@@ -180,4 +176,4 @@ const TestMoebelerkennung = (props) => {
 }
 
 
-export default TestMoebelerkennung;
+export default TestMoebelerkennungPhotoFirebase;

@@ -17,12 +17,15 @@ import {collection} from "@firebase/firestore";
 
 
 
-//tutorial: https://www.youtube.com/watch?v=YOAeBSCkArA&t=84s
+//tutorial: https://www.youtube.com/watch?v=YOAeBSCkArA&t=84s or github: https://github.com/machadop1407/firebase-file-upload
 
 
 const FileUpload = (props) => {
     const [imageUpload, setImageUpload] = useState(null);
     const [imageUrls, setImageUrls] = useState([]);
+
+    const unique_id = v4();
+
 
 const storage= getStorage();
     const imagesListRef = ref(storage, "images/");
@@ -30,7 +33,7 @@ const storage= getStorage();
     //Beim Klick auf Button soll das Bild in Firebase geuploadet werden
     const uploadImage = () => {
         if (imageUpload == null) return;
-        const imageRef = collection(firestore, `${imageUpload.name+v4()}`); //namen für bild samndom angeben
+        const imageRef = ref(storage, `images/${imageUpload.name+v4()}`); //namen für bild samndom angeben
         uploadBytes(imageRef, imageUpload).then((snapshot) => {
 
             getDownloadURL(snapshot.ref).then((url) => {
@@ -67,7 +70,7 @@ const storage= getStorage();
                 />
                 <button onClick={uploadImage}> Upload Image</button>
                 {imageUrls.map((url) => {
-                    return <img className="imgfirebase" src={url} />;
+                    return <img className="imgfirebase" src={url}  />;
                 })}
             </div>
 
