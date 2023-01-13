@@ -19,6 +19,7 @@ import {v4} from "uuid";
 
 
 //Code angelehnt an Code Beispiel der automatisch von Teachable Machine generiert wird
+//Code Foto machen: https://www.youtube.com/watch?v=0iteBJ-fuRA&t=311s
 // Code Photo nach Firebase hochladen: tutorial: https://www.youtube.com/watch?v=YOAeBSCkArA&t=84s or github: https://github.com/machadop1407/firebase-file-upload
 //const URL = 'tm-my-image-model-5/';
 
@@ -36,13 +37,19 @@ const TestMoebelerkennung = (props) => {
 
     const unique_id = v4();
     const storage = getStorage();
+    //Umwandeln in ein PNG da es vorher ein octet-stream war und das bild sonst nicht angezeigt werden kann!!
+    const metadata = {
+        contentType: 'image/png',
+    };
+
     const imagesListRef = ref(storage, "images/");
 
     //Beim Klick auf Button soll das Bild in Firebase geuploadet werden
     const uploadImage = () => {
         if (imageUpload == null) return;
-        const imageRef = ref(storage, `images/${v4()+'.png' }`); //namen für bild samndom angeben
-        uploadBytes(imageRef, imageUpload).then((snapshot) => {
+        const imageRef = ref(storage, `images/${v4() }`); //namen für bild samndom angeben
+        //Bilder hochladen in den storage: das gesetzte Bild mit dem definierten namen als png...
+        uploadBytes(imageRef, imageUpload, metadata,hasPhoto).then((snapshot) => {
 
             getDownloadURL(snapshot.ref).then((url) => {
                 setImageUrls((prev) => [...prev, url]);
@@ -72,11 +79,14 @@ const TestMoebelerkennung = (props) => {
         if(tm.started){
             tm.webcam.update(); //webcam wird immer geupdatet, damit neustes build entsteht
             tm.model.predict(tm.webcam.canvas).then(setPredictions) //vorhersagen der erkannten Klassen werden gesetzt
-
+            if (tm.model.predict(tm.webcam.canvas)) {
+                console.log(predictions);
+            }
         }
-        if(tm.stopped){
+        else if(tm.stoped){
+            tm.webcam.update();
             tm.webcam.stop();
-
+            console.log("ended");
         }
     })
 
@@ -107,20 +117,23 @@ const TestMoebelerkennung = (props) => {
 
     let photoRef = useRef(null); //foto am anfang leer
 
-    const takePhoto= async () => {
+    const takePhoto = async () => {
         //await tm.stop();
         let video = document.querySelector('#webcam-container canvas'); //das element von dem das foto gemacht wird
         let photo = document.querySelector('.photo canvas'); //foto muss ein canvas sein
+
+        await tm.stop();
         photoRef.current.appendChild(video); // div element wird hinzugefügt
+        setPredicting(false); //aufhören klassen anzuzeigen
         console.log(video);
         console.log(photo);
         //console.log(photoCanvas);
         let ctx= photo.getContext('2d');  //foto context wird gebraucht
         ctx.drawImage(video, 0,0,video.width,video.height); //foto wird abgebildet
         setHasPhoto(true); //foto wurde gemacht
-        setPredicting(false);
         setPredictions(false);
-        setImageUpload(hasPhoto);
+        setImageUpload(photoRef);
+        console.log(photo);
         //await tm.stop();
         tm.webcam.canvas.remove(); //camera Canvas wird removt wenn Foto aufgenommen
 
@@ -137,6 +150,7 @@ const TestMoebelerkennung = (props) => {
         await tm.start(); //starten
         divEl.current.appendChild(tm.webcam.canvas); //in dem div das webcam canvas erscheinen lassen
         setPredicting(true); //die klassen sollen jetzt angehen
+        console.log(predictions);
     }
 
     //WENN BUTTON GEKLICKT, DANN CAMERA STOPPEN
@@ -154,7 +168,7 @@ const TestMoebelerkennung = (props) => {
             <Header/>
             {/*<button type="button" onClick={}{init()}>Start</button>*/}
             <div ref={divEl} id="webcam-container"></div>
-            <div ref={photoRef} className="photo"><canvas width={200} height={200}/></div>
+            <div ref={photoRef} className="photo"><canvas width={200} height={200} /></div>
 
 
             <div id="label-container">

@@ -30,24 +30,17 @@ const TeachableMachineWrapper = {
         this.started = true; //wird gestartet
     },
 //funktioniert noch nicht
-   /* async stop(){
-        const modelURL = URL + "model.json";
-       const metadataURL = URL + "metadata.json";
-
-        const model = await tmImage.load(modelURL, metadataURL);
-        //maxPredictions = model.getTotalClasses();
+    async stop(){
 
         // Convenience function to setup a webcam
-        const flip = true; // whether to flip the webcam
-        const webcam = new tmImage.Webcam(200, 200, flip); // width, height, flip
-        await webcam.setup();
-        await webcam.pause();
+        const webcam = this.webcam //vorherige webcam ansprechen
+        await webcam.setup(); // request access to the webcam
         await webcam.stop();//webcam geht  aus
 
-        this.model = model;
-        this.stopped = true; //wird gestoppt
+        this.webcam = webcam;
+        this.stoped = true; //wird gestoppt
 
-    }*/
+    }
 
 }
 
