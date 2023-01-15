@@ -7,7 +7,7 @@ import {useAnimationFrame} from "./useAnimationFrame";
 import Header from "../../components/Header/Header";
 import TapBarList from "../../components/TapBar/TapBarList";
 import {Link} from "react-router-dom";
-
+ //https://github.com/phptuts/svelte-teachable-machine/blob/3-load-use-ai-model/src/App.svelte
 import {collection} from "@firebase/firestore";
 import {firestore} from "../../firebase";
 import {
@@ -61,15 +61,22 @@ const TestMoebelerkennungPhotoFirebase = (props) => {
         });
     }, []);
 
+
+
 //KAMERA CONTAINER
     const divEl = useRef(null);
 //Animation Frame läuft immer
-    useAnimationFrame(deltaTime => {
+    useAnimationFrame(async deltaTime => {
 
         if (tm.started) {
             tm.webcam.update(); //webcam wird immer geupdatet, damit neustes build entsteht
             tm.model.predict(tm.webcam.canvas).then(setPredictions) //vorhersagen der erkannten Klassen werden gesetzt
-
+            const prediction = await tm.model.predict(tm.webcam.canvas);
+            for (let i = 0; i < tm.maxprediction; i++) {
+                const classPrediction =
+                    prediction[i].className + ": " + prediction[i].probability.toFixed(2);
+                divLabel.childNodes[i].innerHTML = classPrediction;
+            }
         }
         if (tm.stopped) {
             tm.webcam.stop();
@@ -77,10 +84,22 @@ const TestMoebelerkennungPhotoFirebase = (props) => {
         }
     })
 
+    let percentage = "";
+    let name = "";
+    async function predict() {
+        const predictions = await tm.model.predict(tm.webcam.canvas);
+        const choosenPrediction = predictions.sort(
+            (a, b, c, d, e) =>  e.probability -d.probability - c.probability - b.probabilitya.probability
+        );
+        if (choosenPrediction) {
+            let percentage = (choosenPrediction.probability * 100).toFixed(2) + "%";
+            let name = showTextonLabels(choosenPrediction.className);
+        }
+    }
 
     // Switch name von ClassNames
-    function showTextonLabels(predictions) {
-        switch (predictions) {
+    function showTextonLabels(className) {
+        switch (className) {
             case "Drehhocker":
                 return "Drehhocker";
             case "Drehstuhl":
@@ -125,14 +144,22 @@ const TestMoebelerkennungPhotoFirebase = (props) => {
 
 
     //WENN BUTTON GEKLICKT, DANN KAMERA STARTEN
-
     //funktioniert
 //beim Button klicken soll die Kamera angehen, die Vorhersagen werden abgebildet und das Kamera Bild wird angezeigt
+    const divLabel = useRef(null);
     const handleClick = async () => {
+        let label = document.createElement("div"); //das element von dem das foto gemacht wird
 
+      /*  divLabel.current.appendChild(label);*/
         await tm.start(); //starten
         divEl.current.appendChild(tm.webcam.canvas); //in dem div das webcam canvas erscheinen lassen
         setPredicting(true); //die klassen sollen jetzt angehen
+        for (let i = 0; i < tm.maxprediction; i++) {
+            divLabel.current.appendChild(label);
+            console.log(tm.maxprediction)
+
+        }
+        showTextonLabels();
     }
 
     //WENN BUTTON GEKLICKT, DANN CAMERA STOPPEN
@@ -140,6 +167,7 @@ const TestMoebelerkennungPhotoFirebase = (props) => {
     /*  const handleStop = async () => {
           await tm.stop();
       }*/
+
 
 
     return (
@@ -152,17 +180,21 @@ const TestMoebelerkennungPhotoFirebase = (props) => {
             <div ref={photoRef} className="photo">
                 <canvas width={200} height={200}/>
             </div>
+            {/* eslint-disable-next-line no-restricted-globals */}
+<div> {name} {percentage}</div>
 
-
+{/*
             <div id="label-container">
                 {predictions
                     ? predictions.map((prediction) =>
                         <div key={prediction.className}>
-                            {/*{showTextonLabels + ": " + (prediction.probability * 100).toFixed(2) + "%"}*/}
-                            {prediction.className + ": " + (prediction.probability * 100).toFixed(2) + "%"} {/*auf 2 nachkomma stellen aufgerundet*/}
+                            {showTextonLabels + ": " + (prediction.probability * 100).toFixed(2) + "%"}
+                            {prediction.className + ": " + (prediction.probability * 100).toFixed(2) + "%"} auf 2 nachkomma stellen aufgerundet
                         </div>)
                     : 'No predictions yet'}
-            </div>
+            </div>*/}
+
+            <div id="label-container" ref={divLabel}></div>
 
 
             <button onClick={handleClick}>Scann starten</button>

@@ -15,17 +15,17 @@ const TeachableMachineWrapper = {
         // Note: the pose library adds "tmImage" object to your window (window.tmImage)
         const model = await tmImage.load(modelURL, metadataURL);
 
-        const maxPredictions = model.getTotalClasses();
-
-
+        const maxPredictions = await model.getTotalClasses();
 
         // Convenience function to setup a webcam
         const flip = true; // whether to flip the webcam
-        const webcam = new tmImage.Webcam(200, 200, maxPredictions, flip); // width, height, flip
+        const webcam = new tmImage.Webcam(200, 200, flip, maxPredictions); // width, height, flip
         await webcam.setup(); // request access to the webcam
         await webcam.play(); //webcam geht an
 
+        this.maxprediction = maxPredictions;
         this.model = model;
+
         this.webcam = webcam;
         this.started = true; //wird gestartet
     },
@@ -36,6 +36,7 @@ const TeachableMachineWrapper = {
         const webcam = this.webcam //vorherige webcam ansprechen
         await webcam.setup(); // request access to the webcam
         await webcam.stop();//webcam geht  aus
+
 
         this.webcam = webcam;
         this.stoped = true; //wird gestoppt
