@@ -1,6 +1,6 @@
 import React from 'react';
 import './Header.css';
-import Logo from "../Pictures/Header/movemelogo.png";
+import Logo from "../Pictures/Header/Logomm.png";
 import Chat from "../Pictures/Header/chat-icon.png";
 import Hamburger from "../Pictures/Header/Hamburger-Icon.png";
 import {Link} from "react-router-dom";
@@ -14,7 +14,7 @@ const Header = (props) => {
 
     return (
         <div className="header">
-            <img id="logo" src={Logo} alt="Logo" height={30} width={80} />
+            <img id="logo" src={Logo} alt="Logo" height={30} width={30} />
             <div className="header-navigation">
                 <img id="chat" src={Chat} alt="Nachrichten Icon" height={25} width={25} />
                 <nav role="navigation">

@@ -28,7 +28,7 @@ const TestMoebelerkennung = (props) => {
     const tm = useContext(TeachableMachineContext);
 
     const [isPredicting, setPredicting] = useState(false);
-    const [predictions, setPredictions] = useState(null);
+    var [predictions, setPredictions] = useState(null);
 
     //FOTOUPLOAD
 
@@ -49,10 +49,11 @@ const TestMoebelerkennung = (props) => {
         if (imageUpload == null) return;
         const imageRef = ref(storage, `images/${v4()}`); //namen für bild samndom angeben
         //Bilder hochladen in den storage: das gesetzte Bild mit dem definierten namen als png...
-        uploadBytes(imageRef, imageUpload, metadata, hasPhoto).then((snapshot) => {
+        uploadBytes(imageRef, imageUpload, metadata, photo).then((snapshot) => {
 
             getDownloadURL(snapshot.ref).then((url) => {
                 setImageUrls((prev) => [...prev, url]);
+                console.log(metadata);
             });
         });
     };
@@ -88,23 +89,29 @@ const TestMoebelerkennung = (props) => {
     })
 
 
-    var predictionlabels = document.getElementById("label-container");
+    var predictionlabels = document.getElementsByClassName("Label-Klassen");
 
-    // Switch name von ClassNames
-    function showTextonLabels() {
-        switch (predictionlabels) {
-            case "Drehhocker":
-                return "Drehhocker";
-            case "Drehstuhl":
-                return "Drehstuhl";
-            case "Sofa":
-                return "Sofa";
-            case "Stuhl":
-                return "Stuhl";
-            case "Tisch":
-                return "Tisch";
-            default:
-                return "Es wurde nichts erkannt";
+    function getHighestPrediction(predictionlabels) {
+        //predictionlabels
+        let highestPrediction = null;
+        for(let prediction of predictionlabels) {
+            if(highestPrediction === null) {
+                if(prediction.probability > 0.3) {
+                    highestPrediction = prediction;
+                }
+
+            } else if(highestPrediction != null && prediction.probability > highestPrediction.probability){
+                highestPrediction = prediction;
+            }
+        }
+        return highestPrediction;
+    }
+    function getLabelIfIsHighestPropability(predictionlabels, predictionlabel) {
+        let highestLabel= getHighestPrediction(predictionlabels);
+        if(predictionlabel === highestLabel) {
+            return predictionlabel.className + ": " + (predictionlabel.probability * 100).toFixed(2) + "%";
+        } else {
+            return '';
         }
     }
 
@@ -113,11 +120,11 @@ const TestMoebelerkennung = (props) => {
 
 
     let photoRef = useRef(null); //foto am anfang leer
-
+    let video = document.querySelector('#webcam-container canvas'); //das element von dem das foto gemacht wird
+    let photo = document.querySelector('.photo canvas'); //foto muss ein canvas sein
     const takePhoto = async () => {
         //await tm.stop();
-        let video = document.querySelector('#webcam-container canvas'); //das element von dem das foto gemacht wird
-        let photo = document.querySelector('.photo canvas'); //foto muss ein canvas sein
+
 
         await tm.stop();//kamera geht aus wenn foto gemacht wird
         photoRef.current.appendChild(video); // div element wird hinzugefügt
@@ -129,7 +136,8 @@ const TestMoebelerkennung = (props) => {
         ctx.drawImage(video, 0, 0, video.width, video.height); //foto wird abgebildet
         setHasPhoto(true); //foto wurde gemacht
         setPredictions(false);
-        setImageUpload(photoRef);
+        setImageUpload(true);
+        console.log(imageUpload)
         //await tm.stop();
         tm.webcam.canvas.remove(); //camera Canvas wird removt wenn Foto aufgenommen
 
@@ -139,17 +147,15 @@ const TestMoebelerkennung = (props) => {
     //WENN BUTTON GEKLICKT, DANN KAMERA STARTEN
 
     //funktioniert
-//beim Button klicken soll die Kamera angehen, die Vorhersagen werden abgebildet und das Kamera Bild wird angezeigt
+    //beim Button klicken soll die Kamera angehen, die Vorhersagen werden abgebildet und das Kamera Bild wird angezeigt
     const handleClick = async () => {
         //const maxPredictions = 1;
         await tm.start(); //starten
-       /* for (let i = 0; i < maxPredictions; i++) { // and class labels
-            divEl.current.appendChild(tm.webcam.canvas); //in dem div das webcam canvas erscheinen lassen
-        }*/
+
         divEl.current.appendChild(tm.webcam.canvas); //in dem div das webcam canvas erscheinen lassen*/
         setPredicting(true); //die klassen sollen jetzt angehen
         console.log(predictionlabels);
-        showTextonLabels();
+
 
     }
 
@@ -157,9 +163,8 @@ const TestMoebelerkennung = (props) => {
     return (
 
 
-        <div className="primary-background">
+        <div className="secondary-background">
             <Header/>
-            {/*<button type="button" onClick={}{init()}>Start</button>*/}
             <div ref={divEl} id="webcam-container"></div>
             <div ref={photoRef} className="photo">
                 <canvas width={200} height={200}/>
@@ -170,10 +175,9 @@ const TestMoebelerkennung = (props) => {
                 {predictions
                     ? predictions.map((prediction) =>
                         <div id={prediction.className} key={prediction.className} className="Label-Klassen">
-                            {/*{showTextonLabels + ": " + (prediction.probability * 100).toFixed(2) + "%"}*/}
-                            {prediction.className + ": " + (prediction.probability * 100).toFixed(2) + "%"} {/*auf 2 nachkomma stellen aufgerundet*/}
+                            {getLabelIfIsHighestPropability(predictions, prediction)}
                         </div>)
-                    : 'No predictions yet'}
+                    : ''}
             </div>
 
 
