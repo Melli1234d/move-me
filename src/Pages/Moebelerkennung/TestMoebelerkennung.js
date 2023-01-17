@@ -103,7 +103,7 @@ const TestMoebelerkennung = (props) => {
         let highestPrediction = null; //auch nullwert muss erlaubt sein, kann ausversehen mitgegeben werden
         for(let prediction of predictionlabels) { //schleife die die wahrscheinlichkeit der labels prüft
             if(highestPrediction === null) { //wenn höchste wahrschenlichkeit kein wert hat
-                if(prediction.probability > 0.3) { //prüfen ob wahrscheinlichkeit größer als 30% ist dann ist die höchste wahrscheinlichkeit die aktuelle wahrscheinlichkeit
+                if(prediction.probability > 0.3 && hasPhoto === true) { //prüfen ob wahrscheinlichkeit größer als 30% ist dann ist die höchste wahrscheinlichkeit die aktuelle wahrscheinlichkeit
                     highestPrediction = prediction;
                 }
 
@@ -115,7 +115,8 @@ const TestMoebelerkennung = (props) => {
     }
 
     //fuktion die das Label wiedegibt wenn höchste wahrscheinlichkeit gesetzt
-    function getLabelIfIsHighestPropability(predictionlabels, predictionlabel) { //alle label und das einzelne als wert mitgegeben
+    function getLabelIfIsHighestPropability(predictionlabels, predictionlabel) {//alle label und das einzelne als wert mitgegeben
+
         let highestLabel= getHighestPrediction(predictionlabels); //funktion aufrufen mit allen labeln
         if(predictionlabel === highestLabel) {
             //wenn label ist das höchste dann return label + wahrscheinlichkeit
@@ -133,11 +134,13 @@ const TestMoebelerkennung = (props) => {
     let video = document.querySelector('#webcam-container canvas'); //das element von dem das foto gemacht wird
     let photo = document.querySelector('.photo canvas'); //foto muss ein canvas sein
 
+
     const takePhoto = async () => {
         //await tm.stop();
 
         await tm.stop();//kamera geht aus wenn foto gemacht wird
         photoRef.current.appendChild(video); // div element wird hinzugefügt
+
         setPredicting(false); //aufhören klassen anzuzeigen
         console.log(video);
         console.log(photo);
@@ -149,7 +152,7 @@ const TestMoebelerkennung = (props) => {
         setImageUpload(true);
         console.log(imageUpload)
         tm.webcam.canvas.remove(); //camera Canvas wird removt wenn Foto aufgenommen
-        setFurniture(unique_id);
+        //setFurniture(unique_id);
 
     }
 
@@ -180,7 +183,7 @@ const TestMoebelerkennung = (props) => {
             </div>
 
 
-            <div id="label-container">
+            <div  id="label-container">
                 {predictions
                     ? predictions.map((prediction) =>
                         <div id={prediction.className} key={prediction.className} className="Label-Klassen">
