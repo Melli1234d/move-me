@@ -130,15 +130,6 @@ canvas, .result, .photo {
     width: 6rem;
 }
 
-.picture-div {
-    border: 1px solid #113352;
-    border-radius: 30px;
-    height: 40px;
-    width: 40px;
-    justify-content: center;
-    align-items: center;
-    display: flex;
-}
 
 .label-input {
     font-size: 9pt;

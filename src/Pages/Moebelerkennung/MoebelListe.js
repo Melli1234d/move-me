@@ -17,6 +17,7 @@ import Kitchen from "../../components/Pictures/Moebel-Angaben/Raum/kitchen.png";
 import Bedroom from "../../components/Pictures/Moebel-Angaben/Raum/bedroom.png";
 import Livingroom from "../../components/Pictures/Moebel-Angaben/Raum/Wohnzimmer-white.png";
 import RoundButton from "../../components/UI/RoundButton";
+import SmallHighRoundRectangle from "../../components/UI/SmallHighRoundRectangle";
 
 
 //tutorial: https://www.youtube.com/watch?v=ad6IavyAHsQ&t=328s
@@ -114,7 +115,7 @@ const MoebelListe = (besonderheiten) => {
                 </div>
                 <div className="grid">
                     {moebelData.map((moebel) => (
-                        <div className="moebel" key={moebel.id}>
+                        <SmallHighRoundRectangle key={moebel.id}>
                             <div className="moebel-container">
                                 <div className="moebel-container-item">
                                     <div className="moebel-daten-icon">
@@ -135,7 +136,7 @@ const MoebelListe = (besonderheiten) => {
 
 
 
-                        </div>
+                        </SmallHighRoundRectangle>
                     ))}
                 </div>
 

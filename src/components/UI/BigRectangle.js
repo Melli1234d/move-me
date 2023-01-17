@@ -1,11 +1,11 @@
 import React from 'react';
 
-import './HomeScreenButton.css';
+import './BigRectangle.css';
 //Struktur vom React js Udemy Kurs " The Complete Guide" von Maximilian Schwarzmüller übernommen
-const HomeScreenButton = (props) => {
-    const classes = 'home-screen-button ' + props.className;
+const BigRectangle = (props) => {
+    const classes = 'big-rectangle ' + props.className;
 
     return <div className={classes}>{props.children}</div>;
 };
 
-export default HomeScreenButton;
+export default BigRectangle;

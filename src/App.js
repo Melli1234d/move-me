@@ -7,17 +7,11 @@ import {
 } from 'react-router-dom'
 import Home from "./Pages/Home/Home";
 import Profil from "./Pages/Profil/Profil";
-
-
-
 import Shop from "./Pages/Shop/Shop";
 import Zeitplan from "./Pages/Zeitplan/Zeitplan";
 import MoebelerkennungScannStarten from "./Pages/Moebelerkennung/MoebelerkennungScannStarten";
-
 import MoebelAngaben from "./Pages/Moebelerkennung/MoebelAngaben";
-
 import TestMoebelerkennung from "./Pages/Moebelerkennung/TestMoebelerkennung";
-
 import MoebelListe from "./Pages/Moebelerkennung/MoebelListe";
 import FileUpload from "./Pages/Moebelerkennung/FileUpload";
 import Firmen from "./Pages/Firmen/Firmen";

@@ -13,6 +13,7 @@ import Entrumpeln from "../../components/Pictures/Umzugsunternehmen/Entrümpeln.
 import Renovieren from "../../components/Pictures/Umzugsunternehmen/Renovieren.png";
 import {Link} from "react-router-dom";
 import RoundButton from "../../components/UI/RoundButton";
+import HighRoundRectangle from "../../components/UI/HighRoundRectangle";
 
 
 const Firmen = (props) => {
@@ -81,7 +82,7 @@ const Firmen = (props) => {
 
                         {firma.map((firmen) => (
 
-                            <div className="firma" key={firmen.id}>
+                            <HighRoundRectangle className="firma" key={firmen.id}>
 
                                 <img id="firma" src={Umzugsunternehmen} alt="Firma" height={100} width={100}/>
                                 <div className="firma-bewertung">{firmen.bewertung}</div>
@@ -100,7 +101,7 @@ const Firmen = (props) => {
                                 </Link>
 
 
-                            </div>
+                            </HighRoundRectangle>
 
                         ))}
                     </div>

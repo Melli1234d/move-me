@@ -1,0 +1,9 @@
+.high-round-rectangle {
+    min-width: 12rem;
+    height: auto;
+    border: 10px;
+    display: flex;
+    margin-right: 2rem;
+    flex-direction: column;
+    box-shadow: 0 0px 8px rgb(0 0 0 / 25%);
+}

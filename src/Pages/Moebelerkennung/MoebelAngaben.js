@@ -12,6 +12,9 @@ import Livingroom from "../../components/Pictures/Moebel-Angaben/Raum/livingroom
 import Zerbrechlich from "../../components/Pictures/MoebelAngaben/zerbrechlich.png";
 import Verpackung from "../../components/Pictures/MoebelAngaben/verpckung.png";
 import Kratzer from "../../components/Pictures/MoebelAngaben/kratzer.png";
+import SmallRectangle from "../../components/UI/SmallRectangle";
+import BigRectangle from "../../components/UI/BigRectangle";
+import RoundButton from "../../components/UI/RoundButton";
 
 
 //Kratzer Icon: https://fontawesome.com/icons/claw-marks?s=light&f=classic
@@ -68,33 +71,33 @@ const MoebelAngaben = (props) => {
 
 
                 <form className="moebel-data">
-                    <div className="moebel-data-item">
+                    <SmallRectangle>
                         <label> Anzahl</label>
                         <input type="text" placeholder="Anzahl..."
                                onChange={(event)=>{
                                    setAmount(event.target.value);
                                    setId(unique_id);
                                }}/>
-                    </div>
-                    <div className="moebel-data-item">
+                    </SmallRectangle>
+                    <SmallRectangle>
                         <label>Länge</label>
                         <input type="text" placeholder="Länge.."
                                onChange={(event)=>{
                                    setLength(event.target.value);
                                }}/>
-                    </div>
+                    </SmallRectangle >
 
-                    <div className="moebel-data-item">
+                    <SmallRectangle>
                         <label> Gewicht</label>
                         <input type="text" placeholder="Gewicht.."
                                onChange={(event)=>{
                                    setWeight(event.target.value);
                                }}/>
-                    </div>
+                    </SmallRectangle >
 
 
                 </form>
-                <form className="moebel-data-full-width">
+                <BigRectangle className="moebel-data-full-width">
                     <fieldset>
                         <h5 className="h5-moebel-data"> Raumauswahl</h5>
                     <div className="moebel-specials-item">
@@ -103,9 +106,9 @@ const MoebelAngaben = (props) => {
                                    setRoom(event.target.value);
                                }}/>
                         <label  className="label-special-data" htmlFor="kitchen">
-                            <div className="picture-div">
+                            <RoundButton className="picture-div">
                                 <img id="küche" src={Kitchen} alt="Kitchen" height={18} width={18} />
-                            </div>
+                            </RoundButton>
                             <p className="label-input">Küche</p>
                         </label>
 
@@ -117,9 +120,9 @@ const MoebelAngaben = (props) => {
                                    setRoom(event.target.value);
                                }}/>
                         <label className="label-special-data" htmlFor="bedroom">
-                            <div className="picture-div">
+                            <RoundButton className="picture-div">
                                 <img id="schlafzimmer" src={Bedroom} alt="Schlafzimmer" height={18} width={18} />
-                            </div>
+                            </RoundButton>
                             <p className="label-input">Schlafzimmer</p>
                         </label>
 
@@ -128,19 +131,19 @@ const MoebelAngaben = (props) => {
                                    setRoom(event.target.value);
                                }}/>
                         <label className="label-special-data" htmlFor="livingroom">
-                            <div className="picture-div">
+                            <RoundButton className="picture-div">
                                 <img id="wohnzimmer" src={Livingroom} alt="Wohnzimmer" height={18} width={18} />
-                            </div>
+                            </RoundButton>
                             <p className="label-input">Wohnzimmer</p>
                         </label>
 
                     </div>
                     </fieldset>
 
-                </form>
+                </BigRectangle>
 
 
-                <form className="moebel-data-full-width">
+                <BigRectangle className="moebel-data-full-width">
                     <fieldset>
                         <h5 className="h5-moebel-data"> Besonderheiten</h5>
                     <div className="moebel-specials-item">
@@ -149,9 +152,9 @@ const MoebelAngaben = (props) => {
                                    setBesonderheiten(event.target.value);
                                }}/>
                         <label className="label-special-data" htmlFor="verpackung">
-                            <div className="picture-div">
+                            <RoundButton className="picture-div">
                                 <img id="verpackung-img" src={Verpackung} alt="Kitchen" height={18} width={18} />
-                            </div>
+                            </RoundButton>
                             <p className="label-input">Verpackung</p>
                         </label>
 
@@ -160,9 +163,9 @@ const MoebelAngaben = (props) => {
                                    setBesonderheiten(event.target.value);
                                }}/>
                         <label className="label-special-data" htmlFor="zerbrechlich">
-                            <div className="picture-div">
+                            <RoundButton className="picture-div">
                                 <img id="zerbrechlich-img" src={Zerbrechlich} alt="Kitchen" height={18} width={18} />
-                            </div>
+                            </RoundButton>
                             <p className="label-input">Zerbrechlich</p>
                             </label>
 
@@ -171,16 +174,16 @@ const MoebelAngaben = (props) => {
                                    setBesonderheiten(event.target.value);
                                }}/>
                         <label className="label-special-data" htmlFor="kratzer">
-                            <div className="picture-div">
+                            <RoundButton className="picture-div">
                                 <img id="kratzspuren" src={Kratzer} alt="Kitchen" height={18} width={18} />
-                            </div>
+                            </RoundButton>
                             <p className="label-input">Kratzer</p>
                             </label>
 
                     </div>
                     </fieldset>
 
-                </form>
+                </BigRectangle>
 
                 <button className="right" onClick={handleSubmit}> Hinzufügen</button>
             </div>

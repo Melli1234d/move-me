@@ -1,11 +1,11 @@
 import React from 'react';
 
-import './Square.css';
+import './SmallRectangle.css';
 //Struktur vom React js Udemy Kurs " The Complete Guide" von Maximilian Schwarzmüller übernommen
-const Square = (props) => {
-    const classes = 'square ' + props.className;
+const SmallRectangle = (props) => {
+    const classes = 'small-rectangle ' + props.className;
 
     return <div className={classes}>{props.children}</div>;
 };
 
-export default Square;
+export default SmallRectangle;
