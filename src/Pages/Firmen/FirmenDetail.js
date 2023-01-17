@@ -7,6 +7,7 @@ import Rezensionen from "../../components/Pictures/Rezensionen.png"
 import Backarrow from "../../components/Pictures/backarrow.png";
 import {Link} from "react-router-dom";
 import PrimaryColoredButton from "../../components/UI/PrimaryColoredButton";
+import GraySquare from "../../components/UI/GraySquare";
 //bild: https://de.freepik.com/fotos-kostenlos/junger-kurier-und-sein-kollege-entladen-kartons-aus-lieferwagen_25630693.htm#query=umzug&position=3&from_view=search&track=sph
 
 const FirmenDetail = (props) => {
@@ -33,23 +34,23 @@ const FirmenDetail = (props) => {
 
 
                 <div className="container-row">
-                    <div className="graueBox">
+                    <GraySquare className="graueBox">
                         <div className="number">
                             140
                         </div>
                         <div className="kriterium">
                             Aufträge
                         </div>
-                    </div>
-                    <div className="graueBox">
+                    </GraySquare>
+                    <GraySquare className="graueBox">
                         <div className="number">
                             170
                         </div>
                         <div className="kriterium">
                             Rezensionen
                         </div>
-                    </div>
-                    <div className="graueBox">
+                    </GraySquare>
+                    <GraySquare className="graueBox">
                         <div className="number">
                             4
                         </div>
@@ -57,7 +58,7 @@ const FirmenDetail = (props) => {
                             Bewertungen
                         </div>
                         {/*<img id="rezensionen-trucks" src={Rezensionen} alt="Rezensionen" />*/}
-                    </div>
+                    </GraySquare>
                 </div>
                 <p> Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua</p>
                 <h5 className="h5-firma"> Kostenvoranschlag</h5>
