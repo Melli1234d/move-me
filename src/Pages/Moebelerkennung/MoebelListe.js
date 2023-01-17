@@ -16,6 +16,7 @@ import moebelAngaben from "./MoebelAngaben";
 import Kitchen from "../../components/Pictures/Moebel-Angaben/Raum/kitchen.png";
 import Bedroom from "../../components/Pictures/Moebel-Angaben/Raum/bedroom.png";
 import Livingroom from "../../components/Pictures/Moebel-Angaben/Raum/Wohnzimmer-white.png";
+import RoundButton from "../../components/UI/RoundButton";
 
 
 //tutorial: https://www.youtube.com/watch?v=ad6IavyAHsQ&t=328s
@@ -91,21 +92,21 @@ const MoebelListe = (besonderheiten) => {
                 <h2> Möbel Liste </h2>
                 <div className="firma-row">
                     <div className="center">
-                        <div className="icon-checked">
+                        <RoundButton className="icon-checked">
                             <img className="firma-img" src={Livingroom} alt="Kitchen" height={18} width={19}/>
-                        </div>
+                        </RoundButton>
                         <div className="icon-label-checked">Wohnzimmer</div>
                     </div>
                     <div className="center">
-                        <div className="icon-unchecked">
+                        <RoundButton>
                             <img className="firma-img" src={Kitchen} alt="Livingroom" height={18} width={18}/>
-                        </div>
+                        </RoundButton>
                         <div className="icon-label">Küche</div>
                     </div>
                     <div className="center">
-                        <div className="icon-unchecked">
+                        <RoundButton>
                             <img className="firma-img" src={Bedroom} alt="Bedroom" height={18} width={18}/>
-                        </div>
+                        </RoundButton>
                         <div className="icon-label">Schlafzimmer</div>
                     </div>
 

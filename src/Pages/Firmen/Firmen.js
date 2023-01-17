@@ -12,6 +12,7 @@ import Umzug from "../../components/Pictures/Umzugsunternehmen/Umzug.png";
 import Entrumpeln from "../../components/Pictures/Umzugsunternehmen/Entrümpeln.png";
 import Renovieren from "../../components/Pictures/Umzugsunternehmen/Renovieren.png";
 import {Link} from "react-router-dom";
+import RoundButton from "../../components/UI/RoundButton";
 
 
 const Firmen = (props) => {
@@ -50,21 +51,21 @@ const Firmen = (props) => {
                 <h2> Firmen </h2>
                 <div className="firma-row">
                     <div className="center">
-                        <div className="icon-checked">
+                        <RoundButton className="icon-checked">
                             <img className="firma-img" src={Umzug} alt="Firma" height={18} width={19}/>
-                        </div>
+                        </RoundButton>
                         <div className="icon-label-checked">Umzug</div>
                     </div>
                     <div className="center">
-                        <div className="icon-unchecked">
+                        <RoundButton>
                             <img className="firma-img" src={Entrumpeln} alt="Firma" height={18} width={18}/>
-                        </div>
+                        </RoundButton>
                         <div className="icon-label">Entrümpeln</div>
                     </div>
                     <div className="center">
-                        <div className="icon-unchecked">
+                        <RoundButton>
                             <img className="firma-img" src={Renovieren} alt="Firma" height={18} width={18}/>
-                        </div>
+                        </RoundButton>
                         <div className="icon-label">Renovieren</div>
                     </div>
 

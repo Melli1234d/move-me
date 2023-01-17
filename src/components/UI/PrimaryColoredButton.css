@@ -1,0 +1,13 @@
+.primary-colored-button {
+    margin-left: 2.5rem;
+    background-color: #113352;
+    color: white;
+    border: none;
+    padding: 1rem 2rem 1rem 2rem;
+    border-radius: 25px;
+    display: flex;
+    font-size: 12pt;
+    text-align: center;
+    width: fit-content;
+    margin-bottom: 2rem;
+}

@@ -6,6 +6,7 @@ import Umzugsunternehmen from "../../components/Pictures/Umzugsunternehmen/unter
 import Rezensionen from "../../components/Pictures/Rezensionen.png"
 import Backarrow from "../../components/Pictures/backarrow.png";
 import {Link} from "react-router-dom";
+import PrimaryColoredButton from "../../components/UI/PrimaryColoredButton";
 //bild: https://de.freepik.com/fotos-kostenlos/junger-kurier-und-sein-kollege-entladen-kartons-aus-lieferwagen_25630693.htm#query=umzug&position=3&from_view=search&track=sph
 
 const FirmenDetail = (props) => {
@@ -61,7 +62,7 @@ const FirmenDetail = (props) => {
                 <p> Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua</p>
                 <h5 className="h5-firma"> Kostenvoranschlag</h5>
                 <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua</p>
-                <button> Anfragen</button>
+                <PrimaryColoredButton> Anfragen</PrimaryColoredButton>
 
                 <div className="biggreybox-bewertungen">
                     <div className="bewertung-nutzer">

@@ -5,6 +5,7 @@ import Header from "../../components/Header/Header";
 import Card from "../../components/UI/Card";
 import Moebelerkennung from "../../components/Pictures/Moebelerkennung/Couchbild.png";
 import {Link} from "react-router-dom";
+import PrimaryColoredButton from "../../components/UI/PrimaryColoredButton";
 
 //Start Bildschirm wenn man das erste mal auf "Erkennen" drückt
 const MoebelerkennungScannStarten = (props) => {
@@ -26,7 +27,7 @@ const MoebelerkennungScannStarten = (props) => {
                         Bitte achten Sie darauf, dass das Möbelstück gut zu erkennen ist.
                     </p>
                     <Link to="/TestMoebelerkennung">
-                        <button id="primary-button"> Scannen </button>
+                        <PrimaryColoredButton id="primary-button"> Scannen </PrimaryColoredButton>
                     </Link>
                 </Card>
             </div>

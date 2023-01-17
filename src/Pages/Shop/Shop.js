@@ -6,6 +6,7 @@ import TapBarList from "../../components/TapBar/TapBarList";
 import KartonShoppingList from "../../components/KartonShopping/KartonShoppingList";
 import Einkaufsmoeglichkeit from './../../components/Pictures/wagen2.png';
 import Header from "../../components/Header/Header";
+import RoundButton from "../../components/UI/RoundButton";
 
 
 
@@ -29,7 +30,7 @@ const Home = (props) => {
 
 
             <div className="icon-shopping">
-                <div id="einkaufswagen" ><img id="einkaufenicon" src={Einkaufsmoeglichkeit} alt="Einkaufswagen Icon" height={18} width={18} /></div>
+                <RoundButton id="einkaufswagen" ><img id="einkaufenicon" src={Einkaufsmoeglichkeit} alt="Einkaufswagen Icon" height={18} width={18} /></RoundButton>
             </div>
 
 

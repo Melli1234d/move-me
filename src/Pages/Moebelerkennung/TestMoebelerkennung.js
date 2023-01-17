@@ -91,26 +91,30 @@ const TestMoebelerkennung = (props) => {
 
     var predictionlabels = document.getElementsByClassName("Label-Klassen");
 
+
+    //Funktion für alle labels
     function getHighestPrediction(predictionlabels) {
         //predictionlabels
-        let highestPrediction = null;
-        for(let prediction of predictionlabels) {
-            if(highestPrediction === null) {
-                if(prediction.probability > 0.3) {
+        let highestPrediction = null; //auch nullwert muss erlaubt sein, kann ausversehen mitgegeben werden
+        for(let prediction of predictionlabels) { //schleife die die wahrscheinlichkeit der labels prüft
+            if(highestPrediction === null) { //wenn höchste wahrschenlichkeit kein wert hat
+                if(prediction.probability > 0.3) { //prüfen ob wahrscheinlichkeit größer als 30% ist dann ist die höchste wahrscheinlichkeit die aktuelle wahrscheinlichkeit
                     highestPrediction = prediction;
                 }
 
-            } else if(highestPrediction != null && prediction.probability > highestPrediction.probability){
+            } else if(highestPrediction != null && prediction.probability > highestPrediction.probability){ //wenn höchte wahrscheinlichkeit ungleich null und die wahrscheinlichkeit größer als die höchste wahrschinlichkeit, dann höchste wahrscheinlichkeit als wahrscheinlichkeit
                 highestPrediction = prediction;
             }
         }
-        return highestPrediction;
+        return highestPrediction; //wiedergeben der höchsten wahrscheinlichkeit
     }
-    function getLabelIfIsHighestPropability(predictionlabels, predictionlabel) {
-        let highestLabel= getHighestPrediction(predictionlabels);
-        if(predictionlabel === highestLabel) {
+
+    //fuktion die das Label wiedegibt wenn höchste wahrscheinlichkeit gesetzt
+    function getLabelIfIsHighestPropability(predictionlabels, predictionlabel) { //alle label und das einzelne als wert mitgegeben
+        let highestLabel= getHighestPrediction(predictionlabels); //funktion aufrufen mit allen labeln
+        if(predictionlabel === highestLabel) { //wenn label ist das höchste dann return label + wahrscheinlichkeit
             return predictionlabel.className + ": " + (predictionlabel.probability * 100).toFixed(2) + "%";
-        } else {
+        } else { //wenn nciht bleib leer
             return '';
         }
     }
@@ -122,9 +126,9 @@ const TestMoebelerkennung = (props) => {
     let photoRef = useRef(null); //foto am anfang leer
     let video = document.querySelector('#webcam-container canvas'); //das element von dem das foto gemacht wird
     let photo = document.querySelector('.photo canvas'); //foto muss ein canvas sein
+
     const takePhoto = async () => {
         //await tm.stop();
-
 
         await tm.stop();//kamera geht aus wenn foto gemacht wird
         photoRef.current.appendChild(video); // div element wird hinzugefügt

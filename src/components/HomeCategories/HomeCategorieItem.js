@@ -1,5 +1,6 @@
 import React from 'react';
 import './HomeCategorieItem.css';
+import PrimaryColoredButton from "../UI/PrimaryColoredButton";
 
 //Struktur vom React js Udemy Kurs " The Complete Guide" von Maximilian Schwarzmüller übernommen
 
@@ -14,7 +15,7 @@ const HomeCategorieItem = (props) => {
             <div className={props.contentclass}>
                 <h2 className="home-categorie-item-title">{props.title}</h2>
                 <p className="home-categorie-item-paragraph">{props.paragraph}</p>
-                <button className={props.contentclass}>{props.button}</button>
+                <PrimaryColoredButton className={props.contentclass}>{props.button}</PrimaryColoredButton>
             </div>
 
 
