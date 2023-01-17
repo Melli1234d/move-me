@@ -1,7 +1,5 @@
 import './Moebelerkennung.css'
 import React, {useContext, useEffect, useRef, useState} from 'react';
-import * as tf from '@tensorflow/tfjs';
-import * as tmImage from '@teachablemachine/image';
 import {TeachableMachineContext} from "./TeachableMachineContext";
 import {useAnimationFrame} from "./useAnimationFrame";
 import Header from "../../components/Header/Header";
@@ -16,6 +14,8 @@ import {
     list,
 } from "firebase/storage";
 import {v4} from "uuid";
+import {addDoc, collection} from "@firebase/firestore";
+import {firestore} from "../../firebase";
 
 
 //Code angelehnt an Code Beispiel der automatisch von Teachable Machine generiert wird
@@ -28,8 +28,10 @@ const TestMoebelerkennung = (props) => {
     const tm = useContext(TeachableMachineContext);
 
     const [isPredicting, setPredicting] = useState(false);
-    var [predictions, setPredictions] = useState(null);
+    const [predictions, setPredictions] = useState(null);
 
+    const [furniture, setFurniture] = useState();
+    const furnitureCollectionRef = collection(firestore, "furniture-data");
     //FOTOUPLOAD
 
     const [imageUpload, setImageUpload] = useState(null);
@@ -46,6 +48,9 @@ const TestMoebelerkennung = (props) => {
 
     //Beim Klick auf Button soll das Bild in Firebase geuploadet werden
     const uploadImage = () => {
+        addDoc(furnitureCollectionRef,{
+            furniture:furniture,
+        })
         if (imageUpload == null) return;
         const imageRef = ref(storage, `images/${v4()}`); //namen für bild samndom angeben
         //Bilder hochladen in den storage: das gesetzte Bild mit dem definierten namen als png...
@@ -112,7 +117,8 @@ const TestMoebelerkennung = (props) => {
     //fuktion die das Label wiedegibt wenn höchste wahrscheinlichkeit gesetzt
     function getLabelIfIsHighestPropability(predictionlabels, predictionlabel) { //alle label und das einzelne als wert mitgegeben
         let highestLabel= getHighestPrediction(predictionlabels); //funktion aufrufen mit allen labeln
-        if(predictionlabel === highestLabel) { //wenn label ist das höchste dann return label + wahrscheinlichkeit
+        if(predictionlabel === highestLabel) {
+            //wenn label ist das höchste dann return label + wahrscheinlichkeit
             return predictionlabel.className + ": " + (predictionlabel.probability * 100).toFixed(2) + "%";
         } else { //wenn nciht bleib leer
             return '';
@@ -142,8 +148,8 @@ const TestMoebelerkennung = (props) => {
         setPredictions(false);
         setImageUpload(true);
         console.log(imageUpload)
-        //await tm.stop();
         tm.webcam.canvas.remove(); //camera Canvas wird removt wenn Foto aufgenommen
+        setFurniture(unique_id);
 
     }
 
@@ -158,7 +164,6 @@ const TestMoebelerkennung = (props) => {
 
         divEl.current.appendChild(tm.webcam.canvas); //in dem div das webcam canvas erscheinen lassen*/
         setPredicting(true); //die klassen sollen jetzt angehen
-        console.log(predictionlabels);
 
 
     }
