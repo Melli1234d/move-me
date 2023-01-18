@@ -1,6 +1,6 @@
 import * as tmImage from "@teachablemachine/image";
 import React from 'react';
-const URL = 'tm-my-image-model-5/';
+const URL = 'tm-my-image-model-6/';
 
 //Code angelehnt an Code Beispiel der automatisch von Teachable Machine generiert wird
 
@@ -15,11 +15,11 @@ const TeachableMachineWrapper = {
         // Note: the pose library adds "tmImage" object to your window (window.tmImage)
         const model = await tmImage.load(modelURL, metadataURL);
 
-        const maxPredictions = await model.getTotalClasses();
+
 
         // Convenience function to setup a webcam
         const flip = true; // whether to flip the webcam
-        const webcam = new tmImage.Webcam(200, 200, flip, maxPredictions); // width, height, flip
+        const webcam = new tmImage.Webcam(200, 200, flip); // width, height, flip
         await webcam.setup(); // request access to the webcam
         await webcam.play(); //webcam geht an
 

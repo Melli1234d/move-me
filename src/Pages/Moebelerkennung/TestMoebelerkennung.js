@@ -83,9 +83,7 @@ const TestMoebelerkennung = (props) => {
         if (tm.started) {
             tm.webcam.update(); //webcam wird immer geupdatet, damit neustes build entsteht
             tm.model.predict(tm.webcam.canvas).then(setPredictions) //vorhersagen der erkannten Klassen werden gesetzt
-            /*if (tm.model.predict(tm.webcam.canvas)) {
-                console.log(predictions);
-            }*/
+
         } else if (tm.stoped) {
             tm.webcam.update();
             tm.webcam.stop();
@@ -116,7 +114,6 @@ const TestMoebelerkennung = (props) => {
 
     //fuktion die das Label wiedegibt wenn höchste wahrscheinlichkeit gesetzt
     function getLabelIfIsHighestPropability(predictionlabels, predictionlabel) {//alle label und das einzelne als wert mitgegeben
-
         let highestLabel= getHighestPrediction(predictionlabels); //funktion aufrufen mit allen labeln
         if(predictionlabel === highestLabel) {
             //wenn label ist das höchste dann return label + wahrscheinlichkeit
@@ -152,7 +149,8 @@ const TestMoebelerkennung = (props) => {
         setImageUpload(true);
         console.log(imageUpload)
         tm.webcam.canvas.remove(); //camera Canvas wird removt wenn Foto aufgenommen
-        //setFurniture(unique_id);
+        setFurniture(predictions);
+
 
     }
 
@@ -187,7 +185,7 @@ const TestMoebelerkennung = (props) => {
                 {predictions
                     ? predictions.map((prediction) =>
                         <div id={prediction.className} key={prediction.className} className="Label-Klassen">
-                            {getLabelIfIsHighestPropability(predictions, prediction)}
+                            <p>{getLabelIfIsHighestPropability(predictions, prediction)}</p>
                         </div>)
                     : ''}
             </div>
