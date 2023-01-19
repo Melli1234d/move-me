@@ -276,12 +276,12 @@ fieldset {
     margin-left: auto;
     margin-right: 2.5rem;
 }
-#scan-starten.hide, #erklärung-scan.hide, #Möbelerkennung.hide {
-    display:none
+#scan-starten.hide, #erklärung-scan.hide, #Möbelerkennung.hide, #prediction.hide {
+    display:none;
 }
 #Möbelerkennung {
     margin-top: 5rem;
-    box-shadow: 0 -5px 10px rgb(0 0 0 / 25%);
 }
+
 
 

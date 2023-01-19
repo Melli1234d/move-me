@@ -17,6 +17,8 @@ import {v4} from "uuid";
 import {addDoc, collection} from "@firebase/firestore";
 import {firestore} from "../../firebase";
 import Moebelerkennung from "../../components/Pictures/Moebelerkennung/Couchbild.png";
+import Card from "../../components/UI/Card";
+import PrimaryColoredButton from "../../components/UI/PrimaryColoredButton";
 
 
 //Code angelehnt an Code Beispiel der automatisch von Teachable Machine generiert wird
@@ -186,6 +188,7 @@ function getLabeltoString(prediction) {
         hideScannFotoButton();
         hideErklaerungScann();
         hidePicture();
+
     }
     //Foto Container erst wenn foto gemacht sichtbar
     function addClass() {
@@ -226,6 +229,7 @@ function getLabeltoString(prediction) {
     }
 
 
+
     //WENN BUTTON GEKLICKT, DANN KAMERA STARTEN
 
     //funktioniert
@@ -240,6 +244,7 @@ function getLabeltoString(prediction) {
         hideScannButton();
         hideErklaerungScann();
         hidePicture();
+
     }
 
 
@@ -262,9 +267,12 @@ function getLabeltoString(prediction) {
                         </div>)
                     : ''}
             </div>
-            <img id="Möbelerkennung" src={Moebelerkennung} alt="Möbelerkennung Standardbild" height={150} width={200} />
-            <p id="erklärung-scan">Um ein Möbelstück in die Möbelliste hinzuzufügen, starte bitte den Scan-Vorgang. Achte bitte darauf, dass das Möbelstück gut sichtbar ist. Es sollte vollständig zu sehen sein. Bitte mach die Fotos möglichst bei Tageslicht.</p>
-            <button onClick={handleClick} id="scan-starten">Scan starten</button>
+
+                {/*Das Bild ist von: https://de.freepik.com/fotos-kostenlos/skandinavischer-wohnzimmer-innenarchitektur-zoom-hintergrund_18835794.htm#page=2&query=couch&position=0&from_view=search&track=sph*/}
+                <img id="Möbelerkennung" src={Moebelerkennung} alt="Möbelerkennung Standardbild" height={150} width={200} />
+                <p id="erklärung-scan">Um ein Möbelstück in die Möbelliste hinzuzufügen, starte bitte den Scan-Vorgang. Achte bitte darauf, dass das Möbelstück gut sichtbar ist. Es sollte vollständig zu sehen sein. Bitte mach die Fotos möglichst bei Tageslicht.</p>
+                <button onClick={handleClick} id="scan-starten">Scan starten</button>
+
             <button onClick={takePhoto} id="foto-machen">Foto machen</button>
             <Link to="/Moebelangaben">
                 <button onClick={uploadImage} id="weiter-button">weiter</button>
