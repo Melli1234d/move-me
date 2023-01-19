@@ -118,7 +118,10 @@ const TestMoebelerkennung = (props) => {
         if(predictionlabel === highestLabel) {
             //wenn label ist das höchste dann return label + wahrscheinlichkeit
             return predictionlabel.className + ": " + (predictionlabel.probability * 100).toFixed(2) + "%";
-        } else { //wenn nciht bleib leer
+        } else if(predictionlabel === "") {
+            return "";
+        }
+        else { //wenn nciht bleib leer
             return '';
         }
     }

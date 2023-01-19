@@ -79,6 +79,19 @@ const MoebelListe = (besonderheiten) => {
         }
     }*/
 
+//funktion, wenn die Besonderheiten den String enthalten, dann zeige das entsprechende icon!
+    function getLabeltoString(moebel) {//alle label und das einzelne als wert mitgegeben
+        if(moebel.besonderheiten === "Zerbrechlich") {
+            //wenn label ist das höchste dann return label + wahrscheinlichkeit
+            return <img id="zerbrechlich-img" src={Zerbrechlich} alt="Kitchen" height={18} width={18} />;
+        } else if (moebel.besonderheiten === "Verpackung") {
+            return <img id="verpackung-img" src={Verpackung} alt="Kitchen" height={18} width={18} />
+        }
+        else if (moebel.besonderheiten === "Kratzer"){
+            return <img id="kratzspuren" src={Kratzer} alt="Kitchen" height={18} width={18} />
+        }
+    }
+
 
 
 
@@ -119,8 +132,7 @@ const MoebelListe = (besonderheiten) => {
                             <div className="moebel-container">
                                 <div className="moebel-container-item">
                                     <div className="moebel-daten-icon">
-                                        <div className="moebel-item-content">{moebel.besonderheiten}</div>
-                                        {/*<div className="moebel-item-content">{moebel.room}</div>*/}
+                                        <div className="moebel-item-content">{getLabeltoString(moebel)}</div>
                                     </div>
                                     <div className="moebel-daten-title-amount">
                                         <div className="moebel-title"> Sofa ({moebel.amount})</div>

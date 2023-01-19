@@ -23,7 +23,6 @@ const TeachableMachineWrapper = {
         await webcam.setup(); // request access to the webcam
         await webcam.play(); //webcam geht an
 
-        this.maxprediction = maxPredictions;
         this.model = model;
 
         this.webcam = webcam;
