@@ -245,3 +245,43 @@ fieldset {
     width: 100%;
     height: auto;
 }
+
+
+#photo-container {
+    display: none;
+}
+#photo-container.photo.active {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+#foto-machen {
+    display: none;
+}
+
+#foto-machen.active {
+    display: block;
+}
+
+#weiter-button {
+    display: none;
+}
+
+#weiter-button.active {
+    display: block;
+}
+#scan-starten, #weiter-button, #foto-machen {
+    margin-top: 2rem;
+    margin-left: auto;
+    margin-right: 2.5rem;
+}
+#scan-starten.hide, #erklärung-scan.hide, #Möbelerkennung.hide {
+    display:none
+}
+#Möbelerkennung {
+    margin-top: 5rem;
+    box-shadow: 0 -5px 10px rgb(0 0 0 / 25%);
+}
+
+

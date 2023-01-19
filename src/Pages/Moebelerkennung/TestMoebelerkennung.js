@@ -16,6 +16,7 @@ import {
 import {v4} from "uuid";
 import {addDoc, collection} from "@firebase/firestore";
 import {firestore} from "../../firebase";
+import Moebelerkennung from "../../components/Pictures/Moebelerkennung/Couchbild.png";
 
 
 //Code angelehnt an Code Beispiel der automatisch von Teachable Machine generiert wird
@@ -92,6 +93,8 @@ const TestMoebelerkennung = (props) => {
     })
 
 
+
+
     var predictionlabels = document.getElementsByClassName("Label-Klassen");
 
 
@@ -114,19 +117,42 @@ const TestMoebelerkennung = (props) => {
 
     //fuktion die das Label wiedegibt wenn höchste wahrscheinlichkeit gesetzt
     function getLabelIfIsHighestPropability(predictionlabels, predictionlabel) {//alle label und das einzelne als wert mitgegeben
-        let highestLabel= getHighestPrediction(predictionlabels); //funktion aufrufen mit allen labeln
+        let highestLabel= getHighestPrediction(predictionlabels);//funktion aufrufen mit allen labeln
         if(predictionlabel === highestLabel) {
             //wenn label ist das höchste dann return label + wahrscheinlichkeit
             return predictionlabel.className + ": " + (predictionlabel.probability * 100).toFixed(2) + "%";
         } else if(predictionlabel === "") {
             return "";
         }
-        else { //wenn nciht bleib leer
+        else { //wenn nicht bleib leer
             return '';
         }
+
     }
 
-
+    let highestLabel= getHighestPrediction(predictionlabels);
+/*
+function getLabeltoString(prediction) {
+    let highestLabel= getHighestPrediction(predictionlabels);
+    if(prediction === "Drehstuhl" && highestLabel) {
+        return prediction.className + ": " + (prediction.probability * 100).toFixed(2) + "%";
+    }
+    else if(prediction === "Sofa" && highestLabel) {
+        return prediction.className + ": " + (prediction.probability * 100).toFixed(2) + "%";
+    }
+    else if(prediction === "Tisch" && highestLabel) {
+        return prediction.className + ": " + (prediction.probability * 100).toFixed(2) + "%";
+    }
+    else if(prediction === "Sitzhocker" && highestLabel) {
+        return prediction.className + ": " + (prediction.probability * 100).toFixed(2) + "%";
+    }
+    else if(prediction === "Stuhl" && highestLabel) {
+        return prediction.className + ": " + (prediction.probability * 100).toFixed(2) + "%";
+    }
+    else {
+        return "";
+    }
+}*/
     //WENN BUTTON GEKLICKT, DANN FOTO MACHEN
 
 
@@ -142,19 +168,61 @@ const TestMoebelerkennung = (props) => {
         photoRef.current.appendChild(video); // div element wird hinzugefügt
 
         setPredicting(false); //aufhören klassen anzuzeigen
-        console.log(video);
-        console.log(photo);
+        //console.log(video);
+        //console.log(photo);
         //console.log(photoCanvas);
         let ctx = photo.getContext('2d');  //foto context wird gebraucht
         ctx.drawImage(video, 0, 0, video.width, video.height); //foto wird abgebildet
         setHasPhoto(true); //foto wurde gemacht
         setPredictions(false);
         setImageUpload(true);
-        console.log(imageUpload)
+        //console.log(imageUpload)
         tm.webcam.canvas.remove(); //camera Canvas wird removt wenn Foto aufgenommen
-        setFurniture(predictions);
+        setFurniture(highestLabel);
+        console.log(furniture);
+        addClass();
+        addClassWeiterButton();
+        hideScannButton();
+        hideScannFotoButton();
+        hideErklaerungScann();
+        hidePicture();
+    }
+    //Foto Container erst wenn foto gemacht sichtbar
+    function addClass() {
+        var element = document.getElementById("photo-container");
+        element.classList.add("active");
+    }
+    //foto machen button erst sichtbar wenn scann gestartet
+    function addClassButton() {
+        var element = document.getElementById("foto-machen");
+        element.classList.add("active");
+    }
 
+    //weiter button erst sichtbar, wenn foto gemacht
+    function addClassWeiterButton() {
+        var element = document.getElementById("weiter-button");
+        element.classList.add("active");
+    }
 
+    //hide Scan Starten Button, wenn Scan gestartet wurde & Foto gemacht wurde
+    function hideScannButton() {
+        var element = document.getElementById("scan-starten");
+        element.classList.add("hide");
+    }
+    //remove "active" class von Foto Button, wenn bild gemacht wurde
+    function hideScannFotoButton() {
+        var element = document.getElementById("foto-machen");
+        element.classList.remove("active");
+    }
+    //hide Erklärungstext, wenn Scan gestartet wurde & Foto gemacht wurde
+    function hideErklaerungScann() {
+        var element = document.getElementById("erklärung-scan");
+        element.classList.add("hide");
+    }
+    //hide Picture, wenn Scan gestartet wurde & Foto gemacht wurde
+    function hidePicture() {
+        var element = document.getElementById("Möbelerkennung");
+        element.classList.add("hide");
     }
 
 
@@ -168,8 +236,10 @@ const TestMoebelerkennung = (props) => {
 
         divEl.current.appendChild(tm.webcam.canvas); //in dem div das webcam canvas erscheinen lassen*/
         setPredicting(true); //die klassen sollen jetzt angehen
-
-
+        addClassButton();
+        hideScannButton();
+        hideErklaerungScann();
+        hidePicture();
     }
 
 
@@ -179,7 +249,7 @@ const TestMoebelerkennung = (props) => {
         <div className="secondary-background">
             <Header/>
             <div ref={divEl} id="webcam-container"></div>
-            <div ref={photoRef} className="photo">
+            <div ref={photoRef} className="photo" id="photo-container">
                 <canvas width={200} height={200}/>
             </div>
 
@@ -192,12 +262,12 @@ const TestMoebelerkennung = (props) => {
                         </div>)
                     : ''}
             </div>
-
-
-            <button onClick={handleClick}>Scann starten</button>
-            <button onClick={takePhoto}>Foto machen</button>
+            <img id="Möbelerkennung" src={Moebelerkennung} alt="Möbelerkennung Standardbild" height={150} width={200} />
+            <p id="erklärung-scan">Um ein Möbelstück in die Möbelliste hinzuzufügen, starte bitte den Scan-Vorgang. Achte bitte darauf, dass das Möbelstück gut sichtbar ist. Es sollte vollständig zu sehen sein. Bitte mach die Fotos möglichst bei Tageslicht.</p>
+            <button onClick={handleClick} id="scan-starten">Scan starten</button>
+            <button onClick={takePhoto} id="foto-machen">Foto machen</button>
             <Link to="/Moebelangaben">
-                <button onClick={uploadImage}>weiter</button>
+                <button onClick={uploadImage} id="weiter-button">weiter</button>
             </Link>
             <TapBarList/>
         </div>

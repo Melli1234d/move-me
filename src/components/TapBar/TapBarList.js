@@ -22,7 +22,7 @@ const TapBarList = (props) => {
             id: 'e2',
             icon: <TbArmchair2 size={25}/>,
             name: 'Erkennung',
-            link: '/MoebelerkennungScannStarten',
+            link: '/TestMoebelerkennung',
         },
         {
             id: 'e3',
