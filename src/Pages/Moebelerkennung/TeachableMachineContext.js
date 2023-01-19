@@ -1,3 +1,4 @@
+
 import * as tmImage from "@teachablemachine/image";
 import React from 'react';
 const URL = 'tm-my-image-model-6/';
@@ -32,13 +33,11 @@ const TeachableMachineWrapper = {
     async stop(){
 
         // Convenience function to setup a webcam
-        const webcam = this.webcam //vorherige webcam ansprechen
-        await webcam.setup(); // request access to the webcam
-        await webcam.stop();//webcam geht  aus
-
-
-        this.webcam = webcam;
-        this.stoped = true; //wird gestoppt
+        await this.webcam.stop() //vorherige webcam ansprechen
+        // await webcam.setup(); // request access to the webcam
+        // await webcam.stop();//webcam geht  aus
+        //
+        this.started = false; //wird gestoppt
 
     }
 
