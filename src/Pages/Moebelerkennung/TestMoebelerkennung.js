@@ -17,8 +17,6 @@ import {v4} from "uuid";
 import {addDoc, collection} from "@firebase/firestore";
 import {firestore} from "../../firebase";
 import Moebelerkennung from "../../components/Pictures/Moebelerkennung/Couchbild.png";
-import Card from "../../components/UI/Card";
-import PrimaryColoredButton from "../../components/UI/PrimaryColoredButton";
 
 
 //Code angelehnt an Code Beispiel der automatisch von Teachable Machine generiert wird
@@ -132,29 +130,26 @@ const TestMoebelerkennung = (props) => {
 
     }
 
-    let highestLabel= getHighestPrediction(predictionlabels);
-/*
-function getLabeltoString(prediction) {
-    let highestLabel= getHighestPrediction(predictionlabels);
-    if(prediction === "Drehstuhl" && highestLabel) {
-        return prediction.className + ": " + (prediction.probability * 100).toFixed(2) + "%";
-    }
-    else if(prediction === "Sofa" && highestLabel) {
-        return prediction.className + ": " + (prediction.probability * 100).toFixed(2) + "%";
-    }
-    else if(prediction === "Tisch" && highestLabel) {
-        return prediction.className + ": " + (prediction.probability * 100).toFixed(2) + "%";
-    }
-    else if(prediction === "Sitzhocker" && highestLabel) {
-        return prediction.className + ": " + (prediction.probability * 100).toFixed(2) + "%";
-    }
-    else if(prediction === "Stuhl" && highestLabel) {
-        return prediction.className + ": " + (prediction.probability * 100).toFixed(2) + "%";
-    }
-    else {
-        return "";
-    }
-}*/
+    // let highestLabel = getHighestPrediction(predictionlabels);
+    //
+    //
+    // function getLabeltoString(prediction) {
+    //     let highestLabel = getHighestPrediction(predictionlabels);
+    //     if (prediction === "Drehstuhl" && highestLabel) {
+    //         return prediction.className + ": " + (prediction.probability * 100).toFixed(2) + "%";
+    //     } else if (prediction === "Sofa" && highestLabel) {
+    //         return prediction.className + ": " + (prediction.probability * 100).toFixed(2) + "%";
+    //     } else if (prediction === "Tisch" && highestLabel) {
+    //         return prediction.className + ": " + (prediction.probability * 100).toFixed(2) + "%";
+    //     } else if (prediction === "Sitzhocker" && highestLabel) {
+    //         return prediction.className + ": " + (prediction.probability * 100).toFixed(2) + "%";
+    //     } else if (prediction === "Stuhl" && highestLabel) {
+    //         return prediction.className + ": " + (prediction.probability * 100).toFixed(2) + "%";
+    //     } else {
+    //         return "";
+    //     }
+    // }
+
     //WENN BUTTON GEKLICKT, DANN FOTO MACHEN
 
 
@@ -179,16 +174,16 @@ function getLabeltoString(prediction) {
         setPredictions(false);
         setImageUpload(true);
         //console.log(imageUpload)
-        tm.webcam.canvas.remove(); //camera Canvas wird removt wenn Foto aufgenommen
-        setFurniture(highestLabel);
-        console.log(furniture);
-        addClass();
-        addClassWeiterButton();
-        hideScannButton();
-        hideScannFotoButton();
-        hideErklaerungScann();
-        hidePicture();
 
+        //setFurniture(highestLabel);
+        //console.log(furniture);
+        // addClass();
+        //
+        // hideScannButton();
+        // hideScannFotoButton();
+        // hideErklaerungScann();
+        // hidePicture();
+        // addClassWeiterButton();
     }
     //Foto Container erst wenn foto gemacht sichtbar
     function addClass() {
@@ -229,7 +224,6 @@ function getLabeltoString(prediction) {
     }
 
 
-
     //WENN BUTTON GEKLICKT, DANN KAMERA STARTEN
 
     //funktioniert
@@ -237,14 +231,13 @@ function getLabeltoString(prediction) {
     const handleClick = async () => {
         //const maxPredictions = 1;
         await tm.start(); //starten
-
         divEl.current.appendChild(tm.webcam.canvas); //in dem div das webcam canvas erscheinen lassen*/
         setPredicting(true); //die klassen sollen jetzt angehen
-        addClassButton();
-        hideScannButton();
-        hideErklaerungScann();
-        hidePicture();
-
+        setStep('scan');
+        // addClassButton();
+        // hideScannButton();
+        // hideErklaerungScann();
+        // hidePicture();
     }
 
 
@@ -254,19 +247,28 @@ function getLabeltoString(prediction) {
         <div className="secondary-background">
             <Header/>
             <div ref={divEl} id="webcam-container"></div>
-            <div ref={photoRef} className="photo" id="photo-container">
-                <canvas width={200} height={200}/>
-            </div>
+            {step === 'done' &&
+                <>
+                    {imageUrl && <img src={imageUrl}/>}
+                    <div id="label-container">
+                        {predictions
+                            ? predictions.map((prediction) =>
+                                <div id={prediction.className} key={prediction.className} className="Label-Klassen">
+                                    <p>{getLabelIfIsHighestPropability(predictions, prediction)}</p>
+                                    {/*   <p>{getLabelIfIsHighestPropability(predictions, prediction)}</p>*/}
+                                </div>)
+                            : ''}
+                    </div>
+                    <Link to="/Moebelangaben">
+                        <button id="weiter-button"onClick={handleComplete}>Weiter</button>
+                    </Link>
+                </>}
 
-
-            <div  id="label-container">
-                {predictions
-                    ? predictions.map((prediction) =>
-                        <div id={prediction.className} key={prediction.className} className="Label-Klassen">
-                            <p>{getLabelIfIsHighestPropability(predictions, prediction)}</p>
-                        </div>)
-                    : ''}
-            </div>
+            {step === 'scan' &&
+                <>
+                    <button onClick={takePhoto} id="foto-machen">Foto machen</button>
+                </>
+            }
 
                 {/*Das Bild ist von: https://de.freepik.com/fotos-kostenlos/skandinavischer-wohnzimmer-innenarchitektur-zoom-hintergrund_18835794.htm#page=2&query=couch&position=0&from_view=search&track=sph*/}
                 <img id="Möbelerkennung" src={Moebelerkennung} alt="Möbelerkennung Standardbild" height={150} width={200} />
