@@ -28,7 +28,6 @@ import RoundButton from "../../components/UI/RoundButton";
 
 const MoebelAngaben = (props) => {
     const [amount, setAmount] = useState();
-    const [count, setCount] = useState(0);
     const [length, setLength] = useState();
     const [weight, setWeight] = useState();
     const [room, setRoom] = useState();

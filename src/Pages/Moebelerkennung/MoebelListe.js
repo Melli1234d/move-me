@@ -18,6 +18,7 @@ import Bedroom from "../../components/Pictures/Moebel-Angaben/Raum/bedroom.png";
 import Livingroom from "../../components/Pictures/Moebel-Angaben/Raum/Wohnzimmer-white.png";
 import RoundButton from "../../components/UI/RoundButton";
 import SmallHighRoundRectangle from "../../components/UI/SmallHighRoundRectangle";
+import {getDownloadURL, getStorage, listAll, ref} from "firebase/storage";
 
 
 //tutorial: https://www.youtube.com/watch?v=ad6IavyAHsQ&t=328s
@@ -33,8 +34,20 @@ const MoebelListe = (besonderheiten) => {
     const colletionRef = collection(firestore, 'moebel-data');
     const [moebelData, setMoebelData] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [imageUrl, setImageUrl] = useState();
 
+    const storage= getStorage();
+    const imageRef = ref(storage, "images/");
 
+    useEffect(() => {
+        listAll(imageRef).then((response) => {
+            response.items.forEach((item) => {
+                getDownloadURL(item).then((url) => {
+                    setImageUrl(url);
+                });
+            });
+        });
+    },[]);
 
 
     useEffect(() => {
@@ -58,26 +71,7 @@ const MoebelListe = (besonderheiten) => {
 
 
 
-/*    //versuch den String in ein Icon umzuwandeln!
-    useEffect(() => {
-        if (besonderheiten) {
-            stringToIcon()
-        }
-    }, [besonderheiten]);
 
-
-    function stringToIcon() {
-
-        if (besonderheiten=== "Verpackung") {
-            return <img id="verpackung-img" src={Verpackung} alt="Kitchen" height={18} width={18} />
-        }
-        else if (besonderheiten === "Zerbrechlich") {
-            return <img id="zerbrechlich-img" src={Zerbrechlich} alt="Kitchen" height={18} width={18} />
-        }
-        else if (besonderheiten === "Kratzer"){
-            return <img id="kratzspuren" src={Kratzer} alt="Kitchen" height={18} width={18} />
-        }
-    }*/
 
 //funktion, wenn die Besonderheiten den String enthalten, dann zeige das entsprechende icon!
     function getLabeltoString(moebel) {//alle label und das einzelne als wert mitgegeben
@@ -130,6 +124,8 @@ const MoebelListe = (besonderheiten) => {
                     {moebelData.map((moebel) => (
                         <SmallHighRoundRectangle key={moebel.id}>
                             <div className="moebel-container">
+
+                                <img className="imgfirebase" src={imageUrl}  />
                                 <div className="moebel-container-item">
                                     <div className="moebel-daten-icon">
                                         <div className="moebel-item-content">{getLabeltoString(moebel)}</div>

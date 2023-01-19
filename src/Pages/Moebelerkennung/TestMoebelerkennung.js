@@ -1,4 +1,3 @@
-
 import './Moebelerkennung.css'
 import React, {useContext, useEffect, useRef, useState} from 'react';
 import {TeachableMachineContext} from "./TeachableMachineContext";
@@ -18,30 +17,44 @@ import {v4} from "uuid";
 import {addDoc, collection} from "@firebase/firestore";
 import {firestore} from "../../firebase";
 import Moebelerkennung from "../../components/Pictures/Moebelerkennung/Couchbild.png";
+import SmallRectangle from "../../components/UI/SmallRectangle";
+import BigRectangle from "../../components/UI/BigRectangle";
+import RoundButton from "../../components/UI/RoundButton";
+import Kitchen from "../../components/Pictures/Moebel-Angaben/Raum/kitchen.png";
+import Bedroom from "../../components/Pictures/Moebel-Angaben/Raum/bedroom.png";
+import Livingroom from "../../components/Pictures/Moebel-Angaben/Raum/livingroom.png";
+import Verpackung from "../../components/Pictures/MoebelAngaben/verpckung.png";
+import Zerbrechlich from "../../components/Pictures/MoebelAngaben/zerbrechlich.png";
+import Kratzer from "../../components/Pictures/MoebelAngaben/kratzer.png";
 
-
+//https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/toBlob?retiredLocale=de
 //Code angelehnt an Code Beispiel der automatisch von Teachable Machine generiert wird
-//Code Foto machen: https://www.youtube.com/watch?v=0iteBJ-fuRA&t=311s
-// Code Photo nach Firebase hochladen: tutorial: https://www.youtube.com/watch?v=YOAeBSCkArA&t=84s or github: https://github.com/machadop1407/firebase-file-upload
+// Code Photo nach Firebase hochladen: or github: https://github.com/machadop1407/firebase-file-upload
 //const URL = 'tm-my-image-model-5/';
 
 const TestMoebelerkennung = (props) => {
     const [hasPhoto, setHasPhoto] = useState(false);
-    const tm = useContext(TeachableMachineContext);
-
     const [isPredicting, setPredicting] = useState(false);
     const [predictions, setPredictions] = useState(null);
     const [step, setStep] = useState('info'); // 'scan', 'done'
     const [storedImageId, setStoredImageId] = useState();
-
-
-    const [furniture, setFurniture] = useState();
-    const furnitureCollectionRef = collection(firestore, "furniture-data");
-    //FOTOUPLOAD
-
-    const [imageUpload, setImageUpload] = useState(null);
     const [imageUrl, setImageUrl] = useState(null);
+    const [amount, setAmount] = useState();
+    const [length, setLength] = useState();
+    const [weight, setWeight] = useState();
+    const [room, setRoom] = useState();
+    const [id, setId] = useState();
+    const [besonderheiten, setBesonderheiten] = useState();
 
+    const unique_id = v4();
+    const furnitureCollectionRef = collection(firestore, "furniture-data");
+
+    //der Pfad für die Sammlung in Firebase, falls noch nciht vorhanden wird es angelegt
+    const moebelCollectionRef = collection(firestore, "moebel-data");
+
+
+    const tm = useContext(TeachableMachineContext);
+    //FOTOUPLOAD
     // const unique_id = v4();
     // const storage = getStorage();
     //Umwandeln in ein PNG da es vorher ein octet-stream war und das bild sonst nicht angezeigt werden kann!!
@@ -140,7 +153,7 @@ const TestMoebelerkennung = (props) => {
 
         const imageId = v4();
 
-        // setStoredImageId
+        setStoredImageId(imageId);
 
         tm.webcam.canvas.toBlob(imageBlob => {
 
@@ -163,8 +176,6 @@ const TestMoebelerkennung = (props) => {
         })
 
 
-        //await tm.stop();
-
         await tm.stop();//kamera geht aus wenn foto gemacht wird
         tm.webcam.canvas.remove(); //camera Canvas wird removt wenn Foto aufgenommen
         setPredicting(false); //aufhören klassen anzuzeigen
@@ -179,7 +190,6 @@ const TestMoebelerkennung = (props) => {
 
     //beim Button klicken soll die Kamera angehen, die Vorhersagen werden abgebildet und das Kamera Bild wird angezeigt
     const handleClick = async () => {
-        //const maxPredictions = 1;
         await tm.start(); //starten
         divEl.current.appendChild(tm.webcam.canvas); //in dem div das webcam canvas erscheinen lassen*/
         setPredicting(true); //die klassen sollen jetzt angehen
@@ -187,10 +197,34 @@ const TestMoebelerkennung = (props) => {
 
     }
 
+
+
+    //beim Klick auf den Button werden sie Sachen an Firebase geschickt
     const handleComplete = ()=>{
-
+        setStep('data');
         // neues möbelstück anlegen und storedImageId verwenden
-
+        addDoc(moebelCollectionRef,{
+            id:"",
+            amount: "",
+            length: "",
+            weight: "",
+            room: "",
+            besonderheiten: "",
+            storedImageId: storedImageId,
+        })
+    }
+    const handleDone = ()=>{
+        setStep('info');
+        // neues möbelstück anlegen und storedImageId verwenden
+        addDoc(moebelCollectionRef,{
+            id:id,
+            amount: amount,
+            length: length,
+            weight: weight,
+            room: room,
+            besonderheiten: besonderheiten,
+            storedImageId: storedImageId,
+        })
     }
 
 
@@ -198,32 +232,9 @@ const TestMoebelerkennung = (props) => {
         <div className="secondary-background">
             <Header/>
             <div ref={divEl} id="webcam-container"></div>
-            {step === 'done' &&
-                <>
-                    {imageUrl && <img src={imageUrl}/>}
-                    <div id="label-container">
-                        {predictions
-                            ? predictions.map((prediction) =>
-                                <div id={prediction.className} key={prediction.className} className="Label-Klassen">
-                                    <p>{getLabelIfIsHighestPropability(predictions, prediction)}</p>
-                                    {/*   <p>{getLabelIfIsHighestPropability(predictions, prediction)}</p>*/}
-                                </div>)
-                            : ''}
-                    </div>
-                    <Link to="/Moebelangaben">
-                        <button id="weiter-button"onClick={handleComplete}>Weiter</button>
-                    </Link>
-                </>}
-
-            {step === 'scan' &&
-                <>
-                    <button onClick={takePhoto} id="foto-machen">Foto machen</button>
-                </>
-            }
-
-            {/*Das Bild ist von: https://de.freepik.com/fotos-kostenlos/skandinavischer-wohnzimmer-innenarchitektur-zoom-hintergrund_18835794.htm#page=2&query=couch&position=0&from_view=search&track=sph*/}
             {step === 'info' &&
                 <>
+                    {/*Das Bild ist von: https://de.freepik.com/fotos-kostenlos/skandinavischer-wohnzimmer-innenarchitektur-zoom-hintergrund_18835794.htm#page=2&query=couch&position=0&from_view=search&track=sph*/}
                     <img id="Möbelerkennung" src={Moebelerkennung} alt="Möbelerkennung Standardbild" height={150}
                          width={200}/>
                     <p id="erklärung-scan">Um ein Möbelstück in die Möbelliste hinzuzufügen, starte bitte den
@@ -234,7 +245,145 @@ const TestMoebelerkennung = (props) => {
                     <button onClick={handleClick} id="scan-starten">Scan starten</button>
                 </>
             }
+            {step === 'scan' &&
+                <>
+                    <button onClick={takePhoto} id="foto-machen">Foto machen</button>
+                </>
+            }
+            {step === 'done' &&
+            <>
+                {imageUrl && <img src={imageUrl}/>}
+                <div id="label-container">
+                    {predictions
+                        ? predictions.map((prediction) =>
+                            <div id={prediction.className} key={prediction.className} className="Label-Klassen">
+                                <p>{getLabelIfIsHighestPropability(predictions, prediction)}</p>
+                                {/*   <p>{getLabelIfIsHighestPropability(predictions, prediction)}</p>*/}
+                            </div>)
+                        : ''}
+                </div>
+                <button id="weiter-button"onClick={handleComplete}>Weiter</button>
+            </>}
 
+            {step === 'data' &&
+                <>
+                    {imageUrl && <img src={imageUrl}/>}
+                    <form className="moebel-data">
+                        <SmallRectangle>
+                            <label> Anzahl</label>
+                            <input type="text" placeholder="Anzahl..."
+                                   onChange={(event)=>{
+                                       setAmount(event.target.value);
+                                       setId(unique_id);
+                                   }}/>
+                        </SmallRectangle>
+                        <SmallRectangle>
+                            <label>Länge</label>
+                            <input type="text" placeholder="Länge.."
+                                   onChange={(event)=>{
+                                       setLength(event.target.value);
+                                   }}/>
+                        </SmallRectangle >
+
+                        <SmallRectangle>
+                            <label> Gewicht</label>
+                            <input type="text" placeholder="Gewicht.."
+                                   onChange={(event)=>{
+                                       setWeight(event.target.value);
+                                   }}/>
+                        </SmallRectangle >
+
+
+                    </form>
+                    <BigRectangle className="moebel-data-full-width">
+                        <fieldset>
+                            <h5 className="h5-moebel-data"> Raumauswahl</h5>
+                            <div className="moebel-specials-item">
+                                <input type="radio" id="kitchen"value="Küche" name="Raum"
+                                       onChange={(event)=>{
+                                           setRoom(event.target.value);
+                                       }}/>
+                                <label  className="label-special-data" htmlFor="kitchen">
+                                    <RoundButton className="picture-div">
+                                        <img id="küche" src={Kitchen} alt="Kitchen" height={18} width={18} />
+                                    </RoundButton>
+                                    <p className="label-input">Küche</p>
+                                </label>
+
+
+
+
+                                <input type="radio" id="bedroom"value="Schlafzimmer" name="Raum"
+                                       onChange={(event)=>{
+                                           setRoom(event.target.value);
+                                       }}/>
+                                <label className="label-special-data" htmlFor="bedroom">
+                                    <RoundButton className="picture-div">
+                                        <img id="schlafzimmer" src={Bedroom} alt="Schlafzimmer" height={18} width={18} />
+                                    </RoundButton>
+                                    <p className="label-input">Schlafzimmer</p>
+                                </label>
+
+                                <input type="radio" id="livingroom"value="Wohnzimmer" name="Raum"
+                                       onChange={(event)=>{
+                                           setRoom(event.target.value);
+                                       }}/>
+                                <label className="label-special-data" htmlFor="livingroom">
+                                    <RoundButton className="picture-div">
+                                        <img id="wohnzimmer" src={Livingroom} alt="Wohnzimmer" height={18} width={18} />
+                                    </RoundButton>
+                                    <p className="label-input">Wohnzimmer</p>
+                                </label>
+
+                            </div>
+                        </fieldset>
+
+                    </BigRectangle>
+
+
+                    <BigRectangle className="moebel-data-full-width">
+                        <fieldset>
+                            <h5 className="h5-moebel-data"> Besonderheiten</h5>
+                            <div className="moebel-specials-item">
+                                <input type="radio" id="verpackung"value="Verpackung" name="Besonderheiten"
+                                       onChange={(event)=>{
+                                           setBesonderheiten(event.target.value);
+                                       }}/>
+                                <label className="label-special-data" htmlFor="verpackung">
+                                    <RoundButton className="picture-div">
+                                        <img id="verpackung-img" src={Verpackung} alt="Kitchen" height={18} width={18} />
+                                    </RoundButton>
+                                    <p className="label-input">Verpackung</p>
+                                </label>
+
+                                <input type="radio" id="zerbrechlich"value="Zerbrechlich" name="Besonderheiten"
+                                       onChange={(event)=>{
+                                           setBesonderheiten(event.target.value);
+                                       }}/>
+                                <label className="label-special-data" htmlFor="zerbrechlich">
+                                    <RoundButton className="picture-div">
+                                        <img id="zerbrechlich-img" src={Zerbrechlich} alt="Kitchen" height={18} width={18} />
+                                    </RoundButton>
+                                    <p className="label-input">Zerbrechlich</p>
+                                </label>
+
+                                <input type="radio" id="kratzer"value="Kratzer" name="Besonderheiten"
+                                       onChange={(event)=>{
+                                           setBesonderheiten(event.target.value);
+                                       }}/>
+                                <label className="label-special-data" htmlFor="kratzer">
+                                    <RoundButton className="picture-div">
+                                        <img id="kratzspuren" src={Kratzer} alt="Kitchen" height={18} width={18} />
+                                    </RoundButton>
+                                    <p className="label-input">Kratzer</p>
+                                </label>
+
+                            </div>
+                        </fieldset>
+
+                    </BigRectangle>
+                    <button className="right" onClick={handleDone}> Hinzufügen</button>
+                </>}
             <TapBarList/>
         </div>
     );
