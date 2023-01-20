@@ -134,15 +134,30 @@ const TestMoebelerkennung = (props) => {
             return predictionlabel.className + ": " + (predictionlabel.probability * 100).toFixed(2) + "%";
         } else if (predictionlabel === "") {
             return "";
-        } else { //wenn nicht bleib leer
+        }
+        else { //wenn nicht bleib leer
             return '';
         }
 
     }
 
-    function labelToFirebase(prediction) {
-        if (prediction.className === "Sofa") {
 
+
+    // Switch name von ClassNames
+    function showTextonLabels(highestPrediction) {
+        switch (highestPrediction) {
+            case "Drehhocker":
+                return setLabel("Drehhocker");
+            case "Drehstuhl":
+                return setLabel("Drehstuhl");
+            case "Sofa":
+                return setLabel("Sofa");
+            case "Stuhl":
+                return setLabel("Stuhl");
+            case "Tisch":
+                return setLabel("Tisch");
+            default:
+                return "";
         }
     }
 
@@ -150,15 +165,9 @@ const TestMoebelerkennung = (props) => {
 
     //WENN BUTTON GEKLICKT, DANN FOTO MACHEN
 
-
-
-
     const takePhoto = async () => {
 
         const imageId = v4();
-
-
-
         tm.webcam.canvas.toBlob(imageBlob => {
 
             const storage = getStorage();
@@ -220,6 +229,7 @@ const TestMoebelerkennung = (props) => {
             room: room,
             besonderheiten: besonderheiten,
             storedImageId: storedImageId,
+           /* label: label,*/
         })
     }
 
@@ -254,7 +264,6 @@ const TestMoebelerkennung = (props) => {
                         ? predictions.map((prediction) =>
                             <div id={prediction.className} key={prediction.className} className="Label-Klassen">
                                 <p>{getLabelIfIsHighestPropability(predictions, prediction)}</p>
-                                <p> {labelToFirebase(prediction)}</p>
                                 {/*   <p>{getLabelIfIsHighestPropability(predictions, prediction)}</p>*/}
                             </div>)
                         : ''}
@@ -265,6 +274,7 @@ const TestMoebelerkennung = (props) => {
             {step === 'data' &&
                 <>
                     {imageUrl && <img className="imageurl" src={imageUrl}/>}
+                    {label && <p> {label}</p>}
                     <form className="moebel-data">
                         <SmallRectangle>
                             <label> Anzahl</label>
