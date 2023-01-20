@@ -19,12 +19,9 @@ import HighRoundRectangle from "../../components/UI/HighRoundRectangle";
 const Firmen = (props) => {
     const colletionRef = collection(firestore, 'umzugsunternehmen');
     const [firma, setFirma] = useState([]);
-    const [loading, setLoading] = useState(false);
 
 
     useEffect(() => {
-        console.log(firma);
-        setLoading(true);
         // const unsub = onSnapshot(q, (querySnapshot) => {
         const unsub = onSnapshot(colletionRef, (querySnapshot) => {
             const items = [];
@@ -32,7 +29,6 @@ const Firmen = (props) => {
                 items.push(doc.data());
             });
             setFirma(items);
-            setLoading(false);
         });
         return () => {
             unsub();
