@@ -14,6 +14,7 @@ h1 {
     border-top-right-radius: 30px;
     width: 100%;
     height: auto;
+    margin-top: 5rem;
 }
 
 
@@ -240,6 +241,12 @@ fieldset {
     margin: auto auto;
 }
 
+
+.imageurl {
+
+    justify-content: center;
+    display: flex;
+}
 
 .imgfirebase {
     width: 100%;

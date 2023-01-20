@@ -44,6 +44,7 @@ const TestMoebelerkennung = (props) => {
     const [weight, setWeight] = useState();
     const [room, setRoom] = useState();
     const [id, setId] = useState();
+    const [label, setLabel] = useState();
     const [besonderheiten, setBesonderheiten] = useState();
 
     const unique_id = v4();
@@ -102,10 +103,6 @@ const TestMoebelerkennung = (props) => {
             tm.webcam.update(); //webcam wird immer geupdatet, damit neustes build entsteht
             tm.model.predict(tm.webcam.canvas).then(setPredictions) //vorhersagen der erkannten Klassen werden gesetzt
 
-        } else if (tm.stoped) {
-            tm.webcam.update();
-            tm.webcam.stop();
-            console.log("ended");
         }
     })
 
@@ -143,6 +140,13 @@ const TestMoebelerkennung = (props) => {
 
     }
 
+    function labelToFirebase(prediction) {
+        if (prediction.className === "Sofa") {
+
+        }
+    }
+
+
 
     //WENN BUTTON GEKLICKT, DANN FOTO MACHEN
 
@@ -153,7 +157,7 @@ const TestMoebelerkennung = (props) => {
 
         const imageId = v4();
 
-        setStoredImageId(imageId);
+
 
         tm.webcam.canvas.toBlob(imageBlob => {
 
@@ -170,10 +174,12 @@ const TestMoebelerkennung = (props) => {
 
                 getDownloadURL(snapshot.ref).then((url) => {
                     setImageUrl(url);
+                    setStoredImageId(url);
                     console.log(metadata);
                 });
             });
         })
+
 
 
         await tm.stop();//kamera geht aus wenn foto gemacht wird
@@ -202,16 +208,6 @@ const TestMoebelerkennung = (props) => {
     //beim Klick auf den Button werden sie Sachen an Firebase geschickt
     const handleComplete = ()=>{
         setStep('data');
-        // neues möbelstück anlegen und storedImageId verwenden
-        addDoc(moebelCollectionRef,{
-            id:"",
-            amount: "",
-            length: "",
-            weight: "",
-            room: "",
-            besonderheiten: "",
-            storedImageId: storedImageId,
-        })
     }
     const handleDone = ()=>{
         setStep('info');
@@ -252,12 +248,13 @@ const TestMoebelerkennung = (props) => {
             }
             {step === 'done' &&
             <>
-                {imageUrl && <img src={imageUrl}/>}
+                {imageUrl && <img className="imageurl" src={imageUrl}/>}
                 <div id="label-container">
                     {predictions
                         ? predictions.map((prediction) =>
                             <div id={prediction.className} key={prediction.className} className="Label-Klassen">
                                 <p>{getLabelIfIsHighestPropability(predictions, prediction)}</p>
+                                <p> {labelToFirebase(prediction)}</p>
                                 {/*   <p>{getLabelIfIsHighestPropability(predictions, prediction)}</p>*/}
                             </div>)
                         : ''}
@@ -267,7 +264,7 @@ const TestMoebelerkennung = (props) => {
 
             {step === 'data' &&
                 <>
-                    {imageUrl && <img src={imageUrl}/>}
+                    {imageUrl && <img className="imageurl" src={imageUrl}/>}
                     <form className="moebel-data">
                         <SmallRectangle>
                             <label> Anzahl</label>

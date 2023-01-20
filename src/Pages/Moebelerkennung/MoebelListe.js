@@ -30,7 +30,7 @@ import {getDownloadURL, getStorage, listAll, ref} from "firebase/storage";
 
 const MoebelListe = (besonderheiten) => {
 
-
+    const [storedImageId, setStoredImageId] = useState();
     const colletionRef = collection(firestore, 'moebel-data');
     const [moebelData, setMoebelData] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -72,7 +72,6 @@ const MoebelListe = (besonderheiten) => {
 
 
 
-
 //funktion, wenn die Besonderheiten den String enthalten, dann zeige das entsprechende icon!
     function getLabeltoString(moebel) {//alle label und das einzelne als wert mitgegeben
         if(moebel.besonderheiten === "Zerbrechlich") {
@@ -84,6 +83,10 @@ const MoebelListe = (besonderheiten) => {
         else if (moebel.besonderheiten === "Kratzer"){
             return <img id="kratzspuren" src={Kratzer} alt="Kitchen" height={18} width={18} />
         }
+    }
+    function getPictureToId(moebel) {//alle label und das einzelne als wert mitgegeben
+        let imageUrl = moebel.storedImageId;
+        return  <img id={moebel.storedImageId} className="imgfirebase" src={imageUrl}  />;
     }
 
 
@@ -125,7 +128,8 @@ const MoebelListe = (besonderheiten) => {
                         <SmallHighRoundRectangle key={moebel.id}>
                             <div className="moebel-container">
 
-                                <img className="imgfirebase" src={imageUrl}  />
+                                <img id={moebel.storedImageId} className="imgfirebase" src={moebel.storedImageId}  />
+                           {/*     {getPictureToId(moebel)}*/}
                                 <div className="moebel-container-item">
                                     <div className="moebel-daten-icon">
                                         <div className="moebel-item-content">{getLabeltoString(moebel)}</div>
