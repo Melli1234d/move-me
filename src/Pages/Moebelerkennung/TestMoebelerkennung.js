@@ -110,15 +110,13 @@ const TestMoebelerkennung = (props) => {
 
 
     //Funktion für alle labels
-    function getHighestPrediction(predictionlabels) {
-        //predictionlabels
+    function getHighestPrediction(predictions) {
         let highestPrediction = null; //auch nullwert muss erlaubt sein, kann ausversehen mitgegeben werden
-        for (let prediction of predictionlabels) { //schleife die die wahrscheinlichkeit der labels prüft
+        for (let prediction of predictions) { //schleife die die wahrscheinlichkeit der labels prüft
             if (highestPrediction === null) { //wenn höchste wahrschenlichkeit kein wert hat
                 if (prediction.probability > 0.3 && hasPhoto === true) { //prüfen ob wahrscheinlichkeit größer als 30% ist dann ist die höchste wahrscheinlichkeit die aktuelle wahrscheinlichkeit
                     highestPrediction = prediction;
                 }
-
             } else if (highestPrediction != null && prediction.probability > highestPrediction.probability) { //wenn höchte wahrscheinlichkeit ungleich null und die wahrscheinlichkeit größer als die höchste wahrschinlichkeit, dann höchste wahrscheinlichkeit als wahrscheinlichkeit
                 highestPrediction = prediction;
             }
@@ -127,12 +125,12 @@ const TestMoebelerkennung = (props) => {
     }
 
     //fuktion die das Label wiedegibt wenn höchste wahrscheinlichkeit gesetzt
-    function getLabelIfIsHighestPropability(predictionlabels, predictionlabel) {//alle label und das einzelne als wert mitgegeben
-        let highestLabel = getHighestPrediction(predictionlabels);//funktion aufrufen mit allen labeln
-        if (predictionlabel === highestLabel) {
+    function getLabelIfIsHighestPropability(predictions, prediction) {//alle label und das einzelne als wert mitgegeben
+        let highestLabel = getHighestPrediction(predictions);//funktion aufrufen mit allen labeln
+        if (prediction === highestLabel) {
             //wenn label ist das höchste dann return label + wahrscheinlichkeit
-            return predictionlabel.className + ": " + (predictionlabel.probability * 100).toFixed(2) + "%";
-        } else if (predictionlabel === "") {
+            return prediction.className + ": " + (prediction.probability * 100).toFixed(2) + "%";
+        } else if (prediction === "") {
             return "";
         }
         else { //wenn nicht bleib leer
@@ -143,30 +141,18 @@ const TestMoebelerkennung = (props) => {
 
 
 
-    // Switch name von ClassNames
-    function showTextonLabels(highestPrediction) {
-        switch (highestPrediction) {
-            case "Drehhocker":
-                return setLabel("Drehhocker");
-            case "Drehstuhl":
-                return setLabel("Drehstuhl");
-            case "Sofa":
-                return setLabel("Sofa");
-            case "Stuhl":
-                return setLabel("Stuhl");
-            case "Tisch":
-                return setLabel("Tisch");
-            default:
-                return "";
-        }
-    }
+
+
+
+
+
 
 
 
     //WENN BUTTON GEKLICKT, DANN FOTO MACHEN
 
     const takePhoto = async () => {
-
+        setLabel(predictions); //Ergebnis null
         const imageId = v4();
         tm.webcam.canvas.toBlob(imageBlob => {
 
@@ -188,8 +174,6 @@ const TestMoebelerkennung = (props) => {
                 });
             });
         })
-
-
 
         await tm.stop();//kamera geht aus wenn foto gemacht wird
         tm.webcam.canvas.remove(); //camera Canvas wird removt wenn Foto aufgenommen
@@ -229,7 +213,7 @@ const TestMoebelerkennung = (props) => {
             room: room,
             besonderheiten: besonderheiten,
             storedImageId: storedImageId,
-           /* label: label,*/
+            label: label,
         })
     }
 
@@ -264,7 +248,8 @@ const TestMoebelerkennung = (props) => {
                         ? predictions.map((prediction) =>
                             <div id={prediction.className} key={prediction.className} className="Label-Klassen">
                                 <p>{getLabelIfIsHighestPropability(predictions, prediction)}</p>
-                                {/*   <p>{getLabelIfIsHighestPropability(predictions, prediction)}</p>*/}
+                              {/*  <p> {setLabelFirebase(prediction)}</p>*/}
+
                             </div>)
                         : ''}
                 </div>
@@ -274,7 +259,7 @@ const TestMoebelerkennung = (props) => {
             {step === 'data' &&
                 <>
                     {imageUrl && <img className="imageurl" src={imageUrl}/>}
-                    {label && <p> {label}</p>}
+                   {/* {label && <p> {label}</p>}*/}
                     <form className="moebel-data">
                         <SmallRectangle>
                             <label> Anzahl</label>

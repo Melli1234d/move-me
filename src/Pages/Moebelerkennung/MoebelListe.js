@@ -73,7 +73,7 @@ const MoebelListe = (besonderheiten) => {
 
 
 //funktion, wenn die Besonderheiten den String enthalten, dann zeige das entsprechende icon!
-    function getLabeltoString(moebel) {//alle label und das einzelne als wert mitgegeben
+    function getLabeltoIcon(moebel) {//alle label und das einzelne als wert mitgegeben
         if(moebel.besonderheiten === "Zerbrechlich") {
             //wenn label ist das höchste dann return label + wahrscheinlichkeit
             return <img id="zerbrechlich-img" src={Zerbrechlich} alt="Kitchen" height={18} width={18} />;
@@ -84,10 +84,56 @@ const MoebelListe = (besonderheiten) => {
             return <img id="kratzspuren" src={Kratzer} alt="Kitchen" height={18} width={18} />
         }
     }
-    function getPictureToId(moebel) {//alle label und das einzelne als wert mitgegeben
-        let imageUrl = moebel.storedImageId;
-        return  <img id={moebel.storedImageId} className="imgfirebase" src={imageUrl}  />;
+
+
+
+    function getLabeltoFirebase(moebel) {//alle label und das einzelne als wert mitgegeben
+        if(moebel.label[0].probability > moebel.label[1].probability) {
+            if(moebel.label[0].probability > moebel.label[2].probability) {
+                if(moebel.label[0].probability > moebel.label[3].probability) {
+                    if(moebel.label[0].probability > moebel.label[4].probability) {
+                        return moebel.label[0].className;
+                    }
+                }
+            }
+        } else if (moebel.label[1].probability > moebel.label[0].probability) {
+            if(moebel.label[1].probability > moebel.label[2].probability) {
+                if(moebel.label[1].probability > moebel.label[3].probability) {
+                    if(moebel.label[1].probability > moebel.label[4].probability) {
+                        return moebel.label[1].className;
+                    }
+                }
+            }
+        }else if (moebel.label[2].probability > moebel.label[0].probability) {
+            if(moebel.label[2].probability > moebel.label[1].probability) {
+                if(moebel.label[2].probability > moebel.label[3].probability) {
+                    if(moebel.label[2].probability > moebel.label[4].probability) {
+                        return moebel.label[2].className;
+                    }
+                }
+            }
+        }else if (moebel.label[3].probability > moebel.label[0].probability) {
+            if(moebel.label[3].probability > moebel.label[1].probability) {
+                if(moebel.label[3].probability > moebel.label[2].probability) {
+                    if(moebel.label[3].probability > moebel.label[4].probability) {
+                        return moebel.label[3].className;
+                    }
+                }
+            }
+        }else if (moebel.label[4].probability > moebel.label[0].probability) {
+            if(moebel.label[4].probability > moebel.label[1].probability) {
+                if(moebel.label[4].probability > moebel.label[2].probability) {
+                    if(moebel.label[4].probability > moebel.label[3].probability) {
+                        return moebel.label[4].className;
+                    }
+                }
+            }
+        } else {
+            return "";
+        }
+
     }
+
 
 
 
@@ -129,13 +175,13 @@ const MoebelListe = (besonderheiten) => {
                             <div className="moebel-container">
 
                                 <img id={moebel.storedImageId} className="imgfirebase" src={moebel.storedImageId}  />
-                           {/*     {getPictureToId(moebel)}*/}
+
                                 <div className="moebel-container-item">
                                     <div className="moebel-daten-icon">
-                                        <div className="moebel-item-content">{getLabeltoString(moebel)}</div>
+                                        <div className="moebel-item-content">{getLabeltoIcon(moebel)}</div>
                                     </div>
                                     <div className="moebel-daten-title-amount">
-                                        <div className="moebel-title"> Sofa ({moebel.amount})</div>
+                                        <div className="moebel-title">{getLabeltoFirebase(moebel)} ({moebel.amount})</div>
                                     </div>
                                     <div className="moebel-daten-length-width">
                                         <div className="moebel-laenge-gewicht">{moebel.length}cm, {moebel.weight}kg</div>
