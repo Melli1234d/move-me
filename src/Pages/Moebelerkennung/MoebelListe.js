@@ -82,44 +82,44 @@ const MoebelListe = (besonderheiten) => {
         }
     }
 
-
-    function getLabeltoFirebase(moebel) {//alle label und das einzelne als wert mitgegeben
-        if (moebel.label[0].probability > moebel.label[1].probability) {
-            if (moebel.label[0].probability > moebel.label[2].probability) {
-                if (moebel.label[0].probability > moebel.label[3].probability) {
-                    if (moebel.label[0].probability > moebel.label[4].probability) {
+    //funktion die aus dem Array die höchste Wahrscheinlichkeit raus holt, umgerechnet mal 100 und mit 2 nach komma stellen
+    function getLabeltoFirebase(moebel) {
+        if ((moebel.label[0].probability*100).toFixed(2) > (moebel.label[1].probability*100).toFixed(2)) {
+            if ((moebel.label[0].probability*100).toFixed(2) > (moebel.label[2].probability*100).toFixed(2)) {
+                if ((moebel.label[0].probability*100).toFixed(2) > (moebel.label[3].probability*100).toFixed(2)) {
+                    if ((moebel.label[0].probability*100).toFixed(2) > (moebel.label[4].probability*100).toFixed(2)) {
                         return "Sofa";
                     }
                 }
             }
-        } else if (moebel.label[1].probability > moebel.label[0].probability) {
-            if (moebel.label[1].probability > moebel.label[2].probability) {
-                if (moebel.label[1].probability > moebel.label[3].probability) {
-                    if (moebel.label[1].probability > moebel.label[4].probability) {
+        } else if ((moebel.label[1].probability*100).toFixed(2) > (moebel.label[0].probability*100).toFixed(2)) {
+            if ((moebel.label[1].probability*100).toFixed(2) > (moebel.label[2].probability*100).toFixed(2)) {
+                if ((moebel.label[1].probability*100).toFixed(2) > (moebel.label[3].probability*100).toFixed(2)) {
+                    if ((moebel.label[1].probability*100).toFixed(2) > (moebel.label[4].probability*100).toFixed(2)) {
                         return "Drehstuhl";
                     }
                 }
             }
-        } else if (moebel.label[2].probability > moebel.label[0].probability) {
-            if (moebel.label[2].probability > moebel.label[1].probability) {
-                if (moebel.label[2].probability > moebel.label[3].probability) {
-                    if (moebel.label[2].probability > moebel.label[4].probability) {
+        } else if ((moebel.label[2].probability*100).toFixed(2) > (moebel.label[0].probability*100).toFixed(2)) {
+            if ((moebel.label[2].probability*100).toFixed(2) > (moebel.label[1].probability*100).toFixed(2)) {
+                if ((moebel.label[2].probability*100).toFixed(2) > (moebel.label[3].probability*100).toFixed(2)) {
+                    if ((moebel.label[2].probability*100).toFixed(2) > (moebel.label[4].probability*100).toFixed(2)) {
                         return "Sitzhocker";
                     }
                 }
             }
-        } else if (moebel.label[3].probability > moebel.label[0].probability) {
-            if (moebel.label[3].probability > moebel.label[1].probability) {
-                if (moebel.label[3].probability > moebel.label[2].probability) {
-                    if (moebel.label[3].probability > moebel.label[4].probability) {
+        } else if ((moebel.label[3].probability*100).toFixed(2) > (moebel.label[0].probability*100).toFixed(2)) {
+            if ((moebel.label[3].probability*100).toFixed(2) > (moebel.label[1].probability*100).toFixed(2)) {
+                if ((moebel.label[3].probability*100).toFixed(2) > (moebel.label[2].probability*100).toFixed(2)) {
+                    if ((moebel.label[3].probability*100).toFixed(2) > (moebel.label[4].probability*100).toFixed(2)) {
                         return "Stuhl";
                     }
                 }
             }
-        } else if (moebel.label[4].probability > moebel.label[0].probability) {
-            if (moebel.label[4].probability > moebel.label[1].probability) {
-                if (moebel.label[4].probability > moebel.label[2].probability) {
-                    if (moebel.label[4].probability > moebel.label[3].probability) {
+        } else if ((moebel.label[4].probability*100).toFixed(2) > (moebel.label[0].probability*100).toFixed(2)) {
+            if ((moebel.label[4].probability*100).toFixed(2) > (moebel.label[1].probability*100).toFixed(2)) {
+                if ((moebel.label[4].probability*100).toFixed(2) > (moebel.label[2].probability*100).toFixed(2)) {
+                    if ((moebel.label[4].probability*100).toFixed(2) > (moebel.label[3].probability*100).toFixed(2)) {
                         return "Tisch";
                     }
                 }
