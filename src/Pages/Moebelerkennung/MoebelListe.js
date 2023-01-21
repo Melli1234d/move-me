@@ -36,7 +36,7 @@ const MoebelListe = (besonderheiten) => {
     const [loading, setLoading] = useState(false);
     const [imageUrl, setImageUrl] = useState();
 
-    const storage= getStorage();
+    const storage = getStorage();
     const imageRef = ref(storage, "images/");
 
     useEffect(() => {
@@ -47,7 +47,7 @@ const MoebelListe = (besonderheiten) => {
                 });
             });
         });
-    },[]);
+    }, []);
 
 
     useEffect(() => {
@@ -70,77 +70,66 @@ const MoebelListe = (besonderheiten) => {
     }, []);
 
 
-
-
 //funktion, wenn die Besonderheiten den String enthalten, dann zeige das entsprechende icon!
     function getLabeltoIcon(moebel) {//alle label und das einzelne als wert mitgegeben
-        if(moebel.besonderheiten === "Zerbrechlich") {
+        if (moebel.besonderheiten === "Zerbrechlich") {
             //wenn label ist das höchste dann return label + wahrscheinlichkeit
-            return <img id="zerbrechlich-img" src={Zerbrechlich} alt="Kitchen" height={18} width={18} />;
+            return <img id="zerbrechlich-img" src={Zerbrechlich} alt="Kitchen" height={18} width={18}/>;
         } else if (moebel.besonderheiten === "Verpackung") {
-            return <img id="verpackung-img" src={Verpackung} alt="Kitchen" height={18} width={18} />
-        }
-        else if (moebel.besonderheiten === "Kratzer"){
-            return <img id="kratzspuren" src={Kratzer} alt="Kitchen" height={18} width={18} />
+            return <img id="verpackung-img" src={Verpackung} alt="Kitchen" height={18} width={18}/>
+        } else if (moebel.besonderheiten === "Kratzer") {
+            return <img id="kratzspuren" src={Kratzer} alt="Kitchen" height={18} width={18}/>
         }
     }
 
 
-
     function getLabeltoFirebase(moebel) {//alle label und das einzelne als wert mitgegeben
-        if(moebel.label[0].probability > moebel.label[1].probability) {
-            if(moebel.label[0].probability > moebel.label[2].probability) {
-                if(moebel.label[0].probability > moebel.label[3].probability) {
-                    if(moebel.label[0].probability > moebel.label[4].probability) {
-                        return moebel.label[0].className;
+        if (moebel.label[0].probability > moebel.label[1].probability) {
+            if (moebel.label[0].probability > moebel.label[2].probability) {
+                if (moebel.label[0].probability > moebel.label[3].probability) {
+                    if (moebel.label[0].probability > moebel.label[4].probability) {
+                        return "Sofa";
                     }
                 }
             }
         } else if (moebel.label[1].probability > moebel.label[0].probability) {
-            if(moebel.label[1].probability > moebel.label[2].probability) {
-                if(moebel.label[1].probability > moebel.label[3].probability) {
-                    if(moebel.label[1].probability > moebel.label[4].probability) {
-                        return moebel.label[1].className;
+            if (moebel.label[1].probability > moebel.label[2].probability) {
+                if (moebel.label[1].probability > moebel.label[3].probability) {
+                    if (moebel.label[1].probability > moebel.label[4].probability) {
+                        return "Drehstuhl";
                     }
                 }
             }
-        }else if (moebel.label[2].probability > moebel.label[0].probability) {
-            if(moebel.label[2].probability > moebel.label[1].probability) {
-                if(moebel.label[2].probability > moebel.label[3].probability) {
-                    if(moebel.label[2].probability > moebel.label[4].probability) {
-                        return moebel.label[2].className;
+        } else if (moebel.label[2].probability > moebel.label[0].probability) {
+            if (moebel.label[2].probability > moebel.label[1].probability) {
+                if (moebel.label[2].probability > moebel.label[3].probability) {
+                    if (moebel.label[2].probability > moebel.label[4].probability) {
+                        return "Sitzhocker";
                     }
                 }
             }
-        }else if (moebel.label[3].probability > moebel.label[0].probability) {
-            if(moebel.label[3].probability > moebel.label[1].probability) {
-                if(moebel.label[3].probability > moebel.label[2].probability) {
-                    if(moebel.label[3].probability > moebel.label[4].probability) {
-                        return moebel.label[3].className;
+        } else if (moebel.label[3].probability > moebel.label[0].probability) {
+            if (moebel.label[3].probability > moebel.label[1].probability) {
+                if (moebel.label[3].probability > moebel.label[2].probability) {
+                    if (moebel.label[3].probability > moebel.label[4].probability) {
+                        return "Stuhl";
                     }
                 }
             }
-        }else if (moebel.label[4].probability > moebel.label[0].probability) {
-            if(moebel.label[4].probability > moebel.label[1].probability) {
-                if(moebel.label[4].probability > moebel.label[2].probability) {
-                    if(moebel.label[4].probability > moebel.label[3].probability) {
-                        return moebel.label[4].className;
+        } else if (moebel.label[4].probability > moebel.label[0].probability) {
+            if (moebel.label[4].probability > moebel.label[1].probability) {
+                if (moebel.label[4].probability > moebel.label[2].probability) {
+                    if (moebel.label[4].probability > moebel.label[3].probability) {
+                        return "Tisch";
                     }
                 }
             }
-        } else {
-            return "";
         }
 
     }
 
 
-
-
-
-
     return (
-
 
 
         <div className="secondary-background">
@@ -174,24 +163,23 @@ const MoebelListe = (besonderheiten) => {
                         <SmallHighRoundRectangle key={moebel.id}>
                             <div className="moebel-container">
 
-                                <img id={moebel.storedImageId} className="imgfirebase" src={moebel.storedImageId}  />
+                                <img id={moebel.storedImageId} className="imgfirebase" src={moebel.storedImageId}/>
 
                                 <div className="moebel-container-item">
                                     <div className="moebel-daten-icon">
                                         <div className="moebel-item-content">{getLabeltoIcon(moebel)}</div>
                                     </div>
                                     <div className="moebel-daten-title-amount">
-                                        <div className="moebel-title">{getLabeltoFirebase(moebel)} ({moebel.amount})</div>
+                                        <div className="moebel-title">{getLabeltoFirebase(moebel)} ({moebel.amount})
+                                        </div>
                                     </div>
                                     <div className="moebel-daten-length-width">
-                                        <div className="moebel-laenge-gewicht">{moebel.length}cm, {moebel.weight}kg</div>
+                                        <div className="moebel-laenge-gewicht">{moebel.length}cm, {moebel.weight}kg
+                                        </div>
 
                                     </div>
                                 </div>
                             </div>
-
-
-
 
 
                         </SmallHighRoundRectangle>
@@ -199,9 +187,6 @@ const MoebelListe = (besonderheiten) => {
                 </div>
 
             </div>
-
-
-
 
 
             <TapBarList/>
