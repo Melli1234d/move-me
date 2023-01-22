@@ -2,7 +2,7 @@
 import * as tmImage from "@teachablemachine/image";
 import React from 'react';
 const URL = 'tm-my-image-model-6/';
-
+//https://reactjs.org/docs/context.html
 //Code angelehnt an Code Beispiel der automatisch von Teachable Machine generiert wird
 
 const TeachableMachineWrapper = {

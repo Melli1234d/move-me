@@ -27,9 +27,12 @@ import Verpackung from "../../components/Pictures/MoebelAngaben/verpckung.png";
 import Zerbrechlich from "../../components/Pictures/MoebelAngaben/zerbrechlich.png";
 import Kratzer from "../../components/Pictures/MoebelAngaben/kratzer.png";
 
+//https://www.youtube.com/watch?v=0iteBJ-fuRA
 //https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/toBlob?retiredLocale=de
 //Code angelehnt an Code Beispiel der automatisch von Teachable Machine generiert wird
 // Code Photo nach Firebase hochladen: or github: https://github.com/machadop1407/firebase-file-upload
+
+
 //const URL = 'tm-my-image-model-5/';
 
 const TestMoebelerkennung = (props) => {
