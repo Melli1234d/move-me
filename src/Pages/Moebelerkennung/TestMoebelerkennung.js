@@ -250,9 +250,7 @@ const TestMoebelerkennung = (props) => {
                     {predictions
                         ? predictions.map((prediction) =>
                             <div id={prediction.className} key={prediction.className} className="Label-Klassen">
-                                <p>{getLabelIfIsHighestPropability(predictions, prediction)}</p>
-                              {/*  <p> {setLabelFirebase(prediction)}</p>*/}
-
+                                <h4>{getLabelIfIsHighestPropability(predictions, prediction)}</h4>
                             </div>)
                         : ''}
                 </div>
@@ -262,122 +260,135 @@ const TestMoebelerkennung = (props) => {
             {step === 'data' &&
                 <>
                     {imageUrl && <img className="imageurl" src={imageUrl}/>}
-                   {/* {label && <p> {label}</p>}*/}
-                    <form className="moebel-data">
-                        <SmallRectangle>
-                            <label> Anzahl</label>
-                            <input type="text" placeholder="Anzahl..."
-                                   onChange={(event)=>{
-                                       setAmount(event.target.value);
-                                       setId(unique_id);
-                                   }}/>
-                        </SmallRectangle>
-                        <SmallRectangle>
-                            <label>Länge</label>
-                            <input type="text" placeholder="Länge.."
-                                   onChange={(event)=>{
-                                       setLength(event.target.value);
-                                   }}/>
-                        </SmallRectangle >
 
-                        <SmallRectangle>
-                            <label> Gewicht</label>
-                            <input type="text" placeholder="Gewicht.."
-                                   onChange={(event)=>{
-                                       setWeight(event.target.value);
-                                   }}/>
-                        </SmallRectangle >
+                    <div id="label-container">
+                        {predictions
+                            ? predictions.map((prediction) =>
+                                <div id={prediction.className} key={prediction.className} className="Label-Klassen">
+                                    <h4>{getLabelIfIsHighestPropability(predictions, prediction)}</h4>
 
-
-                    </form>
-                    <BigRectangle className="moebel-data-full-width">
-                        <fieldset>
-                            <h5 className="h5-moebel-data"> Raumauswahl</h5>
-                            <div className="moebel-specials-item">
-                                <input type="radio" id="kitchen"value="Küche" name="Raum"
+                                </div>)
+                            : ''}
+                    </div>
+                    <div className="data-container">
+                        <form className="moebel-data">
+                            <SmallRectangle>
+                                <label> Anzahl</label>
+                                <input type="text" placeholder="Anzahl..."
                                        onChange={(event)=>{
-                                           setRoom(event.target.value);
+                                           setAmount(event.target.value);
+                                           setId(unique_id);
                                        }}/>
-                                <label  className="label-special-data" htmlFor="kitchen">
-                                    <RoundButton className="picture-div">
-                                        <img id="küche" src={Kitchen} alt="Kitchen" height={18} width={18} />
-                                    </RoundButton>
-                                    <p className="label-input">Küche</p>
-                                </label>
-
-
-
-
-                                <input type="radio" id="bedroom"value="Schlafzimmer" name="Raum"
+                            </SmallRectangle>
+                            <SmallRectangle>
+                                <label>Länge</label>
+                                <input type="text" placeholder="Länge.."
                                        onChange={(event)=>{
-                                           setRoom(event.target.value);
+                                           setLength(event.target.value);
                                        }}/>
-                                <label className="label-special-data" htmlFor="bedroom">
-                                    <RoundButton className="picture-div">
-                                        <img id="schlafzimmer" src={Bedroom} alt="Schlafzimmer" height={18} width={18} />
-                                    </RoundButton>
-                                    <p className="label-input">Schlafzimmer</p>
-                                </label>
+                            </SmallRectangle >
 
-                                <input type="radio" id="livingroom"value="Wohnzimmer" name="Raum"
+                            <SmallRectangle>
+                                <label> Gewicht</label>
+                                <input type="text" placeholder="Gewicht.."
                                        onChange={(event)=>{
-                                           setRoom(event.target.value);
+                                           setWeight(event.target.value);
                                        }}/>
-                                <label className="label-special-data" htmlFor="livingroom">
-                                    <RoundButton className="picture-div">
-                                        <img id="wohnzimmer" src={Livingroom} alt="Wohnzimmer" height={18} width={18} />
-                                    </RoundButton>
-                                    <p className="label-input">Wohnzimmer</p>
-                                </label>
-
-                            </div>
-                        </fieldset>
-
-                    </BigRectangle>
+                            </SmallRectangle >
 
 
-                    <BigRectangle className="moebel-data-full-width">
-                        <fieldset>
-                            <h5 className="h5-moebel-data"> Besonderheiten</h5>
-                            <div className="moebel-specials-item">
-                                <input type="radio" id="verpackung"value="Verpackung" name="Besonderheiten"
-                                       onChange={(event)=>{
-                                           setBesonderheiten(event.target.value);
-                                       }}/>
-                                <label className="label-special-data" htmlFor="verpackung">
-                                    <RoundButton className="picture-div">
-                                        <img id="verpackung-img" src={Verpackung} alt="Kitchen" height={18} width={18} />
-                                    </RoundButton>
-                                    <p className="label-input">Verpackung</p>
-                                </label>
+                        </form>
+                        <BigRectangle className="moebel-data-full-width">
+                            <fieldset>
+                                <h5 className="h5-moebel-data"> Raumauswahl</h5>
+                                <div className="moebel-specials-item">
+                                    <input type="radio" id="kitchen"value="Küche" name="Raum"
+                                           onChange={(event)=>{
+                                               setRoom(event.target.value);
+                                           }}/>
+                                    <label  className="label-special-data" htmlFor="kitchen">
+                                        <RoundButton className="picture-div">
+                                            <img id="küche" src={Kitchen} alt="Kitchen" height={18} width={18} />
+                                        </RoundButton>
+                                        <p className="label-input">Küche</p>
+                                    </label>
 
-                                <input type="radio" id="zerbrechlich"value="Zerbrechlich" name="Besonderheiten"
-                                       onChange={(event)=>{
-                                           setBesonderheiten(event.target.value);
-                                       }}/>
-                                <label className="label-special-data" htmlFor="zerbrechlich">
-                                    <RoundButton className="picture-div">
-                                        <img id="zerbrechlich-img" src={Zerbrechlich} alt="Kitchen" height={18} width={18} />
-                                    </RoundButton>
-                                    <p className="label-input">Zerbrechlich</p>
-                                </label>
 
-                                <input type="radio" id="kratzer"value="Kratzer" name="Besonderheiten"
-                                       onChange={(event)=>{
-                                           setBesonderheiten(event.target.value);
-                                       }}/>
-                                <label className="label-special-data" htmlFor="kratzer">
-                                    <RoundButton className="picture-div">
-                                        <img id="kratzspuren" src={Kratzer} alt="Kitchen" height={18} width={18} />
-                                    </RoundButton>
-                                    <p className="label-input">Kratzer</p>
-                                </label>
 
-                            </div>
-                        </fieldset>
 
-                    </BigRectangle>
-                    <button className="right" onClick={handleDone}> Hinzufügen</button>
+                                    <input type="radio" id="bedroom"value="Schlafzimmer" name="Raum"
+                                           onChange={(event)=>{
+                                               setRoom(event.target.value);
+                                           }}/>
+                                    <label className="label-special-data" htmlFor="bedroom">
+                                        <RoundButton className="picture-div">
+                                            <img id="schlafzimmer" src={Bedroom} alt="Schlafzimmer" height={18} width={18} />
+                                        </RoundButton>
+                                        <p className="label-input">Schlafzimmer</p>
+                                    </label>
+
+                                    <input type="radio" id="livingroom"value="Wohnzimmer" name="Raum"
+                                           onChange={(event)=>{
+                                               setRoom(event.target.value);
+                                           }}/>
+                                    <label className="label-special-data" htmlFor="livingroom">
+                                        <RoundButton className="picture-div">
+                                            <img id="wohnzimmer" src={Livingroom} alt="Wohnzimmer" height={18} width={18} />
+                                        </RoundButton>
+                                        <p className="label-input">Wohnzimmer</p>
+                                    </label>
+
+                                </div>
+                            </fieldset>
+
+                        </BigRectangle>
+
+
+                        <BigRectangle className="moebel-data-full-width">
+                            <fieldset>
+                                <h5 className="h5-moebel-data"> Besonderheiten</h5>
+                                <div className="moebel-specials-item">
+                                    <input type="radio" id="verpackung"value="Verpackung" name="Besonderheiten"
+                                           onChange={(event)=>{
+                                               setBesonderheiten(event.target.value);
+                                           }}/>
+                                    <label className="label-special-data" htmlFor="verpackung">
+                                        <RoundButton className="picture-div">
+                                            <img id="verpackung-img" src={Verpackung} alt="Kitchen" height={18} width={18} />
+                                        </RoundButton>
+                                        <p className="label-input">Verpackung</p>
+                                    </label>
+
+                                    <input type="radio" id="zerbrechlich"value="Zerbrechlich" name="Besonderheiten"
+                                           onChange={(event)=>{
+                                               setBesonderheiten(event.target.value);
+                                           }}/>
+                                    <label className="label-special-data" htmlFor="zerbrechlich">
+                                        <RoundButton className="picture-div">
+                                            <img id="zerbrechlich-img" src={Zerbrechlich} alt="Kitchen" height={18} width={18} />
+                                        </RoundButton>
+                                        <p className="label-input">Zerbrechlich</p>
+                                    </label>
+
+                                    <input type="radio" id="kratzer"value="Kratzer" name="Besonderheiten"
+                                           onChange={(event)=>{
+                                               setBesonderheiten(event.target.value);
+                                           }}/>
+                                    <label className="label-special-data" htmlFor="kratzer">
+                                        <RoundButton className="picture-div">
+                                            <img id="kratzspuren" src={Kratzer} alt="Kitchen" height={18} width={18} />
+                                        </RoundButton>
+                                        <p className="label-input">Kratzer</p>
+                                    </label>
+
+                                </div>
+                            </fieldset>
+
+                        </BigRectangle>
+                        <button className="right" onClick={handleDone}> Hinzufügen</button>
+                    </div>
+
+
                 </>}
             <TapBarList/>
         </div>

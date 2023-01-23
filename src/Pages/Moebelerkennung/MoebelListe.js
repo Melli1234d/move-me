@@ -8,11 +8,10 @@ import {
 } from 'firebase/firestore';
 import {firebase, firestore} from "../../firebase";
 
-import MoebellistItem from "../../components/Möbelliste/MoebellistItem";
 import Verpackung from "../../components/Pictures/MoebelAngaben/verpckung.png";
 import Zerbrechlich from "../../components/Pictures/MoebelAngaben/zerbrechlich.png";
 import Kratzer from "../../components/Pictures/MoebelAngaben/kratzer.png";
-import moebelAngaben from "./MoebelAngaben";
+
 import Kitchen from "../../components/Pictures/Moebel-Angaben/Raum/kitchen.png";
 import Bedroom from "../../components/Pictures/Moebel-Angaben/Raum/bedroom.png";
 import Livingroom from "../../components/Pictures/Moebel-Angaben/Raum/Wohnzimmer-white.png";
