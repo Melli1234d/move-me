@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="21" height="16.692" viewBox="0 0 21 16.692">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #113352;
+        fill-rule: evenodd;
+      }
+    </style>
+  </defs>
+  <g id="arrow-left" transform="translate(-4.5 -8.5)">
+    <path id="Pfad_99" data-name="Pfad 99" class="cls-1" d="M4.922,23.307A.808.808,0,0,1,5.73,22.5l19.157.013a.808.808,0,0,1,0,1.615L5.729,24.115A.808.808,0,0,1,4.922,23.307Z" transform="translate(-0.195 -6.461)"/>
+    <path id="Pfad_100" data-name="Pfad 100" class="cls-1" d="M13.4,8.736a.808.808,0,0,1,0,1.142L6.449,16.846,13.4,23.814a.808.808,0,1,1-1.143,1.141L4.736,17.417a.808.808,0,0,1,0-1.141l7.525-7.538A.808.808,0,0,1,13.4,8.736Z" transform="translate(0)"/>
+  </g>
+</svg>
