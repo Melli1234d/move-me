@@ -1,0 +1,6 @@
+.list-element {
+    padding: 1rem 1.5rem 1rem 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 0px 8px rgb(0 0 0 / 25%);
+    background-color: #9ACCED;
+}

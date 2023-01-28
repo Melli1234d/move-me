@@ -1,0 +1,13 @@
+<svg id="calendar-event" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #113352;
+      }
+    </style>
+  </defs>
+  <g id="Gruppe_326" data-name="Gruppe 326" transform="translate(0 0)">
+    <path id="Pfad_101" data-name="Pfad 101" class="cls-1" d="M33,18.625A.625.625,0,0,1,33.625,18h1.25a.625.625,0,0,1,.625.625v1.25a.625.625,0,0,1-.625.625h-1.25A.625.625,0,0,1,33,19.875Z" transform="translate(-19.25 -10.5)"/>
+    <path id="Pfad_102" data-name="Pfad 102" class="cls-1" d="M4.375,0A.625.625,0,0,1,5,.625V1.25H15V.625a.625.625,0,1,1,1.25,0V1.25H17.5A2.5,2.5,0,0,1,20,3.75V17.5A2.5,2.5,0,0,1,17.5,20H2.5A2.5,2.5,0,0,1,0,17.5V3.75a2.5,2.5,0,0,1,2.5-2.5H3.75V.625A.625.625,0,0,1,4.375,0ZM1.25,5V17.5A1.25,1.25,0,0,0,2.5,18.75h15a1.25,1.25,0,0,0,1.25-1.25V5Z" transform="translate(0 0)"/>
+  </g>
+</svg>

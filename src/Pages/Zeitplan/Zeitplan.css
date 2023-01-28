@@ -1,0 +1,25 @@
+#kalender-icon {
+    margin-left: auto;
+    margin-top: 2rem;
+    color: transparent;
+    background-color: transparent;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+}
+ .title {
+     padding-top: 5.6rem;
+     display:flex;
+     flex-direction: row;
+     align-items: center;
+ }
+
+  h2.title{
+     text-align: center;
+ }
+
+  .timeplan-grid {
+      overflow-x: scroll;
+      display: grid;
+
+  }
