@@ -7,6 +7,7 @@ import {firestore} from "../../firebase";
 import ListElement from "../../components/UI/ListElement";
 import RoundButton from "../../components/UI/RoundButton";
 import KalenderIcon from "../../components/Pictures/Zeitplan/calendar-event.svg";
+import ListIcon from "../../components/Pictures/Zeitplan/list-ol.svg";
 import Zerbrechlich from "../../components/Pictures/MoebelAngaben/zerbrechlich.png";
 import Verpackung from "../../components/Pictures/MoebelAngaben/verpckung.png";
 import Kratzer from "../../components/Pictures/MoebelAngaben/kratzer.png";
@@ -99,6 +100,12 @@ const Zeitplan = (props) => {
         setView('calendar');
     }
 
+    //beim Button klicken wird auf Kalender ansicht gewechselt
+    const handleOverview = async () => {
+        setView('overview');
+    }
+
+
     //beim Button klicken wird auf die Teilaufgaben geweselt
     const handleTasks = async () => {
         setView('subtasks');
@@ -157,20 +164,19 @@ const Zeitplan = (props) => {
 
         <div className="secondary-background">
             <Header/>
-            <div className="title">
-                <h2> Zeitplan</h2>
-                <button onClick={handleClick} id="kalender-icon">
-                    <div className="icon-calender">
-                        <RoundButton id="Kalender-icon" ><img id="calendar" src={KalenderIcon} alt="Kalender Icon" height={18} width={18} /></RoundButton>
-                    </div>
-                </button>
-
-            </div>
 
 
 
             {view === 'overview' &&
                 <>
+                    <div className="title">
+                        <h2> Zeitplan</h2>
+                        <button onClick={handleClick} id="kalender-icon">
+                            <div className="icon-calender">
+                                <RoundButton id="Kalender-icon" ><img id="calendar" src={KalenderIcon} alt="Kalender Icon" height={18} width={18} /></RoundButton>
+                            </div>
+                        </button>
+                    </div>
                     <div className="timeplan-grid">
                         {tasks.map((task) => (
                             <div key={task.id}>{getLengthofListElement(task)}</div>
@@ -183,6 +189,15 @@ const Zeitplan = (props) => {
             {view === 'calendar' &&
 
                 <>
+                    <div className="title">
+                        <h2> Zeitplan</h2>
+                        <button onClick={handleOverview} id="kalender-icon">
+                            <div className="icon-calender">
+                                <RoundButton id="List-icon" ><img id="calendar" src={ListIcon} alt="Kalender Icon" height={18} width={18} /></RoundButton>
+                            </div>
+                        </button>
+
+                    </div>
                     <Kalender/>
                     {appointments.map((appointment) => (
                         <div key={appointment.id}>
