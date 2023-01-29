@@ -141,7 +141,17 @@ const TestMoebelerkennung = (props) => {
         }
 
     }
+    function getInputAmount(predictions, prediction) {//alle label und das einzelne als wert mitgegeben
+        let highestLabel = getHighestPrediction(predictions);//funktion aufrufen mit allen labeln
+        if (prediction === highestLabel && prediction.className==="Sofa") {
+            //wenn label ist das höchste dann return label + wahrscheinlichkeit
+            return "Hallo";
+        }
+        else { //wenn nicht bleib leer
+            return '';
+        }
 
+    }
 
 
 
@@ -266,7 +276,7 @@ const TestMoebelerkennung = (props) => {
                             ? predictions.map((prediction) =>
                                 <div id={prediction.className} key={prediction.className} className="Label-Klassen">
                                     <h4>{getLabelIfIsHighestPropability(predictions, prediction)}</h4>
-
+                                    <p>{getInputAmount(predictions, prediction)}</p>
                                 </div>)
                             : ''}
                     </div>
