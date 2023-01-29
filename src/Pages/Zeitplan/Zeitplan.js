@@ -21,7 +21,9 @@ import Kitchen from "../../components/Pictures/Moebel-Angaben/Raum/kitchen.png";
 import Bedroom from "../../components/Pictures/Moebel-Angaben/Raum/bedroom.png";
 import Livingroom from "../../components/Pictures/Moebel-Angaben/Raum/livingroom.png";
 import BigRectangle from "../../components/UI/BigRectangle";
-import {updateDoc} from "@firebase/firestore";
+import {getDoc, updateDoc} from "@firebase/firestore";
+import * as db from "@firebase/firestore";
+import { doc} from "firebase/firestore";
 //code: https://github.com/samfromaway/firebase-tutorial/blob/master/src/SnapshotFirebaseAdvanced.js
 
 
@@ -147,12 +149,6 @@ const Zeitplan = (props) => {
             year: year,
         })
         setView('calendar');
-        const updateEndHour= hour+4;
-        await updateDoc(timeplanRef,{
-            starthour: hour,
-            startminute: minute,
-            endhour: updateEndHour,
-        })
     }
 
 //bei Teilaufgaben Screen wenn kein Datum gesetzt eige Kalender Icon, wenn Datum gesetzt, zeige Datum

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './TapBarList.css';
 import { BiHome  } from "react-icons/bi";
 import TapBar from "./TapBar";
@@ -11,6 +11,7 @@ import {GrList} from "react-icons/gr";
 
 //Liste mit dem Inhalt der Items in einem Array
 const TapBarList = (props) => {
+
     const tapbar = [
         {
             id: 'e1',
@@ -48,7 +49,7 @@ const TapBarList = (props) => {
     return (
         <ul className="tapbar-list">
             <li>
-                <TapBar items={tapbar} />
+                <TapBar items={tapbar}/>
             </li>
 
         </ul>
