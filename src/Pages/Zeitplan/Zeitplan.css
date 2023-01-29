@@ -49,6 +49,10 @@
       display: flex;
       flex-direction: row;
   }
+.content-column {
+    display: flex;
+    flex-direction: column;
+}
 
   .bold {
       font-weight: bold;
@@ -80,3 +84,11 @@
  .margin-right-02 {
      margin-right: 0.2rem;
  }
+ .margin-header {
+     margin-top: 7rem;
+ }
+.leftarrow {
+    margin-left: 2.5rem;
+    align-items: center;
+    align-content: center;
+}

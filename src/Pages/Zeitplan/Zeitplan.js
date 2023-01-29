@@ -7,11 +7,14 @@ import {firestore} from "../../firebase";
 import ListElement from "../../components/UI/ListElement";
 import RoundButton from "../../components/UI/RoundButton";
 import KalenderIcon from "../../components/Pictures/Zeitplan/calendar-event.svg";
+import KalenderPlus from "../../components/Pictures/Zeitplan/calendar-plus.svg";
 import ListIcon from "../../components/Pictures/Zeitplan/list-ol.svg";
 import Zerbrechlich from "../../components/Pictures/MoebelAngaben/zerbrechlich.png";
 import Verpackung from "../../components/Pictures/MoebelAngaben/verpckung.png";
 import Kratzer from "../../components/Pictures/MoebelAngaben/kratzer.png";
 import Kalender from "../../components/Kalender/Kalender";
+import {Link} from "react-router-dom";
+import ArrowLeft from "../../components/Pictures/arrow-left.svg";
 //code: https://github.com/samfromaway/firebase-tutorial/blob/master/src/SnapshotFirebaseAdvanced.js
 
 
@@ -23,7 +26,7 @@ const Zeitplan = (props) => {
     const [subtasks, setSubTasks] = useState([]);
     const [appointments, setAppointments] = useState([]);
     const [view, setView] = useState('overview'); // 'calendar', 'subtasks'
-
+    const [date, setDate] = useState(false);
 
 /*    ZEITPLAN ÜBERSICHT "OVERVIEW"*/
 
@@ -111,9 +114,25 @@ const Zeitplan = (props) => {
         setView('subtasks');
     }
 
+
+    function getDateorIcon(subtask) {
+        if(subtask.date === false){
+            return <img id="calendar" src={KalenderPlus} alt="Kalender Icon" height={18} width={18} />;
+        } else {
+            return <div className="content-column">
+                <div>
+                    <div>{subtask.day}</div>
+                    <div>{subtask.month}</div>
+                </div>
+                <div>
+                    <div>{subtask.starthour}: {subtask.startminute} - {subtask.endhour} : {subtask.endminute}</div>
+                </div>
+            </div>
+        }
+    }
     function getLengthofListElement(task) {//alle label und das einzelne als wert mitgegeben
        if(task.length === 1) {
-           return <ListElement key={task.id} onClick={handleTasks} className="listElement-one">
+           return <ListElement key={task.id}  className="listElement-one">
                <div className="timeplaner">
                    <p>{task.day} {task.month} {task.year}</p>
                    <h5>{task.title}</h5>
@@ -121,7 +140,7 @@ const Zeitplan = (props) => {
 
            </ListElement>;
        } else if(task.length === 2) {
-           return <ListElement key={task.id} onClick={handleTasks} className="listElement-two">
+           return <ListElement key={task.id} className="listElement-two">
                <div className="timeplaner">
                    <p>{task.day} {task.month} {task.year}</p>
                    <h5>{task.title}</h5>
@@ -129,7 +148,7 @@ const Zeitplan = (props) => {
 
            </ListElement>;
        }if(task.length === 3) {
-            return <ListElement key={task.id} onClick={handleTasks} className="listElement-tree">
+            return <ListElement key={task.id} className="listElement-tree">
                 <div className="timeplaner">
                     <p>{task.day} {task.month} {task.year}</p>
                     <h5>{task.title}</h5>
@@ -137,7 +156,7 @@ const Zeitplan = (props) => {
 
             </ListElement>;
         } if(task.length === 4) {
-            return <ListElement key={task.id} onClick={handleTasks} className="listElement-four">
+            return <ListElement key={task.id} className="listElement-four">
                 <div className="timeplaner">
                     <p>{task.day} {task.month} {task.year}</p>
                     <h5>{task.title}</h5>
@@ -146,7 +165,7 @@ const Zeitplan = (props) => {
             </ListElement>;
         }
         if(task.length === 5) {
-            return <ListElement onClick={handleTasks} className="listElement-five">
+            return <ListElement className="listElement-five">
                 <div className="timeplaner">
                     <p>{task.day} {task.month} {task.year}</p>
                     <h5>{task.title}</h5>
@@ -179,7 +198,7 @@ const Zeitplan = (props) => {
                     </div>
                     <div className="timeplan-grid">
                         {tasks.map((task) => (
-                            <div key={task.id}>{getLengthofListElement(task)}</div>
+                            <div key={task.id} onClick={handleTasks}>{getLengthofListElement(task)}</div>
                         ))}
                     </div>
                 </>
@@ -222,13 +241,25 @@ const Zeitplan = (props) => {
 
             {view === 'subtasks' &&
                 <>
+                    <div className="title">
+                        <div onClick={handleOverview}  className="leftarrow">
+                                <img src={ArrowLeft} alt="Kalender Icon" height={18} width={18}/>
+                        </div>
+                        <h2> Teilaufgaben </h2>
+
+                    </div>
                     {subtasks.map((subtask) => (
-                        <div key={subtask.id}>
-                            <div className="timeplaner">
-                                <p>{subtask.title} </p>
+                        <ListElement className="white" key={subtask.id}>
+                            <div className="timeplaner content-row">
+                                <div className="content-column">
+                                    <p>{subtask.title} </p>
+                                    <p>{subtask.paragraph}</p>
+                                </div>
+                                <div>{getDateorIcon(subtask)} </div>
+
                             </div>
 
-                        </div>
+                        </ListElement>
                     ))}
                 </>
             }
