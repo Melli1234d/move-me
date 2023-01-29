@@ -196,16 +196,24 @@ const Zeitplan = (props) => {
                                 <RoundButton id="List-icon" ><img id="calendar" src={ListIcon} alt="Kalender Icon" height={18} width={18} /></RoundButton>
                             </div>
                         </button>
-
                     </div>
                     <Kalender/>
+                    <p className="bold"> Termine: </p>
                     {appointments.map((appointment) => (
-                        <div key={appointment.id}>
+                        <ListElement className="white" key={appointment.id}>
                             <div className="timeplaner">
-                                <p>{appointment.title} </p>
+                                <div className="bold">{appointment.title} </div>
+                                <div className="color-opacity content-row font-size-small margin-top-sm">
+                                    <div className="margin-right-02">{appointment.day}.</div>
+                                    <div className="margin-right-02">{appointment.month} </div>
+                                    <div>{appointment.year}</div>
+                                </div>
+                                <div className="content-row color-white background-blue time-container">
+                                    <div>{appointment.hour} : </div>
+                                    <div>{appointment.minute}</div>
+                                </div>
                             </div>
-
-                        </div>
+                        </ListElement>
                     ))}
                 </>
             }

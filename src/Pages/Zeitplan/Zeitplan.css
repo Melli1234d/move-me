@@ -40,3 +40,43 @@
   .listElement-five {
       width: 500px;
   }
+
+  p.bold {
+      font-weight: bold;
+  }
+
+  .content-row {
+      display: flex;
+      flex-direction: row;
+  }
+
+  .bold {
+      font-weight: bold;
+  }
+
+  .color-opacity {
+      color: rgba(17,51,82 ,0.7);
+  }
+ .font-size-small {
+     font-size: 12px;
+ }
+ .margin-top-sm {
+     margin-top: 0.5rem;
+ }
+
+ .color-white {
+     color: white;
+ }
+.background-blue {
+    background-color: #9ACCED;
+}
+ .time-container {
+     float: right;
+     padding: 0.2rem 0.5rem 0.2rem 0.5rem;
+     border-radius: 5px;
+     margin-top: -2rem;
+ }
+
+ .margin-right-02 {
+     margin-right: 0.2rem;
+ }
