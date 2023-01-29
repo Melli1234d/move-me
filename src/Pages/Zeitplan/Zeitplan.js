@@ -1,8 +1,9 @@
 import './Zeitplan.css'
+import { v4 as uuid } from 'uuid';
 import React, {useEffect, useState} from 'react';
 import TapBarList from "../../components/TapBar/TapBarList";
 import Header from "../../components/Header/Header";
-import {collection, onSnapshot} from "firebase/firestore";
+import {collection, onSnapshot, addDoc } from "firebase/firestore";
 import {firestore} from "../../firebase";
 import ListElement from "../../components/UI/ListElement";
 import RoundButton from "../../components/UI/RoundButton";
@@ -15,6 +16,12 @@ import Kratzer from "../../components/Pictures/MoebelAngaben/kratzer.png";
 import Kalender from "../../components/Kalender/Kalender";
 import {Link} from "react-router-dom";
 import ArrowLeft from "../../components/Pictures/arrow-left.svg";
+import GraySquare from "../../components/UI/GraySquare";
+import Kitchen from "../../components/Pictures/Moebel-Angaben/Raum/kitchen.png";
+import Bedroom from "../../components/Pictures/Moebel-Angaben/Raum/bedroom.png";
+import Livingroom from "../../components/Pictures/Moebel-Angaben/Raum/livingroom.png";
+import BigRectangle from "../../components/UI/BigRectangle";
+import {updateDoc} from "@firebase/firestore";
 //code: https://github.com/samfromaway/firebase-tutorial/blob/master/src/SnapshotFirebaseAdvanced.js
 
 
@@ -27,7 +34,13 @@ const Zeitplan = (props) => {
     const [appointments, setAppointments] = useState([]);
     const [view, setView] = useState('overview'); // 'calendar', 'subtasks' //addAppointment
     const [date, setDate] = useState(false);
-
+    const [id, setId] = useState();
+    const [title, setTitle] = useState();
+    const [month, setMonth] = useState();
+    const [day, setDay] = useState();
+    const [hour, setHour] = useState();
+    const [minute, setMinute] = useState();
+    const [year, setYear] = useState();
 
 /*    ZEITPLAN ÜBERSICHT "OVERVIEW"*/
 
@@ -104,7 +117,7 @@ const Zeitplan = (props) => {
         setView('calendar');
     }
 
-    //beim Button klicken wird auf Kalender ansicht gewechselt
+    //beim Button klicken wird auf die Zeitplan Übersicht ansicht gewechselt
     const handleOverview = async () => {
         setView('overview');
     }
@@ -115,13 +128,36 @@ const Zeitplan = (props) => {
         setView('subtasks');
     }
 
+
+    const unique_id = uuid();
+    //Screen der die Terinauswahl anzeigt
     const handleAddAppointment = async () => {
         setView('addAppointment');
     }
 
+    //Termin hinzufügen Button
+    const handleAddDate = async () => {
+        addDoc(appointmentRef, {
+            id:id,
+            title: title,
+            day: day,
+            month: month,
+            hour: hour,
+            minute: minute,
+            year: year,
+        })
+        setView('calendar');
+        const updateEndHour= hour+4;
+        await updateDoc(timeplanRef,{
+            starthour: hour,
+            startminute: minute,
+            endhour: updateEndHour,
+        })
+    }
 
+//bei Teilaufgaben Screen wenn kein Datum gesetzt eige Kalender Icon, wenn Datum gesetzt, zeige Datum
     function getDateorIcon(subtask) {
-        if(subtask.date === false){
+        if(date === false){
             return <img src={KalenderPlus} alt="Kalender Icon" height={30} width={30} />;
         } else {
             return <div className="content-column">
@@ -129,12 +165,17 @@ const Zeitplan = (props) => {
                     <div>{subtask.day}</div>
                     <div>{subtask.month}</div>
                 </div>
-                <div>
-                    <div>{subtask.starthour}: {subtask.startminute} - {subtask.endhour} : {subtask.endminute}</div>
+                <div className="content-row color-opacity">
+                    <div>{subtask.starthour}: </div>
+                    <div>{subtask.startminute}- </div>
+                    <div>{subtask.endhour}: </div>
+                    <div>{subtask.endminute}</div>
                 </div>
             </div>
         }
     }
+
+    //Bei Zeitplan Übersicht, die Länge des Containers ausgeben, da sie immer unterschiedlich sein kann
     function getLengthofListElement(task) {//alle label und das einzelne als wert mitgegeben
        if(task.length === 1) {
            return <ListElement key={task.id}  className="listElement-one">
@@ -223,22 +264,27 @@ const Zeitplan = (props) => {
                     </div>
                     <Kalender/>
                     <p className="bold"> Termine: </p>
+                    <div className="margin-bottom-m">
                     {appointments.map((appointment) => (
-                        <ListElement className="white" key={appointment.id}>
-                            <div className="timeplaner">
-                                <div className="bold">{appointment.title} </div>
-                                <div className="color-opacity content-row font-size-small margin-top-sm">
-                                    <div className="margin-right-02">{appointment.day}.</div>
-                                    <div className="margin-right-02">{appointment.month} </div>
-                                    <div>{appointment.year}</div>
+
+                            <ListElement className="white" key={appointment.id}>
+                                <div className="timeplaner">
+                                    <div className="bold">{appointment.title} </div>
+                                    <div className="color-opacity content-row font-size-small margin-top-sm">
+                                        <div className="margin-right-02">{appointment.day}.</div>
+                                        <div className="margin-right-02">{appointment.month} </div>
+                                        <div>{appointment.year}</div>
+                                    </div>
+                                    <div className="content-row color-white background-blue time-container">
+                                        <div>{appointment.hour} : </div>
+                                        <div>{appointment.minute}</div>
+                                    </div>
                                 </div>
-                                <div className="content-row color-white background-blue time-container">
-                                    <div>{appointment.hour} : </div>
-                                    <div>{appointment.minute}</div>
-                                </div>
-                            </div>
-                        </ListElement>
+                            </ListElement>
+
+
                     ))}
+                    </div>
                 </>
             }
 
@@ -277,19 +323,159 @@ const Zeitplan = (props) => {
                         <h2> Terminplanung </h2>
 
                     </div>
-                    {subtasks.map((subtask) => (
-                        <ListElement className="white" key={subtask.id}>
-                            <div className="subtask-container">
-                                <div className="content-column">
-                                    <p className="bold margin-top-sm margin-bottom-sm padding-left-xs">{subtask.title} </p>
-                                    <p className="color-opacity margin-top-sm margin-bottom-sm padding-left-xs">{subtask.paragraph}</p>
-                                </div>
-                                <div  id="calendaradd" onClick={handleAddAppointment}>{getDateorIcon(subtask)} </div>
 
+
+                    <div className="container-row">
+                        <GraySquare className="graueBox">
+                            <div className="number">
+                                Packen
+                            </div>
+                            <div className="kriterium">
+                                Tätigkeit
+                            </div>
+                        </GraySquare>
+                        <GraySquare className="graueBox">
+                            <div className="number">
+                                Umzug
+                            </div>
+                            <div className="kriterium">
+                                Kalender
+                            </div>
+                        </GraySquare>
+                        <GraySquare className="graueBox">
+                            <div className="number">
+                                4
+                            </div>
+                            <div className="kriterium">
+                                Dauer
+                            </div>
+                            {/*<img id="rezensionen-trucks" src={Rezensionen} alt="Rezensionen" />*/}
+                        </GraySquare>
+                    </div>
+                    <p> Terminvorschläge</p>
+                    <div>
+
+                        <div className="content-column">
+                            <div className="container-row">
+                                <input type="radio" id="nineteenaug"value="17:00" name="Zeit"
+                                       onChange={(event)=>{
+                                           setDate(true);
+                                           setId(unique_id);
+                                           setTitle("Karton packen");
+                                           setDay(19);
+                                           setMonth("März");
+                                           setHour("17");
+                                           setMinute("00");
+                                           setYear("2023");
+                                       }}/>
+                                <label  className="label-appointment-data" htmlFor="nineteenaug">
+                                    <ListElement className="whitebackground">
+                                        <div className="subtask-container">
+                                            <div className="content-column">
+                                                <p className="bold margin-top-sm margin-bottom-sm padding-left-xs">19 </p>
+                                                <p className="color-opacity margin-top-sm margin-bottom-sm padding-left-xs">März</p>
+                                            </div>
+                                            <div className="content-row color-white background-blue timestamp">
+                                                <div>17:00 </div>
+                                            </div>
+
+                                        </div>
+
+                                    </ListElement>
+                                </label>
                             </div>
 
-                        </ListElement>
-                    ))}
+                            <div className="container-row">
+                                <input type="radio" id="twentyaug"value="17:00" name="Zeit"
+                                       onChange={(event)=>{
+                                           setDate(true);
+                                           setId(unique_id);
+                                           setTitle("Karton packen");
+                                           setDay(20);
+                                           setMonth("März");
+                                           setHour("17");
+                                           setMinute("00");
+                                           setYear("2023");
+                                       }}/>
+                                <label  className="label-appointment-data" htmlFor="twentyaug">
+                                    <ListElement className="whitebackground">
+                                        <div className="subtask-container">
+                                            <div className="content-column">
+                                                <p className="bold margin-top-sm margin-bottom-sm padding-left-xs">20 </p>
+                                                <p className="color-opacity margin-top-sm margin-bottom-sm padding-left-xs">März</p>
+                                            </div>
+                                            <div className="content-row color-white background-blue timestamp">
+                                                <div>17:00 </div>
+                                            </div>
+
+                                        </div>
+
+                                    </ListElement>
+                                </label>
+                            </div>
+
+                            <div className="container-row">
+                                <input type="radio" id="twentyoneaug"value="17:00" name="Zeit"
+                                       onChange={(event)=>{
+                                           setDate(true);
+                                           setId(unique_id);
+                                           setTitle("Karton packen");
+                                           setDay(21);
+                                           setMonth("März");
+                                           setHour("17");
+                                           setMinute("00");
+                                           setYear("2023");
+                                       }}/>
+                                <label  className="label-appointment-data" htmlFor="twentyoneaug">
+                                    <ListElement className="whitebackground">
+                                        <div className="subtask-container">
+                                            <div className="content-column">
+                                                <p className="bold margin-top-sm margin-bottom-sm padding-left-xs">21 </p>
+                                                <p className="color-opacity margin-top-sm margin-bottom-sm padding-left-xs">März</p>
+                                            </div>
+                                            <div className="content-row color-white background-blue timestamp">
+                                                <div>17:00 </div>
+                                            </div>
+
+                                        </div>
+
+                                    </ListElement>
+                                </label>
+                            </div>
+
+                            <div className="container-row">
+                                <input type="radio" id="twentytwoaug"value="17:00" name="Zeit"
+                                       onChange={(event)=>{
+                                           setDate(true);
+                                           setId(unique_id);
+                                           setTitle("Karton packen");
+                                           setDay(22);
+                                           setMonth("März");
+                                           setHour("17");
+                                           setMinute("00");
+                                           setYear("2023");
+                                       }}/>
+                                <label  className="label-appointment-data" htmlFor="twentytwoaug">
+                                    <ListElement className="whitebackground">
+                                        <div className="subtask-container">
+                                            <div className="content-column">
+                                                <p className="bold margin-top-sm margin-bottom-sm padding-left-xs">22 </p>
+                                                <p className="color-opacity margin-top-sm margin-bottom-sm padding-left-xs">März</p>
+                                            </div>
+                                            <div className="content-row color-white background-blue timestamp">
+                                                <div>17:00 </div>
+                                            </div>
+
+                                        </div>
+
+                                    </ListElement>
+                                </label>
+                            </div>
+
+                        </div>
+                    <button onClick={handleAddDate} className="right margin-bottom-m margin-top-m"> Temrin hinzufügen</button>
+                    </div>
+
                 </>
             }
 

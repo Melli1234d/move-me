@@ -110,3 +110,49 @@
      display: grid;
      grid-template-columns: 6fr 1fr;
  }
+
+ .list-element.whitebackground {
+     background-color: white;
+ }
+
+.label-appointment-data {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: 0;
+}
+
+.timestamp {
+    height: fit-content;
+    float: right;
+    padding: 0.2rem 0.5rem 0.2rem 0.5rem;
+    border-radius: 5px;
+    align-items: center;
+}
+
+
+
+/*WENN INPUT CHECKED, DANN SOLL SICH ICON ÄNDERN*/
+
+.content-column .container-row  input[type=radio]:checked +label .list-element.whitebackground {
+    border: 2px solid #69D1FF;
+}
+
+#nineteenaug, #twentyaug, #twentyoneaug, #twentytwoaug {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border:none;
+    background-color: transparent;
+    width: 0;
+    margin: 0;
+    display: none;
+}
+
+.margin-top-m {
+    margin-top: 2rem;
+}
+.margin-bottom-m {
+    margin-bottom: 10rem;
+}
