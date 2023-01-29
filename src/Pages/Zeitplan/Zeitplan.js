@@ -25,8 +25,9 @@ const Zeitplan = (props) => {
     const [tasks, setTasks] = useState([]);
     const [subtasks, setSubTasks] = useState([]);
     const [appointments, setAppointments] = useState([]);
-    const [view, setView] = useState('overview'); // 'calendar', 'subtasks'
+    const [view, setView] = useState('overview'); // 'calendar', 'subtasks' //addAppointment
     const [date, setDate] = useState(false);
+
 
 /*    ZEITPLAN ÜBERSICHT "OVERVIEW"*/
 
@@ -114,10 +115,14 @@ const Zeitplan = (props) => {
         setView('subtasks');
     }
 
+    const handleAddAppointment = async () => {
+        setView('addAppointment');
+    }
+
 
     function getDateorIcon(subtask) {
         if(subtask.date === false){
-            return <img id="calendar" src={KalenderPlus} alt="Kalender Icon" height={18} width={18} />;
+            return <img src={KalenderPlus} alt="Kalender Icon" height={30} width={30} />;
         } else {
             return <div className="content-column">
                 <div>
@@ -250,12 +255,36 @@ const Zeitplan = (props) => {
                     </div>
                     {subtasks.map((subtask) => (
                         <ListElement className="white" key={subtask.id}>
-                            <div className="timeplaner content-row">
+                            <div className="subtask-container">
                                 <div className="content-column">
-                                    <p>{subtask.title} </p>
-                                    <p>{subtask.paragraph}</p>
+                                    <p className="bold margin-top-sm margin-bottom-sm padding-left-xs">{subtask.title} </p>
+                                    <p className="color-opacity margin-top-sm margin-bottom-sm padding-left-xs">{subtask.paragraph}</p>
                                 </div>
-                                <div>{getDateorIcon(subtask)} </div>
+                                <div  id="calendaradd" onClick={handleAddAppointment}>{getDateorIcon(subtask)} </div>
+
+                            </div>
+
+                        </ListElement>
+                    ))}
+                </>
+            }
+            {view === 'addAppointment' &&
+                <>
+                    <div className="title">
+                        <div onClick={handleOverview}  className="leftarrow">
+                            <img src={ArrowLeft} alt="Kalender Icon" height={18} width={18}/>
+                        </div>
+                        <h2> Terminplanung </h2>
+
+                    </div>
+                    {subtasks.map((subtask) => (
+                        <ListElement className="white" key={subtask.id}>
+                            <div className="subtask-container">
+                                <div className="content-column">
+                                    <p className="bold margin-top-sm margin-bottom-sm padding-left-xs">{subtask.title} </p>
+                                    <p className="color-opacity margin-top-sm margin-bottom-sm padding-left-xs">{subtask.paragraph}</p>
+                                </div>
+                                <div  id="calendaradd" onClick={handleAddAppointment}>{getDateorIcon(subtask)} </div>
 
                             </div>
 

@@ -92,3 +92,21 @@
     align-items: center;
     align-content: center;
 }
+
+ #calendaradd {
+     margin-left: auto;
+     align-items: center;
+     display: flex;
+ }
+
+ .margin-bottom-sm {
+     margin-bottom: 0.2rem;
+ }
+ .padding-left-xs {
+     padding-left: 0;
+ }
+
+ .subtask-container {
+     display: grid;
+     grid-template-columns: 6fr 1fr;
+ }
