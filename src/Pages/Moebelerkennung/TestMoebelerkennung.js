@@ -59,42 +59,6 @@ const TestMoebelerkennung = (props) => {
 
 
     const tm = useContext(TeachableMachineContext);
-    //FOTOUPLOAD
-    // const unique_id = v4();
-    // const storage = getStorage();
-    //Umwandeln in ein PNG da es vorher ein octet-stream war und das bild sonst nicht angezeigt werden kann!!
-    // const metadata = {
-    //     contentType: 'image/png',
-    // };
-
-    //const imagesListRef = ref(storage, "images/");
-
-    // //Beim Klick auf Button soll das Bild in Firebase geuploadet werden
-    // const uploadImage = () => {
-    //     addDoc(furnitureCollectionRef, {
-    //         furniture: furniture,
-    //     })
-    //     if (imageUpload == null) return;
-    //     const imageRef = ref(storage, `images/${v4()}`); //namen für bild samndom angeben
-    //     //Bilder hochladen in den storage: das gesetzte Bild mit dem definierten namen als png...
-    //     uploadBytes(imageRef, imageUpload, metadata, photo).then((snapshot) => {
-    //
-    //         getDownloadURL(snapshot.ref).then((url) => {
-    //             setImageUrls((prev) => [...prev, url]);
-    //             console.log(metadata);
-    //         });
-    //     });
-    // };
-
-    // useEffect(() => {
-    //     listAll(imagesListRef).then((response) => {
-    //         response.items.forEach((item) => {
-    //             getDownloadURL(item).then((url) => {
-    //                 setImageUrl((prev) => [...prev, url]);
-    //             });
-    //         });
-    //     });
-    // }, []);
 
 
 //KAMERA CONTAINER
@@ -146,7 +110,7 @@ const TestMoebelerkennung = (props) => {
 
 
 
-    // Funktionen für das Anzeigen der Möbelangaben je nach klasse!
+    // Funktionen für das Anzeigen der Möbelangaben
 
     //WEIGHT
     const handleAmountWeightAdd = () => {
@@ -209,7 +173,7 @@ const TestMoebelerkennung = (props) => {
                 <label>Anzahl</label>
                 <div className="container-row">
                     <div onClick={buttonClickedDecreaseIdenticalFurniture}>-</div>
-                    <div className="count"> {amount+1}</div>
+                    <div className="count"> {amount}</div>
                     <div onClick={buttonClickedAddIdenticalFurniture}>+</div>
                 </div>
             </SmallRectangle >;
@@ -250,7 +214,7 @@ const TestMoebelerkennung = (props) => {
                 <label>Anzahl</label>
                 <div className="container-row">
                     <div onClick={buttonClickedDecreaseIdenticalFurniture}>-</div>
-                    <div className="count"> {amount+3}</div>
+                    <div className="count"> {amount}</div>
                     <div onClick={buttonClickedAddIdenticalFurniture}>+</div>
                 </div>
             </SmallRectangle >;
@@ -279,7 +243,7 @@ const TestMoebelerkennung = (props) => {
                 <label>Gewicht</label>
                 <div className="container-row">
                     <div onClick={buttonClickedDecrease}>-</div>
-                    <div className="count"> {weight-80}</div>
+                    <div className="count"> {weight}</div>
                     <div onClick={buttonClickedAdd}>+</div>
                 </div>
             </SmallRectangle >;
@@ -289,7 +253,7 @@ const TestMoebelerkennung = (props) => {
                 <label>Gewicht</label>
                 <div className="container-row">
                     <div onClick={buttonClickedDecrease}>-</div>
-                    <div className="count"> {weight-50}</div>
+                    <div className="count"> {weight}</div>
                     <div onClick={buttonClickedAdd}>+</div>
                 </div>
             </SmallRectangle >;
@@ -299,7 +263,7 @@ const TestMoebelerkennung = (props) => {
                 <label>Gewicht</label>
                 <div className="container-row">
                     <div onClick={buttonClickedDecrease}>-</div>
-                    <div className="count"> {weight-50}</div>
+                    <div className="count"> {weight}</div>
                     <div onClick={buttonClickedAdd}>+</div>
                 </div>
             </SmallRectangle >;
@@ -309,7 +273,7 @@ const TestMoebelerkennung = (props) => {
                 <label>Gewicht</label>
                 <div className="container-row">
                     <div onClick={buttonClickedDecrease}>-</div>
-                    <div className="count"> {weight-90}</div>
+                    <div className="count"> {weight}</div>
                     <div onClick={buttonClickedAdd}>+</div>
                 </div>
             </SmallRectangle >;
@@ -337,7 +301,7 @@ const TestMoebelerkennung = (props) => {
                 <label>Länge</label>
                 <div className="container-row">
                     <div onClick={buttonClickedDecreaseLengthFurniture}>-</div>
-                    <div className="count"> {length-140}</div>
+                    <div className="count"> {length}</div>
                     <div onClick={buttonClickedAddLengthFurniture}>+</div>
                 </div>
             </SmallRectangle >;
@@ -347,7 +311,7 @@ const TestMoebelerkennung = (props) => {
                 <label>Länge</label>
                 <div className="container-row">
                     <div onClick={buttonClickedDecreaseLengthFurniture}>-</div>
-                    <div className="count"> {length-90}</div>
+                    <div className="count"> {length}</div>
                     <div onClick={buttonClickedAddLengthFurniture}>+</div>
                 </div>
             </SmallRectangle >;
@@ -357,7 +321,7 @@ const TestMoebelerkennung = (props) => {
                 <label>Länge</label>
                 <div className="container-row">
                     <div onClick={buttonClickedDecreaseLengthFurniture}>-</div>
-                    <div className="count"> {length-40}</div>
+                    <div className="count"> {length}</div>
                     <div onClick={buttonClickedAddLengthFurniture}>+</div>
                 </div>
             </SmallRectangle >;
@@ -367,7 +331,7 @@ const TestMoebelerkennung = (props) => {
                 <label>Länge</label>
                 <div className="container-row">
                     <div onClick={buttonClickedDecreaseLengthFurniture}>-</div>
-                    <div className="count"> {length-100}</div>
+                    <div className="count"> {length}</div>
                     <div onClick={buttonClickedAddLengthFurniture}>+</div>
                 </div>
             </SmallRectangle >;
