@@ -24,12 +24,14 @@ import Verpackung from "../../components/Pictures/MoebelAngaben/verpckung.png";
 import Zerbrechlich from "../../components/Pictures/MoebelAngaben/zerbrechlich.png";
 import Kratzer from "../../components/Pictures/MoebelAngaben/kratzer.png";
 
-//https://www.youtube.com/watch?v=0iteBJ-fuRA
-//https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/toBlob?retiredLocale=de
-//Code angelehnt an Code Beispiel der automatisch von Teachable Machine generiert wird
-// Code Photo nach Firebase hochladen: or github: https://github.com/machadop1407/firebase-file-upload
-//https://github.com/googlecreativelab/teachablemachine-community/issues/73
 
+//#############################################################################################################################################################
+//CODE: https://www.youtube.com/watch?v=0iteBJ-fuRA
+//CODE:https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/toBlob?retiredLocale=de
+//CODE: angelehnt an Code Beispiel der automatisch von Teachable Machine generiert wird
+//CODE: Photo nach Firebase hochladen: or github: https://github.com/machadop1407/firebase-file-upload
+//CODE: https://github.com/googlecreativelab/teachablemachine-community/issues/73
+//#############################################################################################################################################################
 
 const TestMoebelerkennung = (props) => {
     const [hasPhoto, setHasPhoto] = useState(false); //status ob Foto gemacht wurde oder nicht -> wird verwendet bei den Labels, sollen erst erscheinen wenn Foto gemacht
@@ -129,6 +131,7 @@ const TestMoebelerkennung = (props) => {
     const handleComplete = ()=>{
         setStep('data');
     }
+
 //#############################################################################################################################################################
 //SETZE AUF SCHRITT "INFO" & FÜGE MÖBELSTÜCK IN LISTE HINZU (ID, ANZAHL, LÄNGE,GEWICHT,RAUM,BESONDERHEITEN,URL DES BILDES, LABELS[]
 //#############################################################################################################################################################
@@ -168,7 +171,7 @@ const TestMoebelerkennung = (props) => {
     }
 
 //#############################################################################################################################################################
-//FUNKTION DIE DAS DAZUGEHÖRIGE LABEL + WAHRSCHEINLICHKEIT ZU DER HÖCHSTEN PROZENTZAHL DER VORHERSAGE GIBT
+//FUNKTION DIE DAS DAZUGEHÖRIGE LABEL DER HÖCHSTEN WAHRSCHEINLICHKEIT + WAHRSCHEINLICHKEIT ZU DER HÖCHSTEN PROZENTZAHL DER VORHERSAGE GIBT
 //#############################################################################################################################################################
     function getLabelIfIsHighestPropability(predictions, prediction) {//alle label und das einzelne als wert mitgegeben, da nur eins raus gefiltert werden soll
         let highestLabel = getHighestPrediction(predictions);//höchste Label ist das mit der höchsten Wahrscheinlichkeit -> funktion aufrufen mit allen Wahrscheinlichkeiten
