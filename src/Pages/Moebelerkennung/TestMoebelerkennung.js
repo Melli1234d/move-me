@@ -1,17 +1,14 @@
 import './Moebelerkennung.css'
-import React, {useContext, useEffect, useRef, useState} from 'react';
+import React, {useContext, useRef, useState} from 'react';
 import {TeachableMachineContext} from "./TeachableMachineContext";
 import {useAnimationFrame} from "./useAnimationFrame";
 import Header from "../../components/Header/Header";
 import TapBarList from "../../components/TapBar/TapBarList";
-import {Link} from "react-router-dom";
 import {
     ref,
     getStorage,
     uploadBytes,
     getDownloadURL,
-    listAll,
-    list,
 } from "firebase/storage";
 import {v4} from "uuid";
 import {addDoc, collection} from "@firebase/firestore";
@@ -33,14 +30,12 @@ import Kratzer from "../../components/Pictures/MoebelAngaben/kratzer.png";
 // Code Photo nach Firebase hochladen: or github: https://github.com/machadop1407/firebase-file-upload
 //https://github.com/googlecreativelab/teachablemachine-community/issues/73
 
-//const URL = 'tm-my-image-model-5/';
 
 const TestMoebelerkennung = (props) => {
-    const [hasPhoto, setHasPhoto] = useState(false);
-    const [isPredicting, setPredicting] = useState(false);
-    const [predictions, setPredictions] = useState(null);
-    const [step, setStep] = useState('info'); // 'scan', 'done'
-    const [storedImageId, setStoredImageId] = useState();
+    const [hasPhoto, setHasPhoto] = useState(false); //status ob Foto gemacht wurde oder nicht -> wird verwendet bei den Labels, sollen erst erscheinen wenn Foto gemacht
+    const [predictions, setPredictions] = useState(null); //Vorhersagen sollen gemacht, werden wenn Kamera an
+    const [step, setStep] = useState('info'); // Steps -> 'scan', 'done', 'data'
+    const [storedImageId, setStoredImageId] = useState(); //Image ID mit URL des Bildes aus Firebase Storage
     const [imageUrl, setImageUrl] = useState(null);
     const [amount, setAmount] = useState();// Allgemeine Anzahl der Möbelstücke, die in Firebase gespeichert wird, gesetzt je nach Klasse
     const [amountSofa, setAmountSofa] = useState(2);// count für Sofa Anzahl
@@ -60,10 +55,10 @@ const TestMoebelerkennung = (props) => {
     const [weightStuhl, setWeightStuhl] = useState(20);// count für Stuhl Gewicht
     const [weightDrehstuhl, setWeightDrehstuhl] = useState(60);// count für Tisch Gewicht
     const [weightSitzhocker, setWeightSitzhocker] = useState(15);// count für Tisch Gewicht
-    const [room, setRoom] = useState();
-    const [id, setId] = useState();
-    const [label, setLabel] = useState();
-    const [besonderheiten, setBesonderheiten] = useState();
+    const [room, setRoom] = useState(); //Raum in Firebase gesetzt in der 'data' Ansicht
+    const [id, setId] = useState(); //Id in Firebase gesetzt wenn Raum gesetzt wird
+    const [label, setLabel] = useState(); //Label in Firebase , alle werden als Array in Firebase gespeichert inkl. classname + propability (Sofa,Tisch,Stuhl,Drehstuhl,Sithocker)
+    const [besonderheiten, setBesonderheiten] = useState(); //Besonderheiten in Firebase gesetzt in der 'data' Ansicht
 
 
 
@@ -89,30 +84,31 @@ const TestMoebelerkennung = (props) => {
     })
 
 
-
-
-    //bestimme die höchste Wahrscheinlickeit von allen
-    function getHighestPrediction(predictions) {
-        let highestPrediction = null; //auch nullwert muss erlaubt sein, kann ausversehen mitgegeben werden
-        for (let prediction of predictions) { //schleife die die wahrscheinlichkeit der labels prüft
-            if (highestPrediction === null) { //wenn höchste wahrschenlichkeit kein wert hat
-                if (prediction.probability > 0.3 && hasPhoto === true) { //prüfen ob wahrscheinlichkeit größer als 30% ist dann ist die höchste wahrscheinlichkeit die aktuelle wahrscheinlichkeit
-                    highestPrediction = prediction;
+//#############################################################################################################################################################
+// FUNKTION DIE DIE HÖCHSTE WAHRSCHEINLICHKEIT RETURNT
+//#############################################################################################################################################################
+    function getHighestPrediction(predictions) { //mitgegeben werden alle Vorhersagen
+        let highestPrediction = null; //auch nullwert muss erlaubt sein, kann ausversehen mitgegeben werden & ist anfangs null
+        for (let prediction of predictions) { //schleife die die wahrscheinlichkeit der labels prüft, jede einzelne Wahrscheinlichkeit aller Klassen wird durchgegangen
+            if (highestPrediction === null) { //wenn höchste wahrschenlichkeit kein wert hat weil noch nichts bestimmt
+                if (prediction.probability > 0.3 && hasPhoto === true) { //prüfen ob wahrscheinlichkeit größer als 30% ist und das Foto gemacht wurde -> 30% weil Wahrscheinlichkeit erst ab einem bestimmten Wert angezeigt werden soll
+                    highestPrediction = prediction; // dann ist die höchste wahrscheinlichkeit die aktuelle wahrscheinlichkeit des erkannten Möbelstückes
                 }
-            } else if (highestPrediction != null && prediction.probability > highestPrediction.probability) { //wenn höchte wahrscheinlichkeit ungleich null und die wahrscheinlichkeit größer als die höchste wahrschinlichkeit, dann höchste wahrscheinlichkeit als wahrscheinlichkeit
-                highestPrediction = prediction;
+            } else if (highestPrediction != null && prediction.probability > highestPrediction.probability) { //wenn höchte wahrscheinlichkeit bereits bestimmt (weil Echtzeit Schleife)
+                highestPrediction = prediction; // und andere Wahrscheinlichkeit größer als die höchste Wahrschinlichkeitdann höchste Wahrscheinlichkeit als wahrscheinlichkeit
             }
         }
         return highestPrediction; //wiedergeben der höchsten wahrscheinlichkeit
     }
 
-    //fuktion die das Label der höchsten Wahrscheinlichkeit wiedergibt, wenn höchste Wahrscheinlichkeit gesetzt
-    function getLabelIfIsHighestPropability(predictions, prediction) {//alle label und das einzelne als wert mitgegeben
-        let highestLabel = getHighestPrediction(predictions);//funktion aufrufen mit allen labeln
-        if (prediction === highestLabel) {
-            //wenn label ist das höchste dann return label + wahrscheinlichkeit
-            return prediction.className + ": " + (prediction.probability * 100).toFixed(2) + "%";
-        } else { //wenn nicht bleib leer
+//#############################################################################################################################################################
+//FUNKTION DIE DAS DAZUGEHÖRIGE LABEL + WAHRSCHEINLICHKEIT ZU DER HÖCHSTEN PROZENTZAHL DER VORHERSAGE GIBT
+//#############################################################################################################################################################
+    function getLabelIfIsHighestPropability(predictions, prediction) {//alle label und das einzelne als wert mitgegeben, da nur eins raus gefiltert werden soll
+        let highestLabel = getHighestPrediction(predictions);//höchste Label ist das mit der höchsten Wahrscheinlichkeit -> funktion aufrufen mit allen Wahrscheinlichkeiten
+        if (prediction === highestLabel) { //wenn das Label das Label mit der höchsten Wahrscheinlichkeit
+            return prediction.className + ": " + (prediction.probability * 100).toFixed(2) + "%"; // dann return label + wahrscheinlichkeit hochgerechnet auf eine zweistellige Dezimalzahl
+        } else { //wenn nicht das Label mit höchster Wahrscheinlichkeit bleib leer -> Inhalt des DIV containers
             return '';
         }
 
@@ -120,15 +116,17 @@ const TestMoebelerkennung = (props) => {
 
 
 
-
+//##################################################################################################################################################################################
     // FUNKTIONEN UM DIE BESTIMMTEN DATEN FÜR DIE JEWEILIGE KLASSE HERAUS ZU BEKOMMEN
     // es werden immer zwei angaben getätigt:
     // 1. man muss einmal die Daten nur für die spezielle Klasse angeben, da dies nur gezeigt wird, wenn die Klasse gezeigt wird (Wahl zwischen Sofa,Stuhl,Tisch,Drehstuhl,Sitzhocker -> jede Kalsse hat unterschiedliche Anfangswerte bei Länge,Gewicht,Anzahl)
     // 2. dann nochmal den allgemeinen Wert setzen, welcher je nachdem welches Möbelstück erkannt wird dann den Wert bekommt, der bei 1. definiert wurde (Länge, Gewicht oder Anzahl wird anhand der erkannten Klasse gesetzt & in Firebase gespeichert)
+//##################################################################################################################################################################################
 
 
-    //########## WEIGHT HINZUFÜGEN ############################################
-
+//#############################################################################################################################################################
+    //WEIGHT HINZUFÜGEN
+//#############################################################################################################################################################
     //GEWICHT NUR ANZEIGEN WENN SOFA + GEWICHT HINZUFÜGEN
     const handleAmountWeightAddSofa = () => {
         setWeightSofa(weightSofa + 25); //für das Gewicht vom Sofa, bei jedem Klick geupdatet
@@ -159,7 +157,10 @@ const TestMoebelerkennung = (props) => {
         setWeight(weightSitzhocker + 5); //um das Gewicht allgemein auf das Gewicht vom Sitzhocker zu setzen im Möbelstück, was in Firebase gespeichert wird;
     }
 
-    //########## WEIGHT REDUZIEREN ############################################
+
+//#############################################################################################################################################################
+    //WEIGHT REDUZIEREN
+//#############################################################################################################################################################
 
     //GEWICHT NUR ANZEIGEN WENN SOFA + GEWICHT REDUZIEREN
     const handleAmountWeightDecreaseSofa = () => {
@@ -192,8 +193,9 @@ const TestMoebelerkennung = (props) => {
     }
 
 
-
-    //########## ANZAHL MÖBELSTÜCKE HINZUFÜGEN ############################################
+//#############################################################################################################################################################
+    // ANZAHL MÖBELSTÜCKE HINZUFÜGEN
+//#############################################################################################################################################################
 
     //ANZAHL NUR ANZEIGEN WENN SOFA + ANZAHL HINZUFÜGEN
     const handleAmountIdenticalFurnitureAddSofa = () => {
@@ -225,8 +227,9 @@ const TestMoebelerkennung = (props) => {
         setAmount(amountSitzhocker + 1); //um das Gewicht allgemein auf das Sitzhocker vom Sofas zu setzen im Möbelstück, was in Firebase gespeichert wird;
     }
 
-
-    //########## ANZAHL MÖBELSTÜCKE REDUZIEREN ############################################
+//#############################################################################################################################################################
+    // ANZAHL MÖBELSTÜCKE REDUZIEREN
+//#############################################################################################################################################################
 
     //ANZAHL NUR ANZEIGEN WENN SOFA + ANZAHL REDUZIEREN
     const handleIdenticalFurnitureDecreaseSofa = () => {
@@ -259,90 +262,82 @@ const TestMoebelerkennung = (props) => {
     }
 
 
-
-    //########## LÄNGE MÖBELSTÜCKE HINZUFÜGEN ############################################
+//#############################################################################################################################################################
+    // LÄNGE MÖBELSTÜCKE HINZUFÜGEN
+//#############################################################################################################################################################
 
     //LÄNGE NUR ANZEIGEN WENN SOFA + LÄNGE HINZUFÜGEN
     const handleLengthFurnitureAddSofa = () => {
         setLengthSofa(lengthSofa + 25); //für das Gewicht vom Sofa, bei jedem Klick geupdatet
-        setAmount(lengthSofa + 25); //um das Gewicht allgemein auf das Gewicht vom Sofa zu setzen im Möbelstück, was in Firebase gespeichert wird;
+        setLength(lengthSofa + 25); //um das Gewicht allgemein auf das Gewicht vom Sofa zu setzen im Möbelstück, was in Firebase gespeichert wird;
     }
 
     //LÄNGE NUR ANZEIGEN WENN TISCH + LÄNGE HINZUFÜGEN
     const handleLengthFurnitureAddTisch = () => {
         setLengthTisch(lengthTisch + 20); //für das Gewicht vom Tisch, bei jedem Klick geupdatet
-        setAmount(lengthTisch + 20); //um das Gewicht allgemein auf das Gewicht vom Tisch zu setzen im Möbelstück, was in Firebase gespeichert wird;
+        setLength(lengthTisch + 20); //um das Gewicht allgemein auf das Gewicht vom Tisch zu setzen im Möbelstück, was in Firebase gespeichert wird;
     }
 
     //LÄNGE NUR ANZEIGEN WENN STUHL + LÄNGE HINZUFÜGEN
     const handleLengthFurnitureAddStuhl = () => {
         setLengthStuhl(lengthStuhl + 10); //für das Gewicht vom Stuhl, bei jedem Klick geupdatet
-        setAmount(lengthStuhl + 10); //um das Gewicht allgemein auf das Gewicht vom Stuhl zu setzen im Möbelstück, was in Firebase gespeichert wird;
+        setLength(lengthStuhl + 10); //um das Gewicht allgemein auf das Gewicht vom Stuhl zu setzen im Möbelstück, was in Firebase gespeichert wird;
     }
 
     //LÄNGE NUR ANZEIGEN WENN DREHSTUHL + LÄNGE HINZUFÜGEN
     const handleLengthFurnitureAddDrehstuhl = () => {
         setLengthDrehstuhl(lengthDrehstuhl + 10); //für das Gewicht vom Drehstuhl, bei jedem Klick geupdatet
-        setAmount(lengthDrehstuhl + 10); //um das Gewicht allgemein auf das Gewicht vom Drehstuhl zu setzen im Möbelstück, was in Firebase gespeichert wird;
+        setLength(lengthDrehstuhl + 10); //um das Gewicht allgemein auf das Gewicht vom Drehstuhl zu setzen im Möbelstück, was in Firebase gespeichert wird;
     }
 
     //LÄNGE NUR ANZEIGEN WENN SITZHOCKER + LÄNGE HINZUFÜGEN
     const handleLengthFurnitureAddSitzhocker = () => {
         setLengthSitzhocker(lengthSitzhocker + 5); //für das Gewicht vom Sitzhocker, bei jedem Klick geupdatet
-        setAmount(lengthSitzhocker + 5); //um das Gewicht allgemein auf das Gewicht vom Sitzhocker zu setzen im Möbelstück, was in Firebase gespeichert wird;
+        setLength(lengthSitzhocker + 5); //um das Gewicht allgemein auf das Gewicht vom Sitzhocker zu setzen im Möbelstück, was in Firebase gespeichert wird;
     }
 
 
 
-
-    //########## LÄNGE MÖBELSTÜCKE REDUZIEREN ############################################
+//#############################################################################################################################################################
+    //LÄNGE MÖBELSTÜCKE REDUZIEREN
+//#############################################################################################################################################################
 
     //LÄNGE NUR ANZEIGEN WENN SOFA + LÄNGE REDUZIEREN
     const handleLengthFurnitureDecreaseSofa = () => {
         setLengthSofa(lengthSofa - 25); //für das Gewicht vom Sofa, bei jedem Klick geupdatet
-        setAmount(lengthSofa - 25); //um das Gewicht allgemein auf das Gewicht vom Sofa zu setzen im Möbelstück, was in Firebase gespeichert wird;
+        setLength(lengthSofa - 25); //um das Gewicht allgemein auf das Gewicht vom Sofa zu setzen im Möbelstück, was in Firebase gespeichert wird;
     }
 
     //LÄNGE NUR ANZEIGEN WENN TISCH + LÄNGE REDUZIEREN
     const handleLengthFurnitureDecreaseTisch = () => {
         setLengthTisch(lengthTisch - 20); //für das Gewicht vom Tisch, bei jedem Klick geupdatet
-        setAmount(lengthTisch - 20); //um das Gewicht allgemein auf das Gewicht vom Tisch zu setzen im Möbelstück, was in Firebase gespeichert wird;
+        setLength(lengthTisch - 20); //um das Gewicht allgemein auf das Gewicht vom Tisch zu setzen im Möbelstück, was in Firebase gespeichert wird;
     }
 
     //LÄNGE NUR ANZEIGEN WENN STUHL + LÄNGE REDUZIEREN
     const handleLengthFurnitureDecreaseStuhl = () => {
         setLengthStuhl(lengthStuhl - 10); //für das Gewicht vom Stuhl, bei jedem Klick geupdatet
-        setAmount(lengthStuhl - 10); //um das Gewicht allgemein auf das Gewicht vom Stuhl zu setzen im Möbelstück, was in Firebase gespeichert wird;
+        setLength(lengthStuhl - 10); //um das Gewicht allgemein auf das Gewicht vom Stuhl zu setzen im Möbelstück, was in Firebase gespeichert wird;
     }
 
     //LÄNGE NUR ANZEIGEN WENN DREHSTUHL + LÄNGE REDUZIEREN
     const handleLengthFurnitureDecreaseDrehstuhl = () => {
         setLengthDrehstuhl(lengthDrehstuhl - 10); //für das Gewicht vom Drehstuhl, bei jedem Klick geupdatet
-        setAmount(lengthDrehstuhl - 10); //um das Gewicht allgemein auf das Gewicht vom Drehstuhl zu setzen im Möbelstück, was in Firebase gespeichert wird;
+        setLength(lengthDrehstuhl - 10); //um das Gewicht allgemein auf das Gewicht vom Drehstuhl zu setzen im Möbelstück, was in Firebase gespeichert wird;
     }
 
     //LÄNGE NUR ANZEIGEN WENN SITZHOCKER + LÄNGE REDUZIEREN
     const handleLengthFurnitureDecreaseSitzhocker = () => {
         setLengthSitzhocker(lengthSitzhocker - 5); //für das Gewicht vom Sitzhocker, bei jedem Klick geupdatet
-        setAmount(lengthSitzhocker - 5); //um das Gewicht allgemein auf das Gewicht vom Sitzhocker zu setzen im Möbelstück, was in Firebase gespeichert wird;
+        setLength(lengthSitzhocker - 5); //um das Gewicht allgemein auf das Gewicht vom Sitzhocker zu setzen im Möbelstück, was in Firebase gespeichert wird;
     }
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-//################## WIEDERGABE BESTIMMTER INHALTE ZU LÄNGE, GEWICHT, ANZAHL CONTAINER BEI MÖBELANGABE  #####################################################################################
+//#############################################################################################################################################################
+// WIEDERGABE BESTIMMTER INHALTE ZU LÄNGE, GEWICHT, ANZAHL CONTAINER BEI MÖBELANGABE
+//#############################################################################################################################################################
 
     //FUNKTION UM DAS FELD FÜR ANZAHL ANZUZEIGEN BEI DEN MÖBELANGABEN
     function getInputAmount(predictions, prediction) {//alle label und das einzelne als wert mitgegeben
@@ -505,75 +500,60 @@ const TestMoebelerkennung = (props) => {
 
 
 
-
-
-
-
-
-
-
-
-
-    //WENN BUTTON GEKLICKT, DANN FOTO MACHEN
-
+//#############################################################################################################################################################
+// BUTTON KLICKEN FÜR FOTO MACHEN & FOTO IN FIREBADE HOCHLADEN & DOWNLOAD URL GENERIEREN & KAMERA STOPPEN
+//#############################################################################################################################################################
     const takePhoto = async () => {
-        setLabel(predictions); //Ergebnis null
-        const imageId = v4();
-        tm.webcam.canvas.toBlob(imageBlob => {
 
-            const storage = getStorage();
+        setLabel(predictions); // die Labels für Firebase speichern
 
-            //Umwandeln in ein PNG da es vorher ein octet-stream war und das bild sonst nicht angezeigt werden kann!!
+        const imageId = v4(); //random ID generieren
+
+        tm.webcam.canvas.toBlob(imageBlob => {  //aus dem Kamera Stream der läuft ein Foto machen, Blob Objekt als Argument eingesetzt (imageBloB)
+            const storage = getStorage(); //Storage von Firebase für die Fotos
             const metadata = {
-                contentType: 'image/png',
+                contentType: 'image/png',   // Bild Umwandeln in ein PNG
             };
+            const imageRef = ref(storage, `images/${imageId}`);//Namen für Bild mit random erstellter ID in den Order "images" im Storage von Firebase speichern
 
-            const imageRef = ref(storage, `images/${imageId}`); //namen für bild samndom angeben
-
-            uploadBytes(imageRef, imageBlob, metadata).then((snapshot) => {
-
-                getDownloadURL(snapshot.ref).then((url) => {
-                    setImageUrl(url);
-                    setStoredImageId(url);
-                    console.log(metadata);
+            uploadBytes(imageRef, imageBlob, metadata).then((snapshot) => { //Bild in Firebase speichern, mitgegeben wird der Pfad wo es gespeichert wird (ImageRef), imageBlob als Objekt was gespeichert wird und wie es gespeichert wird (metatada -> png)
+                getDownloadURL(snapshot.ref).then((url) => { //snapshot machen, diese als referenz für die url benutzen, url ist im Stoage
+                    setImageUrl(url); //image url auf die eben erstellte URL des Bildes setzen, die unten verwendet wird
+                    setStoredImageId(url); //Stored Image ID soll die URL sein die eben erstellt wurde, diese wird in Firebase gespeicher
                 });
             });
         })
 
         await tm.stop();//kamera geht aus wenn foto gemacht wird
-        //tm.webcam.webcam.remove(); //camera Canvas wird removt wenn Foto aufgenommen
-        tm.webcam.canvas.remove(); //camera Canvas wird removt wenn Foto aufgenommen
-        setPredicting(false); //aufhören klassen anzuzeigen
+        tm.webcam.canvas.remove(); //camera Canvas wird removt wenn Foto aufgenommen -> damit oben nciht ein leerer weißer container zu sehen ist
         setHasPhoto(true); //foto wurde gemacht
         setStep('done');
     }
 
 
-
-    //WENN BUTTON GEKLICKT, DANN KAMERA STARTEN
-
-
-    //beim Button klicken soll die Kamera angehen, die Vorhersagen werden abgebildet und das Kamera Bild wird angezeigt
+//#############################################################################################################################################################
+//BUTTON KLICKEN UM KAMERA ZU STARTEN UND DAS CANVAS ALS KIND ELEMENT HINZUFÜGEN &
+//VORHERSAGEN WERDEN IM HINTERGRUND GETROFFEN (DEFINIERT IN USEANIMATIONFRAME)
+// #############################################################################################################################################################
     const handleClick = async () => {
-        await tm.start(); //starten
-        divEl.current.appendChild(tm.webcam.canvas); //in dem div das webcam canvas erscheinen lassen*/
-        setPredicting(true); //die klassen sollen jetzt angehen
+        await tm.start(); // Kamera starten
+        divEl.current.appendChild(tm.webcam.canvas); //in dem div das webcam canvas erscheinen lassen
         setStep('scan');
-
     }
 
-
-
-    //beim Klick auf den Button werden sie Sachen an Firebase geschickt
+//#############################################################################################################################################################
+//GEMACHTE FOTO BESTÄTIGEN UND AUF "DATA" SCREEN WECHSELN
+//#############################################################################################################################################################
     const handleComplete = ()=>{
         setStep('data');
     }
-
-    //setze auf Schritt "info" & Füge Möbelstück hinzu (id, Anzahl,Länge,Gewicht,Raum,Besonderheiten,Url des Bildes, labels[])
+//#############################################################################################################################################################
+//SETZE AUF SCHRITT "INFO" & FÜGE MÖBELSTÜCK IN LISTE HINZU (ID, ANZAHL, LÄNGE,GEWICHT,RAUM,BESONDERHEITEN,URL DES BILDES, LABELS[]
+//#############################################################################################################################################################
     const handleDone = ()=>{
         setStep('info');
 
-        // neues möbelstück anlegen in der collection "moebel-data"
+        // neues möbelstück anlegen in der Firebase Database collection "moebel-data" (Pfad definiert in moebelCollectionRef)
         addDoc(moebelCollectionRef,{
             id:id,
             amount: amount,
@@ -594,6 +574,7 @@ const TestMoebelerkennung = (props) => {
     return (
         <div className="secondary-background">
             <Header/>
+    {/*########### In den Container wird das Kamera Canvas gepackt ##########*/}
             <div ref={divEl} id="webcam-container"></div>
             {step === 'info' &&
                 <>
