@@ -22,7 +22,7 @@ const TeachableMachineWrapper = {
         const flip = true; // whether to flip the webcam
         const webcam = new tmImage.Webcam(200, 200, flip); // width, height, flip
         await webcam.setup({ facingMode: "environment" }); // request access to the webcam
-        // grab video-object in any way you want and set the attributes --> **"muted" and "playsinline"**
+
 
         await webcam.play(); //webcam geht an
 

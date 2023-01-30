@@ -42,16 +42,17 @@ const TestMoebelerkennung = (props) => {
     const [step, setStep] = useState('info'); // 'scan', 'done'
     const [storedImageId, setStoredImageId] = useState();
     const [imageUrl, setImageUrl] = useState(null);
-    const [amount, setAmount] = useState();
-    const [length, setLength] = useState();
-    const [weight, setWeight] = useState();
+    const [amount, setAmount] = useState(1);// count für anzahl der Möbelstücke
+    const [length, setLength] = useState(200);// count für anzahl der Möbelstücke
+    const [weight, setWeight] = useState(100);// count für weight
     const [room, setRoom] = useState();
     const [id, setId] = useState();
     const [label, setLabel] = useState();
     const [besonderheiten, setBesonderheiten] = useState();
 
-    const unique_id = v4();
-    const furnitureCollectionRef = collection(firestore, "furniture-data");
+
+
+    const unique_id = v4(); //erstellen einer unique ID für das Möbelstück!
 
     //der Pfad für die Sammlung in Firebase, falls noch nciht vorhanden wird es angelegt
     const moebelCollectionRef = collection(firestore, "moebel-data");
@@ -141,17 +142,241 @@ const TestMoebelerkennung = (props) => {
         }
 
     }
+
+
+
+
+    // Funktionen für das Anzeigen der Möbelangaben je nach klasse!
+
+    //WEIGHT
+    const handleAmountWeightAdd = () => {
+        setWeight(weight + 5);
+    }
+    //WEIGHT
+    const handleAmountWeightDecrease = () => {
+        setWeight(weight - 5);
+    }
+    //ANZAHL MÖBELSTÜCKE
+    const handleAmountIdenticalFurnitureAdd = () => {
+        setAmount(amount + 1);
+    }
+    //ANZAHL MÖBELSTÜCKE
+    const handleIdenticalFurnitureDecrease = () => {
+        setAmount(amount - 1);
+    }
+    //LÄNGE
+    const handleLengthFurnitureAdd = () => {
+        setLength(length + 10);
+    }
+    //LÄNGE
+    const handleLengthFurnitureDecrease = () => {
+        setLength(length - 10);
+    }
+
+    //GEWICHT HINZUFÜGEN
+    function buttonClickedAdd() {
+        handleAmountWeightAdd(); //macht +5 Gewicht
+    }
+    //GEWICHT REDUZIEREN
+    function buttonClickedDecrease() {
+        handleAmountWeightDecrease(); //macht -5 Gewicht
+    }
+    //ANZAHL HINZUFÜGEN
+    function buttonClickedAddIdenticalFurniture() {
+        handleAmountIdenticalFurnitureAdd(); //macht +1 Anzahl der Möbelstücke
+    }
+    //ANZAHL REDUZIEREN
+    function buttonClickedDecreaseIdenticalFurniture() {
+        handleIdenticalFurnitureDecrease(); //macht -1 Anzahl der Möbelstücke
+    }
+    //LÄNGE HINZUFÜGEN
+    function buttonClickedAddLengthFurniture() {
+        handleLengthFurnitureAdd(); //macht +20cm Länge
+    }
+    //LÄNGE REDUZIEREN
+    function buttonClickedDecreaseLengthFurniture() {
+        handleLengthFurnitureDecrease(); //macht -20cm Länge
+    }
+
+
+
+    //FUNKTION UM DAS FELD FÜR ANZAHL ANZUZEIGEN BEI DEN MÖBELANGABEN
     function getInputAmount(predictions, prediction) {//alle label und das einzelne als wert mitgegeben
         let highestLabel = getHighestPrediction(predictions);//funktion aufrufen mit allen labeln
         if (prediction === highestLabel && prediction.className==="Sofa") {
             //wenn label ist das höchste dann return label + wahrscheinlichkeit
-            return "Hallo";
+            return <SmallRectangle>
+                <label>Anzahl</label>
+                <div className="container-row">
+                    <div onClick={buttonClickedDecreaseIdenticalFurniture}>-</div>
+                    <div className="count"> {amount+1}</div>
+                    <div onClick={buttonClickedAddIdenticalFurniture}>+</div>
+                </div>
+            </SmallRectangle >;
         }
-        else { //wenn nicht bleib leer
-            return '';
+        else if(prediction === highestLabel && prediction.className==="Sitzhocker") {
+            //wenn label ist das höchste dann return label + wahrscheinlichkeit
+            return <SmallRectangle>
+                <label>Anzahl</label>
+                <div className="container-row">
+                    <div onClick={buttonClickedDecreaseIdenticalFurniture}>-</div>
+                    <div className="count"> {amount}</div>
+                    <div onClick={buttonClickedAddIdenticalFurniture}>+</div>
+                </div>
+            </SmallRectangle >;
+        }else if(prediction === highestLabel && prediction.className==="Drehstuhl") {
+            //wenn label ist das höchste dann return label + wahrscheinlichkeit
+            return <SmallRectangle>
+                <label>Anzahl</label>
+                <div className="container-row">
+                    <div onClick={buttonClickedDecreaseIdenticalFurniture}>-</div>
+                    <div className="count"> {amount}</div>
+                    <div onClick={buttonClickedAddIdenticalFurniture}>+</div>
+                </div>
+            </SmallRectangle >;
+        } else if(prediction === highestLabel && prediction.className==="Tisch") {
+            //wenn label ist das höchste dann return label + wahrscheinlichkeit
+            return <SmallRectangle>
+                <label>Anzahl</label>
+                <div className="container-row">
+                    <div onClick={buttonClickedDecreaseIdenticalFurniture}>-</div>
+                    <div className="count"> {amount}</div>
+                    <div onClick={buttonClickedAddIdenticalFurniture}>+</div>
+                </div>
+            </SmallRectangle >;
+        }else if(prediction === highestLabel && prediction.className==="Stuhl") {
+            //wenn label ist das höchste dann return label + wahrscheinlichkeit
+            return <SmallRectangle>
+                <label>Anzahl</label>
+                <div className="container-row">
+                    <div onClick={buttonClickedDecreaseIdenticalFurniture}>-</div>
+                    <div className="count"> {amount+3}</div>
+                    <div onClick={buttonClickedAddIdenticalFurniture}>+</div>
+                </div>
+            </SmallRectangle >;
         }
 
     }
+
+
+    //FUNKTION UM DAS FELD FÜR GEWICHT ANZUZEIGEN BEI DEN MÖBELANGABEN
+    function getInputWeight(predictions, prediction) {//alle label und das einzelne als wert mitgegeben
+        let highestLabel = getHighestPrediction(predictions);//funktion aufrufen mit allen labeln
+        if (prediction === highestLabel && prediction.className==="Sofa") {
+            //wenn label ist das höchste dann return label + wahrscheinlichkeit
+            return <SmallRectangle>
+                <label>Gewicht</label>
+                <div className="container-row">
+                    <div onClick={buttonClickedDecrease}>-</div>
+                    <div className="count"> {weight}</div>
+                    <div onClick={buttonClickedAdd}>+</div>
+                </div>
+            </SmallRectangle >;
+        }
+        else if(prediction === highestLabel && prediction.className==="Sitzhocker") {
+            //wenn label ist das höchste dann return label + wahrscheinlichkeit
+            return <SmallRectangle>
+                <label>Gewicht</label>
+                <div className="container-row">
+                    <div onClick={buttonClickedDecrease}>-</div>
+                    <div className="count"> {weight-80}</div>
+                    <div onClick={buttonClickedAdd}>+</div>
+                </div>
+            </SmallRectangle >;
+        }else if(prediction === highestLabel && prediction.className==="Drehstuhl") {
+            //wenn label ist das höchste dann return label + wahrscheinlichkeit
+            return <SmallRectangle>
+                <label>Gewicht</label>
+                <div className="container-row">
+                    <div onClick={buttonClickedDecrease}>-</div>
+                    <div className="count"> {weight-50}</div>
+                    <div onClick={buttonClickedAdd}>+</div>
+                </div>
+            </SmallRectangle >;
+        } else if(prediction === highestLabel && prediction.className==="Tisch") {
+            //wenn label ist das höchste dann return label + wahrscheinlichkeit
+            return <SmallRectangle>
+                <label>Gewicht</label>
+                <div className="container-row">
+                    <div onClick={buttonClickedDecrease}>-</div>
+                    <div className="count"> {weight-50}</div>
+                    <div onClick={buttonClickedAdd}>+</div>
+                </div>
+            </SmallRectangle >;
+        }else if(prediction === highestLabel && prediction.className==="Stuhl") {
+            //wenn label ist das höchste dann return label + wahrscheinlichkeit
+            return <SmallRectangle>
+                <label>Gewicht</label>
+                <div className="container-row">
+                    <div onClick={buttonClickedDecrease}>-</div>
+                    <div className="count"> {weight-90}</div>
+                    <div onClick={buttonClickedAdd}>+</div>
+                </div>
+            </SmallRectangle >;
+        }
+
+    }
+
+//FUNKTION UM DAS FELD FÜR GEWICHT ANZUZEIGEN BEI DEN MÖBELANGABEN
+    function getInputLength(predictions, prediction) {//alle label und das einzelne als wert mitgegeben
+        let highestLabel = getHighestPrediction(predictions);//funktion aufrufen mit allen labeln
+        if (prediction === highestLabel && prediction.className==="Sofa") {
+            //wenn label ist das höchste dann return label + wahrscheinlichkeit
+            return <SmallRectangle>
+                <label>Länge</label>
+                <div className="container-row">
+                    <div onClick={buttonClickedDecreaseLengthFurniture}>-</div>
+                    <div className="count"> {length}</div>
+                    <div onClick={buttonClickedAddLengthFurniture}>+</div>
+                </div>
+            </SmallRectangle >;
+        }
+        else if(prediction === highestLabel && prediction.className==="Sitzhocker") {
+            //wenn label ist das höchste dann return label + wahrscheinlichkeit
+            return <SmallRectangle>
+                <label>Länge</label>
+                <div className="container-row">
+                    <div onClick={buttonClickedDecreaseLengthFurniture}>-</div>
+                    <div className="count"> {length-140}</div>
+                    <div onClick={buttonClickedAddLengthFurniture}>+</div>
+                </div>
+            </SmallRectangle >;
+        }else if(prediction === highestLabel && prediction.className==="Drehstuhl") {
+            //wenn label ist das höchste dann return label + wahrscheinlichkeit
+            return <SmallRectangle>
+                <label>Länge</label>
+                <div className="container-row">
+                    <div onClick={buttonClickedDecreaseLengthFurniture}>-</div>
+                    <div className="count"> {length-90}</div>
+                    <div onClick={buttonClickedAddLengthFurniture}>+</div>
+                </div>
+            </SmallRectangle >;
+        } else if(prediction === highestLabel && prediction.className==="Tisch") {
+            //wenn label ist das höchste dann return label + wahrscheinlichkeit
+            return <SmallRectangle>
+                <label>Länge</label>
+                <div className="container-row">
+                    <div onClick={buttonClickedDecreaseLengthFurniture}>-</div>
+                    <div className="count"> {length-40}</div>
+                    <div onClick={buttonClickedAddLengthFurniture}>+</div>
+                </div>
+            </SmallRectangle >;
+        }else if(prediction === highestLabel && prediction.className==="Stuhl") {
+            //wenn label ist das höchste dann return label + wahrscheinlichkeit
+            return <SmallRectangle>
+                <label>Länge</label>
+                <div className="container-row">
+                    <div onClick={buttonClickedDecreaseLengthFurniture}>-</div>
+                    <div className="count"> {length-100}</div>
+                    <div onClick={buttonClickedAddLengthFurniture}>+</div>
+                </div>
+            </SmallRectangle >;
+        }
+
+    }
+
+
+
 
 
 
@@ -237,6 +462,10 @@ const TestMoebelerkennung = (props) => {
     }
 
 
+
+
+
+
     return (
         <div className="secondary-background">
             <Header/>
@@ -282,38 +511,17 @@ const TestMoebelerkennung = (props) => {
                             ? predictions.map((prediction) =>
                                 <div id={prediction.className} key={prediction.className} className="Label-Klassen">
                                     <h4>{getLabelIfIsHighestPropability(predictions, prediction)}</h4>
-                                    <p>{getInputAmount(predictions, prediction)}</p>
+
+                                    <form className="moebel-data">
+                                        <div>{getInputAmount(predictions, prediction)}</div>
+                                        <div>{getInputWeight(predictions, prediction)}</div>
+                                        <div>{getInputLength(predictions, prediction)}</div>
+                                    </form>
+
                                 </div>)
                             : ''}
                     </div>
                     <div className="data-container">
-                        <form className="moebel-data">
-                            <SmallRectangle>
-                                <label> Anzahl</label>
-                                <input type="text" placeholder="Anzahl..."
-                                       onChange={(event)=>{
-                                           setAmount(event.target.value);
-                                           setId(unique_id);
-                                       }}/>
-                            </SmallRectangle>
-                            <SmallRectangle>
-                                <label>Länge</label>
-                                <input type="text" placeholder="Länge.."
-                                       onChange={(event)=>{
-                                           setLength(event.target.value);
-                                       }}/>
-                            </SmallRectangle >
-
-                            <SmallRectangle>
-                                <label> Gewicht</label>
-                                <input type="text" placeholder="Gewicht.."
-                                       onChange={(event)=>{
-                                           setWeight(event.target.value);
-                                       }}/>
-                            </SmallRectangle >
-
-
-                        </form>
                         <BigRectangle className="moebel-data-full-width">
                             <fieldset>
                                 <h5 className="h5-moebel-data"> Raumauswahl</h5>
@@ -321,6 +529,7 @@ const TestMoebelerkennung = (props) => {
                                     <input type="radio" id="kitchen"value="Küche" name="Raum"
                                            onChange={(event)=>{
                                                setRoom(event.target.value);
+                                               setId(unique_id);
                                            }}/>
                                     <label  className="label-special-data" htmlFor="kitchen">
                                         <RoundButton className="picture-div">
@@ -335,6 +544,7 @@ const TestMoebelerkennung = (props) => {
                                     <input type="radio" id="bedroom"value="Schlafzimmer" name="Raum"
                                            onChange={(event)=>{
                                                setRoom(event.target.value);
+                                               setId(unique_id);
                                            }}/>
                                     <label className="label-special-data" htmlFor="bedroom">
                                         <RoundButton className="picture-div">
@@ -346,6 +556,7 @@ const TestMoebelerkennung = (props) => {
                                     <input type="radio" id="livingroom"value="Wohnzimmer" name="Raum"
                                            onChange={(event)=>{
                                                setRoom(event.target.value);
+                                               setId(unique_id);
                                            }}/>
                                     <label className="label-special-data" htmlFor="livingroom">
                                         <RoundButton className="picture-div">

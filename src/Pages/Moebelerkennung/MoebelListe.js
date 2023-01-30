@@ -115,14 +115,8 @@ const MoebelListe = (besonderheiten) => {
                     }
                 }
             }
-        } else if ((moebel.label[4].probability*100).toFixed(2) > (moebel.label[0].probability*100).toFixed(2)) {
-            if ((moebel.label[4].probability*100).toFixed(2) > (moebel.label[1].probability*100).toFixed(2)) {
-                if ((moebel.label[4].probability*100).toFixed(2) > (moebel.label[2].probability*100).toFixed(2)) {
-                    if ((moebel.label[4].probability*100).toFixed(2) > (moebel.label[3].probability*100).toFixed(2)) {
-                        return "Tisch";
-                    }
-                }
-            }
+        } else {
+            return "Tisch";
         }
 
     }
