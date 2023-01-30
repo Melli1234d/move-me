@@ -31,7 +31,7 @@ import Kratzer from "../../components/Pictures/MoebelAngaben/kratzer.png";
 //https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/toBlob?retiredLocale=de
 //Code angelehnt an Code Beispiel der automatisch von Teachable Machine generiert wird
 // Code Photo nach Firebase hochladen: or github: https://github.com/machadop1407/firebase-file-upload
-
+//https://github.com/googlecreativelab/teachablemachine-community/issues/73
 
 //const URL = 'tm-my-image-model-5/';
 
@@ -189,6 +189,7 @@ const TestMoebelerkennung = (props) => {
         })
 
         await tm.stop();//kamera geht aus wenn foto gemacht wird
+        //tm.webcam.webcam.remove(); //camera Canvas wird removt wenn Foto aufgenommen
         tm.webcam.canvas.remove(); //camera Canvas wird removt wenn Foto aufgenommen
         setPredicting(false); //aufhören klassen anzuzeigen
         setHasPhoto(true); //foto wurde gemacht
@@ -203,6 +204,11 @@ const TestMoebelerkennung = (props) => {
     //beim Button klicken soll die Kamera angehen, die Vorhersagen werden abgebildet und das Kamera Bild wird angezeigt
     const handleClick = async () => {
         await tm.start(); //starten
+       /* divEl.current.appendChild(tm.webcam.webcam); //in dem div das webcam canvas erscheinen lassen*!/
+        let wc = document.getElementsByTagName('video')[0];
+        wc.setAttribute("playsinline", true); // written with "setAttribute" bc. iOS buggs otherwise :-)
+        wc.muted = "true"
+        wc.id = "webcamVideo";*/
         divEl.current.appendChild(tm.webcam.canvas); //in dem div das webcam canvas erscheinen lassen*/
         setPredicting(true); //die klassen sollen jetzt angehen
         setStep('scan');

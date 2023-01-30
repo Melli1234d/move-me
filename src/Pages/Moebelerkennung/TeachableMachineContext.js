@@ -21,7 +21,9 @@ const TeachableMachineWrapper = {
         // Convenience function to setup a webcam
         const flip = true; // whether to flip the webcam
         const webcam = new tmImage.Webcam(200, 200, flip); // width, height, flip
-        await webcam.setup(); // request access to the webcam
+        await webcam.setup({ facingMode: "environment" }); // request access to the webcam
+        // grab video-object in any way you want and set the attributes --> **"muted" and "playsinline"**
+
         await webcam.play(); //webcam geht an
 
         this.model = model;
@@ -31,12 +33,7 @@ const TeachableMachineWrapper = {
     },
 //funktioniert noch nicht
     async stop(){
-
-        // Convenience function to setup a webcam
         await this.webcam.stop() //vorherige webcam ansprechen
-        // await webcam.setup(); // request access to the webcam
-        // await webcam.stop();//webcam geht  aus
-        //
         this.started = false; //wird gestoppt
 
     }
