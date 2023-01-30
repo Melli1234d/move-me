@@ -42,9 +42,14 @@ const TestMoebelerkennung = (props) => {
     const [step, setStep] = useState('info'); // 'scan', 'done'
     const [storedImageId, setStoredImageId] = useState();
     const [imageUrl, setImageUrl] = useState(null);
-    const [amount, setAmount] = useState(1);// count für anzahl der Möbelstücke
-    const [length, setLength] = useState(200);// count für anzahl der Möbelstücke
-    const [weight, setWeight] = useState(100);// count für weight
+    const [amount, setAmount] = useState(1);// Allgemeine Anzahl der Möbelstücke, die in Firebase gespeichert wird, gesetzt je nach Klasse
+    const [length, setLength] = useState(1);// Allgemeine Länge der Längsten Seite des Möbelstückes, die in Firebase gespeichert wird, gesetzt je nach Klasse
+    const [weight, setWeight] = useState();// Allgemeines Gewicht, was in Firebase gespeichert wird, gesetzt je nach Klasse
+    const [weightSofa, setWeightSofa] = useState(100);// count für Sofa Gewicht
+    const [weightTisch, setWeightTisch] = useState(100);// count für Tisch Gewicht
+    const [weightStuhl, setWeightStuhl] = useState(100);// count für Stuhl Gewicht
+    const [weightDrehstuhl, setWeightDrehstuhl] = useState(100);// count für Tisch Gewicht
+    const [weightSitzhocker, setWeightSitzhocker] = useState(100);// count für Tisch Gewicht
     const [room, setRoom] = useState();
     const [id, setId] = useState();
     const [label, setLabel] = useState();
@@ -61,12 +66,11 @@ const TestMoebelerkennung = (props) => {
     const tm = useContext(TeachableMachineContext);
 
 
-//KAMERA CONTAINER
-
+    //KAMERA CONTAINER
     const divEl = useRef(null);
-//Animation Frame läuft immer
-    useAnimationFrame(deltaTime => {
 
+    //Animation Frame läuft immer
+    useAnimationFrame(deltaTime => {
         if (tm.started) {
             tm.webcam.update(); //webcam wird immer geupdatet, damit neustes build entsteht
             tm.model.predict(tm.webcam.canvas).then(setPredictions) //vorhersagen der erkannten Klassen werden gesetzt
@@ -98,10 +102,7 @@ const TestMoebelerkennung = (props) => {
         if (prediction === highestLabel) {
             //wenn label ist das höchste dann return label + wahrscheinlichkeit
             return prediction.className + ": " + (prediction.probability * 100).toFixed(2) + "%";
-        } else if (prediction === "") {
-            return "";
-        }
-        else { //wenn nicht bleib leer
+        } else { //wenn nicht bleib leer
             return '';
         }
 
@@ -110,16 +111,78 @@ const TestMoebelerkennung = (props) => {
 
 
 
-    // Funktionen für das Anzeigen der Möbelangaben
-
+    // FUNKTIONEN UM DIE BESTIMMTEN DATEN FÜR DIE JEWEILIGE KLASSE HERAUS ZU BEKOMMEN
+    // es werden immer zwei angaben getätigt:
+    // 1. man muss einmal die Daten nur für die spezielle Klasse angeben, da dies nur gezeigt wird, wenn die Klasse gezeigt wird (Wahl zwischen Sofa,Stuhl,Tisch,Drehstuhl,Sitzhocker -> jede Kalsse hat unterschiedliche Anfangswerte bei Länge,Gewicht,Anzahl)
+    // 2. dann nochmal den allgemeinen Wert setzen, welcher je nachdem welches Möbelstück erkannt wird dann den Wert bekommt, der bei 1. definiert wurde (Länge, Gewicht oder Anzahl wird anhand der erkannten Klasse gesetzt & in Firebase gespeichert)
     //WEIGHT
     const handleAmountWeightAdd = () => {
+
         setWeight(weight + 5);
+    }
+
+    //########## WEIGHT ############################################
+
+    //GEWICHT NUR ANZEIGEN WENN SOFA + GEWICHT HINZUFÜGEN
+    const handleAmountWeightAddSofa = () => {
+        setWeightSofa(weightSofa + 10); //für das Gewicht vom Sofa, bei jedem Klick geupdatet
+        setWeight(weightSofa + 10); //um das Gewicht allgemein auf das Gewicht des Sofas zu setzen im Möbelstück, was in Firebase gespeichert wird;
+    }
+    //GEWICHT NUR ANZEIGEN WENN TISCH + GEWICHT HINZUFÜGEN
+    const handleAmountWeightAddTisch = () => {
+        setWeightTisch(weightTisch + 10); //für das Gewicht vom Tisch, bei jedem Klick geupdatet
+        setWeight(weightTisch + 10); //um das Gewicht allgemein auf das Gewicht des Tisches zu setzen im Möbelstück, was in Firebase gespeichert wird;
+    }
+    //GEWICHT NUR ANZEIGEN WENN STUHL + GEWICHT HINZUFÜGEN
+    const handleAmountWeightAddStuhl = () => {
+        setWeightStuhl(weightStuhl + 10); //für das Gewicht vom Tisch, bei jedem Klick geupdatet
+        setWeight(weightStuhl + 10); //um das Gewicht allgemein auf das Gewicht des Tisches zu setzen im Möbelstück, was in Firebase gespeichert wird;
+    }
+    //GEWICHT NUR ANZEIGEN WENN DREHSTUHL + GEWICHT HINZUFÜGEN
+    const handleAmountWeightAddDrehstuhl = () => {
+        setWeightDrehstuhl(weightDrehstuhl + 10); //für das Gewicht vom Tisch, bei jedem Klick geupdatet
+        setWeight(weightDrehstuhl + 10); //um das Gewicht allgemein auf das Gewicht des Tisches zu setzen im Möbelstück, was in Firebase gespeichert wird;
+    }
+
+    //GEWICHT NUR ANZEIGEN WENN SITZHOCKER + GEWICHT HINZUFÜGEN
+    const handleAmountWeightAddSitzhocker = () => {
+        setWeightSitzhocker(weightSitzhocker + 10); //für das Gewicht vom Tisch, bei jedem Klick geupdatet
+        setWeight(weightSitzhocker + 10); //um das Gewicht allgemein auf das Gewicht des Tisches zu setzen im Möbelstück, was in Firebase gespeichert wird;
     }
     //WEIGHT
     const handleAmountWeightDecrease = () => {
         setWeight(weight - 5);
     }
+
+    //GEWICHT NUR ANZEIGEN WENN SOFA + GEWICHT REDUZIEREN
+    const handleAmountWeightDecreaseSofa = () => {
+        setWeightSofa(weightSofa - 10); //für das Gewicht vom Sofa, bei jedem Klick geupdatet
+        setWeight(weightSofa - 10); //um das Gewicht allgemein auf das Gewicht des Sofas zu setzen im Möbelstück, was in Firebase gespeichert wird;
+    }
+    //GEWICHT NUR ANZEIGEN WENN TISCH + GEWICHT REDUZIEREN
+    const handleAmountWeightDecreaseTisch = () => {
+        setWeightTisch(weightTisch - 10); //für das Gewicht vom Tisch, bei jedem Klick geupdatet
+        setWeight(weightTisch - 10); //um das Gewicht allgemein auf das Gewicht des Tisches zu setzen im Möbelstück, was in Firebase gespeichert wird;
+    }
+
+    //GEWICHT NUR ANZEIGEN WENN STUHL + GEWICHT REDUZIEREN
+    const handleAmountWeightDecreaseStuhl = () => {
+        setWeightStuhl(weightStuhl - 10); //für das Gewicht vom Tisch, bei jedem Klick geupdatet
+        setWeight(weightStuhl - 10); //um das Gewicht allgemein auf das Gewicht des Tisches zu setzen im Möbelstück, was in Firebase gespeichert wird;
+    }
+    //GEWICHT NUR ANZEIGEN WENN DREHSTUHL + GEWICHT REDUZIEREN
+    const handleAmountWeightDecreaseDrehstuhl = () => {
+        setWeightDrehstuhl(weightDrehstuhl - 10); //für das Gewicht vom Tisch, bei jedem Klick geupdatet
+        setWeight(weightDrehstuhl - 10); //um das Gewicht allgemein auf das Gewicht des Tisches zu setzen im Möbelstück, was in Firebase gespeichert wird;
+    }
+
+    //GEWICHT NUR ANZEIGEN WENN DREHSTUHL + GEWICHT REDUZIEREN
+    const handleAmountWeightDecreaseSitzhocker = () => {
+        setWeightSitzhocker(weightSitzhocker - 10); //für das Gewicht vom Tisch, bei jedem Klick geupdatet
+        setWeight(weightSitzhocker - 10); //um das Gewicht allgemein auf das Gewicht des Tisches zu setzen im Möbelstück, was in Firebase gespeichert wird;
+    }
+
+
     //ANZAHL MÖBELSTÜCKE
     const handleAmountIdenticalFurnitureAdd = () => {
         setAmount(amount + 1);
@@ -141,9 +204,15 @@ const TestMoebelerkennung = (props) => {
     function buttonClickedAdd() {
         handleAmountWeightAdd(); //macht +5 Gewicht
     }
+    function buttonClickedAddSofa() {
+        handleAmountWeightAddSofa(); //macht +5 Gewicht Sofa
+    }
     //GEWICHT REDUZIEREN
     function buttonClickedDecrease() {
         handleAmountWeightDecrease(); //macht -5 Gewicht
+    }
+    function buttonClickedDecreaseSofa() {
+        handleAmountWeightDecreaseSofa(); //macht -5 Gewicht sofa
     }
     //ANZAHL HINZUFÜGEN
     function buttonClickedAddIdenticalFurniture() {
@@ -231,9 +300,9 @@ const TestMoebelerkennung = (props) => {
             return <SmallRectangle>
                 <label>Gewicht</label>
                 <div className="container-row">
-                    <div onClick={buttonClickedDecrease}>-</div>
-                    <div className="count"> {weight}</div>
-                    <div onClick={buttonClickedAdd}>+</div>
+                    <div onClick={buttonClickedDecreaseSofa}>-</div>
+                    <div className="count"> {weightSofa}</div>
+                    <div onClick={buttonClickedAddSofa}>+</div>
                 </div>
             </SmallRectangle >;
         }
@@ -242,9 +311,9 @@ const TestMoebelerkennung = (props) => {
             return <SmallRectangle>
                 <label>Gewicht</label>
                 <div className="container-row">
-                    <div onClick={buttonClickedDecrease}>-</div>
-                    <div className="count"> {weight}</div>
-                    <div onClick={buttonClickedAdd}>+</div>
+                    <div onClick={handleAmountWeightDecreaseSitzhocker}>-</div>
+                    <div className="count"> {weightSitzhocker}</div>
+                    <div onClick={handleAmountWeightAddSitzhocker}>+</div>
                 </div>
             </SmallRectangle >;
         }else if(prediction === highestLabel && prediction.className==="Drehstuhl") {
@@ -252,9 +321,9 @@ const TestMoebelerkennung = (props) => {
             return <SmallRectangle>
                 <label>Gewicht</label>
                 <div className="container-row">
-                    <div onClick={buttonClickedDecrease}>-</div>
-                    <div className="count"> {weight}</div>
-                    <div onClick={buttonClickedAdd}>+</div>
+                    <div onClick={handleAmountWeightDecreaseDrehstuhl}>-</div>
+                    <div className="count"> {weightDrehstuhl}</div>
+                    <div onClick={handleAmountWeightAddDrehstuhl}>+</div>
                 </div>
             </SmallRectangle >;
         } else if(prediction === highestLabel && prediction.className==="Tisch") {
@@ -262,9 +331,9 @@ const TestMoebelerkennung = (props) => {
             return <SmallRectangle>
                 <label>Gewicht</label>
                 <div className="container-row">
-                    <div onClick={buttonClickedDecrease}>-</div>
-                    <div className="count"> {weight}</div>
-                    <div onClick={buttonClickedAdd}>+</div>
+                    <div onClick={handleAmountWeightDecreaseTisch}>-</div>
+                    <div className="count"> {weightTisch}</div>
+                    <div onClick={handleAmountWeightAddTisch}>+</div>
                 </div>
             </SmallRectangle >;
         }else if(prediction === highestLabel && prediction.className==="Stuhl") {
@@ -272,9 +341,9 @@ const TestMoebelerkennung = (props) => {
             return <SmallRectangle>
                 <label>Gewicht</label>
                 <div className="container-row">
-                    <div onClick={buttonClickedDecrease}>-</div>
-                    <div className="count"> {weight}</div>
-                    <div onClick={buttonClickedAdd}>+</div>
+                    <div onClick={handleAmountWeightDecreaseStuhl}>-</div>
+                    <div className="count"> {weightStuhl}</div>
+                    <div onClick={handleAmountWeightAddStuhl}>+</div>
                 </div>
             </SmallRectangle >;
         }
@@ -486,6 +555,33 @@ const TestMoebelerkennung = (props) => {
                             : ''}
                     </div>
                     <div className="data-container">
+                        {/*<form className="moebel-data">
+                            <SmallRectangle>
+                                <label> Anzahl</label>
+                                <input type="text" placeholder="Anzahl..."
+                                       onChange={(event)=>{
+                                           setAmount(event.target.value);
+                                           setId(unique_id);
+                                       }}/>
+                            </SmallRectangle>
+                            <SmallRectangle>
+                                <label>Länge</label>
+                                <input type="text" placeholder="Länge.."
+                                       onChange={(event)=>{
+                                           setLength(event.target.value);
+                                       }}/>
+                            </SmallRectangle >
+
+                            <SmallRectangle>
+                                <label> Gewicht</label>
+                                <input type="text" placeholder="Gewicht.."
+                                       onChange={(event)=>{
+                                           setWeight(event.target.value);
+                                       }}/>
+                            </SmallRectangle >
+
+
+                        </form>*/}
                         <BigRectangle className="moebel-data-full-width">
                             <fieldset>
                                 <h5 className="h5-moebel-data"> Raumauswahl</h5>
