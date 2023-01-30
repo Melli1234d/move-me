@@ -60,28 +60,94 @@ const TestMoebelerkennung = (props) => {
     const [label, setLabel] = useState(); //Label in Firebase , alle werden als Array in Firebase gespeichert inkl. classname + propability (Sofa,Tisch,Stuhl,Drehstuhl,Sithocker)
     const [besonderheiten, setBesonderheiten] = useState(); //Besonderheiten in Firebase gesetzt in der 'data' Ansicht
 
-
-
+//#############################################################################################################################################################
+//ANDERE VARIABELN
+//#############################################################################################################################################################
     const unique_id = v4(); //erstellen einer unique ID für das Möbelstück!
-
-    //der Pfad für die Sammlung in Firebase, falls noch nciht vorhanden wird es angelegt
-    const moebelCollectionRef = collection(firestore, "moebel-data");
-
-
-    const tm = useContext(TeachableMachineContext);
+    const moebelCollectionRef = collection(firestore, "moebel-data");//der Pfad für die Sammlung in Firebase, falls noch nciht vorhanden wird es angelegt
+    const tm = useContext(TeachableMachineContext); //das Modell von dem Teachable Machine Context als "tm" verwenden -> definition der modelurl,metadataurl + webcam
+    const divEl = useRef(null);//anfang leerer Continer, später soll Kamera hier rein -> definiert in handleClick
 
 
-    //KAMERA CONTAINER
-    const divEl = useRef(null);
-
-    //Animation Frame läuft immer
+//#############################################################################################################################################################
+    //ANIMATION FRAME DER DEN LOOP STÄNDIG DURCHLÄUFT UND IN ECHTZEIT UPDATET WENN KAMERA GESTARTET
+//#############################################################################################################################################################
     useAnimationFrame(deltaTime => {
-        if (tm.started) {
+        if (tm.started) { //Funktion startet im context definiert
             tm.webcam.update(); //webcam wird immer geupdatet, damit neustes build entsteht
             tm.model.predict(tm.webcam.canvas).then(setPredictions) //vorhersagen der erkannten Klassen werden gesetzt
-
         }
     })
+
+
+//#############################################################################################################################################################
+//BUTTON KLICKEN UM KAMERA ZU STARTEN UND DAS CANVAS ALS KIND ELEMENT HINZUFÜGEN &
+//VORHERSAGEN WERDEN IM HINTERGRUND GETROFFEN (DEFINIERT IN USEANIMATIONFRAME)
+    // & STEP "SCAN"
+// #############################################################################################################################################################
+    const handleClick = async () => {
+        await tm.start(); // Kamera starten
+        divEl.current.appendChild(tm.webcam.canvas); //in dem div das webcam canvas erscheinen lassen
+        setStep('scan');
+    }
+
+//#############################################################################################################################################################
+// BUTTON KLICKEN FÜR FOTO MACHEN & FOTO IN FIREBADE HOCHLADEN & DOWNLOAD URL GENERIEREN & KAMERA STOPPEN & STEP "DONE"
+//#############################################################################################################################################################
+    const takePhoto = async () => {
+
+        setLabel(predictions); // die Labels für Firebase speichern
+
+        const imageId = v4(); //random ID generieren
+
+        tm.webcam.canvas.toBlob(imageBlob => {  //aus dem Kamera Stream der läuft ein Foto machen, Blob Objekt als Argument eingesetzt (imageBloB)
+            const storage = getStorage(); //Storage von Firebase für die Fotos
+            const metadata = {
+                contentType: 'image/png',   // Bild Umwandeln in ein PNG
+            };
+            const imageRef = ref(storage, `images/${imageId}`);//Namen für Bild mit random erstellter ID in den Order "images" im Storage von Firebase speichern
+
+            uploadBytes(imageRef, imageBlob, metadata).then((snapshot) => { //Bild in Firebase speichern, mitgegeben wird der Pfad wo es gespeichert wird (ImageRef), imageBlob als Objekt was gespeichert wird und wie es gespeichert wird (metatada -> png)
+                getDownloadURL(snapshot.ref).then((url) => { //snapshot machen, diese als referenz für die url benutzen, url ist im Stoage
+                    setImageUrl(url); //image url auf die eben erstellte URL des Bildes setzen, die unten verwendet wird
+                    setStoredImageId(url); //Stored Image ID soll die URL sein die eben erstellt wurde, diese wird in Firebase gespeicher
+                });
+            });
+        })
+
+        await tm.stop();//kamera geht aus wenn foto gemacht wird
+        tm.webcam.canvas.remove(); //camera Canvas wird removt wenn Foto aufgenommen -> damit oben nciht ein leerer weißer container zu sehen ist
+        setHasPhoto(true); //foto wurde gemacht
+        setStep('done');
+    }
+
+
+
+//#############################################################################################################################################################
+//GEMACHTE FOTO BESTÄTIGEN UND AUF "DATA" SCREEN WECHSELN
+//#############################################################################################################################################################
+    const handleComplete = ()=>{
+        setStep('data');
+    }
+//#############################################################################################################################################################
+//SETZE AUF SCHRITT "INFO" & FÜGE MÖBELSTÜCK IN LISTE HINZU (ID, ANZAHL, LÄNGE,GEWICHT,RAUM,BESONDERHEITEN,URL DES BILDES, LABELS[]
+//#############################################################################################################################################################
+    const handleDone = ()=>{
+        setStep('info');
+
+        // neues möbelstück anlegen in der Firebase Database collection "moebel-data" (Pfad definiert in moebelCollectionRef)
+        addDoc(moebelCollectionRef,{
+            id:id,
+            amount: amount,
+            length: length,
+            weight: weight,
+            room: room,
+            besonderheiten: besonderheiten,
+            storedImageId: storedImageId,
+            label: label,
+        })
+    }
+
 
 
 //#############################################################################################################################################################
@@ -499,72 +565,6 @@ const TestMoebelerkennung = (props) => {
 
 
 
-
-//#############################################################################################################################################################
-// BUTTON KLICKEN FÜR FOTO MACHEN & FOTO IN FIREBADE HOCHLADEN & DOWNLOAD URL GENERIEREN & KAMERA STOPPEN
-//#############################################################################################################################################################
-    const takePhoto = async () => {
-
-        setLabel(predictions); // die Labels für Firebase speichern
-
-        const imageId = v4(); //random ID generieren
-
-        tm.webcam.canvas.toBlob(imageBlob => {  //aus dem Kamera Stream der läuft ein Foto machen, Blob Objekt als Argument eingesetzt (imageBloB)
-            const storage = getStorage(); //Storage von Firebase für die Fotos
-            const metadata = {
-                contentType: 'image/png',   // Bild Umwandeln in ein PNG
-            };
-            const imageRef = ref(storage, `images/${imageId}`);//Namen für Bild mit random erstellter ID in den Order "images" im Storage von Firebase speichern
-
-            uploadBytes(imageRef, imageBlob, metadata).then((snapshot) => { //Bild in Firebase speichern, mitgegeben wird der Pfad wo es gespeichert wird (ImageRef), imageBlob als Objekt was gespeichert wird und wie es gespeichert wird (metatada -> png)
-                getDownloadURL(snapshot.ref).then((url) => { //snapshot machen, diese als referenz für die url benutzen, url ist im Stoage
-                    setImageUrl(url); //image url auf die eben erstellte URL des Bildes setzen, die unten verwendet wird
-                    setStoredImageId(url); //Stored Image ID soll die URL sein die eben erstellt wurde, diese wird in Firebase gespeicher
-                });
-            });
-        })
-
-        await tm.stop();//kamera geht aus wenn foto gemacht wird
-        tm.webcam.canvas.remove(); //camera Canvas wird removt wenn Foto aufgenommen -> damit oben nciht ein leerer weißer container zu sehen ist
-        setHasPhoto(true); //foto wurde gemacht
-        setStep('done');
-    }
-
-
-//#############################################################################################################################################################
-//BUTTON KLICKEN UM KAMERA ZU STARTEN UND DAS CANVAS ALS KIND ELEMENT HINZUFÜGEN &
-//VORHERSAGEN WERDEN IM HINTERGRUND GETROFFEN (DEFINIERT IN USEANIMATIONFRAME)
-// #############################################################################################################################################################
-    const handleClick = async () => {
-        await tm.start(); // Kamera starten
-        divEl.current.appendChild(tm.webcam.canvas); //in dem div das webcam canvas erscheinen lassen
-        setStep('scan');
-    }
-
-//#############################################################################################################################################################
-//GEMACHTE FOTO BESTÄTIGEN UND AUF "DATA" SCREEN WECHSELN
-//#############################################################################################################################################################
-    const handleComplete = ()=>{
-        setStep('data');
-    }
-//#############################################################################################################################################################
-//SETZE AUF SCHRITT "INFO" & FÜGE MÖBELSTÜCK IN LISTE HINZU (ID, ANZAHL, LÄNGE,GEWICHT,RAUM,BESONDERHEITEN,URL DES BILDES, LABELS[]
-//#############################################################################################################################################################
-    const handleDone = ()=>{
-        setStep('info');
-
-        // neues möbelstück anlegen in der Firebase Database collection "moebel-data" (Pfad definiert in moebelCollectionRef)
-        addDoc(moebelCollectionRef,{
-            id:id,
-            amount: amount,
-            length: length,
-            weight: weight,
-            room: room,
-            besonderheiten: besonderheiten,
-            storedImageId: storedImageId,
-            label: label,
-        })
-    }
 
 
 
