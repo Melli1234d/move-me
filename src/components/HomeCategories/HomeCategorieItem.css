@@ -22,10 +22,11 @@
     border-radius: 10px;
     display:flex;
 }
-button.right {
+.primary-colored-button.right, .right {
     margin-left: auto;
     margin-right: 2.5rem;
 }
+
 p{
     font-size: 12pt;
     margin-botton: 1rem;
