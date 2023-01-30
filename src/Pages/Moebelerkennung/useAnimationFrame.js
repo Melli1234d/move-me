@@ -1,9 +1,14 @@
 import React from "react";
 
+//#############################################################################################################################################################
+//CODE: angelehnt an Code Beispiel der automatisch von Teachable Machine generiert wird
+//CODE: https://css-tricks.com/using-requestanimationframe-with-react-hooks/
+//#############################################################################################################################################################
 
-//Code angelehnt an Code Beispiel der automatisch von Teachable Machine generiert wird
-//code: https://css-tricks.com/using-requestanimationframe-with-react-hooks/
 
+//#############################################################################################################################################################
+// KOMPONENTE USEANIMATIONFRAME DIE DIE AKTUELLE ZEIT ZURÜCKGIBT
+//#############################################################################################################################################################
 
 export const useAnimationFrame = callback => {
     // Use useRef for mutable variables that we want to persist
@@ -12,16 +17,16 @@ export const useAnimationFrame = callback => {
     const previousTimeRef = React.useRef();
 
     const animate = time => {
-        if (previousTimeRef.current != undefined) {
-            const deltaTime = time - previousTimeRef.current;
-            callback(deltaTime)
+        if (previousTimeRef.current != undefined) { //wenn die derzeitige vorherige Zeit undefiniert,
+            const deltaTime = time - previousTimeRef.current; //  zeit - derzeitige vorherige Zeit = aktuelle Zeit
+            callback(deltaTime) //wiedergeben der deltatime
         }
         previousTimeRef.current = time;
-        requestRef.current = window.requestAnimationFrame(animate);
+        requestRef.current = window.requestAnimationFrame(animate); //wiedergeben des animierten Bildes als Kamera Loop
     }
 
     React.useEffect(() => {
-        requestRef.current = window.requestAnimationFrame(animate);
+        requestRef.current = window.requestAnimationFrame(animate); //derzeitige anfrage von  Kamera Loops
         return () => window.cancelAnimationFrame(requestRef.current);
     }, []); // Make sure the effect runs only once
 }
