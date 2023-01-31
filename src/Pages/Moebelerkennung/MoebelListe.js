@@ -15,7 +15,7 @@ import Bedroom from "../../components/Pictures/Moebel-Angaben/Raum/bedroom.png";
 import Livingroom from "../../components/Pictures/Moebel-Angaben/Raum/Wohnzimmer-white.png";
 import RoundButton from "../../components/UI/RoundButton";
 import SmallHighRoundRectangle from "../../components/UI/SmallHighRoundRectangle";
-import {getDownloadURL, getStorage, listAll, ref} from "firebase/storage";
+
 
 
 //tutorial: https://www.youtube.com/watch?v=ad6IavyAHsQ&t=328s
@@ -25,89 +25,84 @@ import {getDownloadURL, getStorage, listAll, ref} from "firebase/storage";
 
 //Möbelliste
 
-const MoebelListe = (besonderheiten) => {
-
-    const colletionRef = collection(firestore, 'moebel-data');
-    const [moebelData, setMoebelData] = useState([]);
-    // const [loading, setLoading] = useState(false);
-    // const [imageUrl, setImageUrl] = useState();
-
-    const storage = getStorage();
-    const imageRef = ref(storage, "images/");
-
-    /*useEffect(() => {
-        listAll(imageRef).then((response) => {
-            response.items.forEach((item) => {
-                getDownloadURL(item).then((url) => {
-                    setImageUrl(url);
-                });
-            });
-        });
-    }, []);*/
+const MoebelListe = () => {
+    const colletionRef = collection(firestore, 'moebel-data'); //Referenz zu der Collection in Firebase, wo die Möbelstücke gespeichert wurden
+    const [moebelData, setMoebelData] = useState([]); //Alle Möbelstücke
 
 
+//#############################################################################################################################################################
+// LADEN DER INHALTE DER COLLECTION "MOEBEL-DATA" AUS FIREBASE
+//############################################################################################################################################################
+
+
+    //onSnapshot() = es wird ein Snapshot von den aktuellem Inhalt des Dokuments gemacht, ändert sich der Inhalt wird ein neuer Snapcshot gemacht & Daten werden aktualisiert
     useEffect(() => {
-        //setLoading(true);
-        // const unsub = onSnapshot(q, (querySnapshot) => {
         const unsub = onSnapshot(colletionRef, (querySnapshot) => {
-            const items = [];
-            querySnapshot.forEach((doc) => {
-                items.push(doc.data());
+            const items = []; //definieren, dass die Items ein Array sind
+            querySnapshot.forEach((doc) => { //Snapshot für jedes einzelne Dokument in der Collection
+                items.push(doc.data()); //Daten werden in den Snapshot geladen
             });
-            setMoebelData(items);
-            //setLoading(false);
+            setMoebelData(items); //sagen, dass die aktuellen Daten die neuen Daten der Möbelstücke sind.
         });
         return () => {
             unsub();
-
         };
-
         // eslint-disable-next-line
     }, []);
 
+//#############################################################################################################################################################
+// FUNKTION, DIE DEN STRING FÜR BESONDERHEITEN AUS FIREBASE IN EIN ICON UMWANDELT
+// ############################################################################################################################################################
 
-//funktion, wenn die Besonderheiten den String enthalten, dann zeige das entsprechende icon!
-    function getLabeltoIcon(moebel) {//alle label und das einzelne als wert mitgegeben
-        if (moebel.besonderheiten === "Zerbrechlich") {
-            //wenn label ist das höchste dann return label + wahrscheinlichkeit
+    function getLabeltoIcon(moebel) {
+        if (moebel.besonderheiten === "Zerbrechlich") {//wenn Besonderheiten in Firebase der String "Zerbrechlich" ist, dann gebe das Icon zu "Zerbrechlich" wieder
             return <img id="zerbrechlich-img" src={Zerbrechlich} alt="Kitchen" height={18} width={18}/>;
-        } else if (moebel.besonderheiten === "Verpackung") {
+        } else if (moebel.besonderheiten === "Verpackung") { //wenn Besonderheiten in Firebase der String "Verpackung" ist, dann gebe das Icon zu "Verpackung" wieder
             return <img id="verpackung-img" src={Verpackung} alt="Kitchen" height={18} width={18}/>
-        } else if (moebel.besonderheiten === "Kratzer") {
+        } else if (moebel.besonderheiten === "Kratzer") { //wenn Besonderheiten in Firebase der String "Kratzer" ist, dann gebe das Icon zu "Kratzer" wieder
             return <img id="kratzspuren" src={Kratzer} alt="Kitchen" height={18} width={18}/>
         }
     }
 
-    //funktion die aus dem Array die höchste Wahrscheinlichkeit raus holt, umgerechnet mal 100 und mit 2 nach komma stellen
+//#############################################################################################################################################################
+// FUNKTION DIE AUS DEM LABEL ARRAY IN FIREBASE DIE HÖCHSTE WAHRSCHEINLICHKEIT HOLT
+//#############################################################################################################################################################
+
     function getLabeltoFirebase(moebel) {
-        if ((moebel.label[0].probability * 100).toFixed(2) > (moebel.label[1].probability * 100).toFixed(2)) {
-            if ((moebel.label[0].probability * 100).toFixed(2) > (moebel.label[2].probability * 100).toFixed(2)) {
-                if ((moebel.label[0].probability * 100).toFixed(2) > (moebel.label[3].probability * 100).toFixed(2)) {
-                    if ((moebel.label[0].probability * 100).toFixed(2) > (moebel.label[4].probability * 100).toFixed(2)) {
+        let probabilityzero = ( moebel.label[0].probability * 100).toFixed(2); //umrechnen
+        let propabilityone = (moebel.label[1].probability * 100).toFixed(2); //umrechnen
+        let propabilitytwo = (moebel.label[2].probability * 100).toFixed(2); //umrechnen
+        let propabilitythree = (moebel.label[3].probability * 100).toFixed(2); //umrechnen
+        let propabilityfour = (moebel.label[4].probability * 100).toFixed(2); //umrechnen
+
+        if (probabilityzero > propabilityone) {
+            if (probabilityzero > propabilitytwo) {
+                if (probabilityzero > propabilitythree) {
+                    if (probabilityzero > propabilityfour) {
                         return "Sofa";
                     }
                 }
             }
-        } else if ((moebel.label[1].probability * 100).toFixed(2) > (moebel.label[0].probability * 100).toFixed(2)) {
-            if ((moebel.label[1].probability * 100).toFixed(2) > (moebel.label[2].probability * 100).toFixed(2)) {
-                if ((moebel.label[1].probability * 100).toFixed(2) > (moebel.label[3].probability * 100).toFixed(2)) {
-                    if ((moebel.label[1].probability * 100).toFixed(2) > (moebel.label[4].probability * 100).toFixed(2)) {
+        } else if (propabilityone > probabilityzero) {
+            if (propabilityone > propabilitytwo) {
+                if (propabilityone > propabilitythree) {
+                    if (propabilityone > propabilityfour) {
                         return "Drehstuhl";
                     }
                 }
             }
-        } else if ((moebel.label[2].probability * 100).toFixed(2) > (moebel.label[0].probability * 100).toFixed(2)) {
-            if ((moebel.label[2].probability * 100).toFixed(2) > (moebel.label[1].probability * 100).toFixed(2)) {
-                if ((moebel.label[2].probability * 100).toFixed(2) > (moebel.label[3].probability * 100).toFixed(2)) {
-                    if ((moebel.label[2].probability * 100).toFixed(2) > (moebel.label[4].probability * 100).toFixed(2)) {
+        } else if (propabilitytwo > probabilityzero) {
+            if (propabilitytwo > propabilityone) {
+                if (propabilitytwo > propabilitythree) {
+                    if (propabilitytwo > propabilityfour) {
                         return "Sitzhocker";
                     }
                 }
             }
-        } else if ((moebel.label[3].probability * 100).toFixed(2) > (moebel.label[0].probability * 100).toFixed(2)) {
-            if ((moebel.label[3].probability * 100).toFixed(2) > (moebel.label[1].probability * 100).toFixed(2)) {
-                if ((moebel.label[3].probability * 100).toFixed(2) > (moebel.label[2].probability * 100).toFixed(2)) {
-                    if ((moebel.label[3].probability * 100).toFixed(2) > (moebel.label[4].probability * 100).toFixed(2)) {
+        } else if (propabilitythree > probabilityzero) {
+            if (propabilitythree > propabilityone) {
+                if (propabilitythree > propabilitytwo) {
+                    if (propabilitythree > propabilityfour) {
                         return "Stuhl";
                     }
                 }
@@ -115,13 +110,10 @@ const MoebelListe = (besonderheiten) => {
         } else {
             return "Tisch";
         }
-
     }
 
 
     return (
-
-
         <div className="secondary-background">
             <Header/>
             <div className="Moebel-list-container">
