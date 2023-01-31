@@ -611,7 +611,7 @@ const TestMoebelerkennung = (props) => {
 
                             <div id={prediction.className} key={prediction.className} className="Label-Klassen">
 {/*########### nur das Label + Wahrscheinlichkeit mit der höchsten Wahrscheinlichkeit rausgefiltert ##########*/}
-                                <h4 className="margin-top-sm">{getLabelIfIsHighestPropability(predictions, prediction)}</h4>
+                                <h4>{getLabelIfIsHighestPropability(predictions, prediction)}</h4>
                             </div>)
                         : ''}
                 </div>
