@@ -187,6 +187,9 @@ fieldset {
     display: flex;
     flex-direction: row;
 }
+.moebel-daten-length-width {
+    margin-bottom: 1rem;
+}
 
 .moebel-title {
     font-size: 12pt;
@@ -267,3 +270,35 @@ fieldset {
     margin-bottom: 5rem;
 }
 
+.decrease, .add {
+    border: 1px solid;
+    padding: 0.3rem;
+    width: 10px;
+    height: 10px;
+    text-align: center;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+    display: flex;
+    color: white;
+    background-color: #113352;
+    border-radius: 30px;
+}
+ .content-space-between {
+     display: flex;
+     justify-content: space-between;
+ }
+.daten-angabe {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#label-container {
+    margin-top: -3rem;
+    margin-bottom: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+}

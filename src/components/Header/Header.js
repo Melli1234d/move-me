@@ -14,7 +14,7 @@ const Header = (props) => {
 
     return (
         <div className="header">
-            <img id="logo" src={Logo} alt="Logo" height={50} width={70} />
+            <img id="logo" src={Logo} alt="Logo" height={60} width={90} />
             <div className="header-navigation">
                 <img id="chat" src={Chat} alt="Nachrichten Icon" height={25} width={25} />
                 <nav role="navigation">

@@ -185,6 +185,170 @@ const TestMoebelerkennung = (props) => {
 
 
 
+//#############################################################################################################################################################
+// WIEDERGABE BESTIMMTER INHALTE ZU LÄNGE, GEWICHT, ANZAHL CONTAINER BEI MÖBELANGABE
+//#############################################################################################################################################################
+
+    //FUNKTION UM DAS FELD FÜR ANZAHL ANZUZEIGEN BEI DEN MÖBELANGABEN
+    function getInputAmount(predictions, prediction) {//alle label und das einzelne als wert mitgegeben
+        let highestLabel = getHighestPrediction(predictions);//funktion aufrufen mit allen labeln
+        if (prediction === highestLabel && prediction.className==="Sofa") {
+            return <SmallRectangle>
+                <label>Anzahl</label>
+                <div className="daten-angabe content-space-between">
+                    <div onClick={handleIdenticalFurnitureDecreaseSofa} className="decrease">-</div>
+                    <div className="count"> {amountSofa}</div>
+                    <div onClick={handleAmountIdenticalFurnitureAddSofa} className="add">+</div>
+                </div>
+            </SmallRectangle >;
+        }
+        else if(prediction === highestLabel && prediction.className==="Sitzhocker") {
+            return <SmallRectangle>
+                <label>Anzahl</label>
+                <div className="daten-angabe content-space-between">
+                    <div onClick={handleIdenticalFurnitureDecreaseSitzhocker} className="decrease">-</div>
+                    <div className="count"> {amountSitzhocker}</div>
+                    <div onClick={handleAmountIdenticalFurnitureAddSitzhocker} className="add">+</div>
+                </div>
+            </SmallRectangle >;
+        } else if(prediction === highestLabel && prediction.className==="Drehstuhl") {
+            return <SmallRectangle>
+                <label>Anzahl</label>
+                <div className="daten-angabe content-space-between">
+                    <div onClick={handleIdenticalFurnitureDecreaseDrehstuhl} className="decrease">-</div>
+                    <div className="count"> {amountDrehstuhl}</div>
+                    <div onClick={handleAmountIdenticalFurnitureAddDrehstuhl} className="add">+</div>
+                </div>
+            </SmallRectangle >;
+        } else if(prediction === highestLabel && prediction.className==="Tisch") {
+            return <SmallRectangle>
+                <label>Anzahl</label>
+                <div className="daten-angabe content-space-between">
+                    <div onClick={handleIdenticalFurnitureDecreaseTisch} className="decrease">-</div>
+                    <div className="count"> {amountTisch}</div>
+                    <div onClick={handleAmountIdenticalFurnitureAddTisch} className="add">+</div>
+                </div>
+            </SmallRectangle >;
+        }else if(prediction === highestLabel && prediction.className==="Stuhl") {
+            return <SmallRectangle>
+                <label>Anzahl</label>
+                <div className="daten-angabe content-space-between">
+                    <div onClick={handleIdenticalFurnitureDecreaseStuhl} className="decrease">-</div>
+                    <div className="count"> {amountStuhl}</div>
+                    <div onClick={handleAmountIdenticalFurnitureAddStuhl} className="add">+</div>
+                </div>
+            </SmallRectangle >;
+        }
+
+    }
+
+    //FUNKTION UM DAS FELD FÜR GEWICHT ANZUZEIGEN BEI DEN MÖBELANGABEN
+    function getInputWeight(predictions, prediction) {//alle label und das einzelne als wert mitgegeben
+        let highestLabel = getHighestPrediction(predictions);//funktion aufrufen mit allen labeln
+        //wenn Vorhersage gleich das Label mit der höchsten Wahrscheinlichkeit ist
+        if (prediction === highestLabel && prediction.className==="Sofa") {
+            return <SmallRectangle>
+                <label>Gewicht</label>
+                <div className="daten-angabe content-space-between">
+                    <div onClick={handleAmountWeightDecreaseSofa} className="decrease">-</div>
+                    <div className="count"> {weightSofa}</div>
+                    <div onClick={handleAmountWeightAddSofa} className="add">+</div>
+                </div>
+            </SmallRectangle >;
+        } else if(prediction === highestLabel && prediction.className==="Sitzhocker") {
+            return <SmallRectangle>
+                <label>Gewicht</label>
+                <div className="daten-angabe content-space-between">
+                    <div onClick={handleAmountWeightDecreaseSitzhocker} className="decrease">-</div>
+                    <div className="count"> {weightSitzhocker}</div>
+                    <div onClick={handleAmountWeightAddSitzhocker} className="add">+</div>
+                </div>
+            </SmallRectangle >;
+        } else if(prediction === highestLabel && prediction.className==="Drehstuhl") {
+            return <SmallRectangle>
+                <label>Gewicht</label>
+                <div className="daten-angabe content-space-between">
+                    <div onClick={handleAmountWeightDecreaseDrehstuhl} className="decrease">-</div>
+                    <div className="count"> {weightDrehstuhl}</div>
+                    <div onClick={handleAmountWeightAddDrehstuhl} className="add">+</div>
+                </div>
+            </SmallRectangle >;
+        } else if(prediction === highestLabel && prediction.className==="Tisch") {
+            return <SmallRectangle>
+                <label>Gewicht</label>
+                <div className="daten-angabe content-space-between">
+                    <div onClick={handleAmountWeightDecreaseTisch} className="decrease">-</div>
+                    <div className="count"> {weightTisch}</div>
+                    <div onClick={handleAmountWeightAddTisch} className="add">+</div>
+                </div>
+            </SmallRectangle >;
+        }else if(prediction === highestLabel && prediction.className==="Stuhl") {
+            return <SmallRectangle>
+                <label>Gewicht</label>
+                <div className="daten-angabe content-space-between">
+                    <div onClick={handleAmountWeightDecreaseStuhl} className="decrease">-</div>
+                    <div className="count"> {weightStuhl}</div>
+                    <div onClick={handleAmountWeightAddStuhl} className="add">+</div>
+                </div>
+            </SmallRectangle >;
+        }
+
+    }
+
+    //FUNKTION UM DAS FELD FÜR LÄNGE ANZUZEIGEN BEI DEN MÖBELANGABEN
+    function getInputLength(predictions, prediction) {//alle label und das einzelne als wert mitgegeben
+        let highestLabel = getHighestPrediction(predictions);//funktion aufrufen mit allen labeln
+        if (prediction === highestLabel && prediction.className==="Sofa") {
+            return <SmallRectangle>
+                <label>Länge</label>
+                <div className="daten-angabe content-space-between">
+                    <div onClick={handleLengthFurnitureDecreaseSofa} className="decrease">-</div>
+                    <div className="count"> {lengthSofa}</div>
+                    <div onClick={handleLengthFurnitureAddSofa} className="add" >+</div>
+                </div>
+            </SmallRectangle >;
+        } else if(prediction === highestLabel && prediction.className==="Sitzhocker") {
+            return <SmallRectangle>
+                <label>Länge</label>
+                <div className="daten-angabe content-space-between">
+                    <div onClick={handleLengthFurnitureDecreaseSitzhocker} className="decrease">-</div>
+                    <div className="count"> {lengthSitzhocker}</div>
+                    <div onClick={handleLengthFurnitureAddSitzhocker} className="add">+</div>
+                </div>
+            </SmallRectangle >;
+        } else if(prediction === highestLabel && prediction.className==="Drehstuhl") {
+            return <SmallRectangle>
+                <label>Länge</label>
+                <div className="daten-angabe content-space-between">
+                    <div onClick={handleLengthFurnitureDecreaseDrehstuhl} className="decrease">-</div>
+                    <div className="count"> {lengthDrehstuhl}</div>
+                    <div onClick={handleLengthFurnitureAddDrehstuhl} className="add">+</div>
+                </div>
+            </SmallRectangle >;
+        } else if(prediction === highestLabel && prediction.className==="Tisch") {
+            return <SmallRectangle>
+                <label>Länge</label>
+                <div className="daten-angabe content-space-between">
+                    <div onClick={handleLengthFurnitureDecreaseTisch} className="decrease">-</div>
+                    <div className="count"> {lengthTisch}</div>
+                    <div onClick={handleLengthFurnitureAddTisch} className="add">+</div>
+                </div>
+            </SmallRectangle >;
+        } else if(prediction === highestLabel && prediction.className==="Stuhl") {
+            return <SmallRectangle>
+                <label>Länge</label>
+                <div className="daten-angabe content-space-between">
+                    <div onClick={handleLengthFurnitureDecreaseStuhl} className="decrease">-</div>
+                    <div className="count"> {lengthStuhl}</div>
+                    <div onClick={handleLengthFurnitureAddStuhl} className="add">+</div>
+                </div>
+            </SmallRectangle >;
+        }
+
+    }
+
+
+
 //##################################################################################################################################################################################
     // FUNKTIONEN UM DIE BESTIMMTEN DATEN FÜR DIE JEWEILIGE KLASSE HERAUS ZU BEKOMMEN
     // es werden immer zwei angaben getätigt:
@@ -404,168 +568,6 @@ const TestMoebelerkennung = (props) => {
 
 
 
-//#############################################################################################################################################################
-// WIEDERGABE BESTIMMTER INHALTE ZU LÄNGE, GEWICHT, ANZAHL CONTAINER BEI MÖBELANGABE
-//#############################################################################################################################################################
-
-    //FUNKTION UM DAS FELD FÜR ANZAHL ANZUZEIGEN BEI DEN MÖBELANGABEN
-    function getInputAmount(predictions, prediction) {//alle label und das einzelne als wert mitgegeben
-        let highestLabel = getHighestPrediction(predictions);//funktion aufrufen mit allen labeln
-        if (prediction === highestLabel && prediction.className==="Sofa") {
-            return <SmallRectangle>
-                <label>Anzahl</label>
-                <div className="container-row">
-                    <div onClick={handleIdenticalFurnitureDecreaseSofa}>-</div>
-                    <div className="count"> {amountSofa}</div>
-                    <div onClick={handleAmountIdenticalFurnitureAddSofa}>+</div>
-                </div>
-            </SmallRectangle >;
-        }
-        else if(prediction === highestLabel && prediction.className==="Sitzhocker") {
-            return <SmallRectangle>
-                <label>Anzahl</label>
-                <div className="container-row">
-                    <div onClick={handleIdenticalFurnitureDecreaseSitzhocker}>-</div>
-                    <div className="count"> {amountSitzhocker}</div>
-                    <div onClick={handleAmountIdenticalFurnitureAddSitzhocker}>+</div>
-                </div>
-            </SmallRectangle >;
-        } else if(prediction === highestLabel && prediction.className==="Drehstuhl") {
-            return <SmallRectangle>
-                <label>Anzahl</label>
-                <div className="container-row">
-                    <div onClick={handleIdenticalFurnitureDecreaseDrehstuhl}>-</div>
-                    <div className="count"> {amountDrehstuhl}</div>
-                    <div onClick={handleAmountIdenticalFurnitureAddDrehstuhl}>+</div>
-                </div>
-            </SmallRectangle >;
-        } else if(prediction === highestLabel && prediction.className==="Tisch") {
-            return <SmallRectangle>
-                <label>Anzahl</label>
-                <div className="container-row">
-                    <div onClick={handleIdenticalFurnitureDecreaseTisch}>-</div>
-                    <div className="count"> {amountTisch}</div>
-                    <div onClick={handleAmountIdenticalFurnitureAddTisch}>+</div>
-                </div>
-            </SmallRectangle >;
-        }else if(prediction === highestLabel && prediction.className==="Stuhl") {
-            return <SmallRectangle>
-                <label>Anzahl</label>
-                <div className="container-row">
-                    <div onClick={handleIdenticalFurnitureDecreaseStuhl}>-</div>
-                    <div className="count"> {amountStuhl}</div>
-                    <div onClick={handleAmountIdenticalFurnitureAddStuhl}>+</div>
-                </div>
-            </SmallRectangle >;
-        }
-
-    }
-
-    //FUNKTION UM DAS FELD FÜR GEWICHT ANZUZEIGEN BEI DEN MÖBELANGABEN
-    function getInputWeight(predictions, prediction) {//alle label und das einzelne als wert mitgegeben
-        let highestLabel = getHighestPrediction(predictions);//funktion aufrufen mit allen labeln
-        //wenn Vorhersage gleich das Label mit der höchsten Wahrscheinlichkeit ist
-        if (prediction === highestLabel && prediction.className==="Sofa") {
-            return <SmallRectangle>
-                <label>Gewicht</label>
-                <div className="container-row">
-                    <div onClick={handleAmountWeightDecreaseSofa}>-</div>
-                    <div className="count"> {weightSofa}</div>
-                    <div onClick={handleAmountWeightAddSofa}>+</div>
-                </div>
-            </SmallRectangle >;
-        } else if(prediction === highestLabel && prediction.className==="Sitzhocker") {
-            return <SmallRectangle>
-                <label>Gewicht</label>
-                <div className="container-row">
-                    <div onClick={handleAmountWeightDecreaseSitzhocker}>-</div>
-                    <div className="count"> {weightSitzhocker}</div>
-                    <div onClick={handleAmountWeightAddSitzhocker}>+</div>
-                </div>
-            </SmallRectangle >;
-        } else if(prediction === highestLabel && prediction.className==="Drehstuhl") {
-            return <SmallRectangle>
-                <label>Gewicht</label>
-                <div className="container-row">
-                    <div onClick={handleAmountWeightDecreaseDrehstuhl}>-</div>
-                    <div className="count"> {weightDrehstuhl}</div>
-                    <div onClick={handleAmountWeightAddDrehstuhl}>+</div>
-                </div>
-            </SmallRectangle >;
-        } else if(prediction === highestLabel && prediction.className==="Tisch") {
-            return <SmallRectangle>
-                <label>Gewicht</label>
-                <div className="container-row">
-                    <div onClick={handleAmountWeightDecreaseTisch}>-</div>
-                    <div className="count"> {weightTisch}</div>
-                    <div onClick={handleAmountWeightAddTisch}>+</div>
-                </div>
-            </SmallRectangle >;
-        }else if(prediction === highestLabel && prediction.className==="Stuhl") {
-            return <SmallRectangle>
-                <label>Gewicht</label>
-                <div className="container-row">
-                    <div onClick={handleAmountWeightDecreaseStuhl}>-</div>
-                    <div className="count"> {weightStuhl}</div>
-                    <div onClick={handleAmountWeightAddStuhl}>+</div>
-                </div>
-            </SmallRectangle >;
-        }
-
-    }
-
-    //FUNKTION UM DAS FELD FÜR LÄNGE ANZUZEIGEN BEI DEN MÖBELANGABEN
-    function getInputLength(predictions, prediction) {//alle label und das einzelne als wert mitgegeben
-        let highestLabel = getHighestPrediction(predictions);//funktion aufrufen mit allen labeln
-        if (prediction === highestLabel && prediction.className==="Sofa") {
-            return <SmallRectangle>
-                <label>Länge</label>
-                <div className="container-row">
-                    <div onClick={handleLengthFurnitureDecreaseSofa}>-</div>
-                    <div className="count"> {lengthSofa}</div>
-                    <div onClick={handleLengthFurnitureAddSofa}>+</div>
-                </div>
-            </SmallRectangle >;
-        } else if(prediction === highestLabel && prediction.className==="Sitzhocker") {
-            return <SmallRectangle>
-                <label>Länge</label>
-                <div className="container-row">
-                    <div onClick={handleLengthFurnitureDecreaseSitzhocker}>-</div>
-                    <div className="count"> {lengthSitzhocker}</div>
-                    <div onClick={handleLengthFurnitureAddSitzhocker}>+</div>
-                </div>
-            </SmallRectangle >;
-        } else if(prediction === highestLabel && prediction.className==="Drehstuhl") {
-            return <SmallRectangle>
-                <label>Länge</label>
-                <div className="container-row">
-                    <div onClick={handleLengthFurnitureDecreaseDrehstuhl}>-</div>
-                    <div className="count"> {lengthDrehstuhl}</div>
-                    <div onClick={handleLengthFurnitureAddDrehstuhl}>+</div>
-                </div>
-            </SmallRectangle >;
-        } else if(prediction === highestLabel && prediction.className==="Tisch") {
-            return <SmallRectangle>
-                <label>Länge</label>
-                <div className="container-row">
-                    <div onClick={handleLengthFurnitureDecreaseTisch}>-</div>
-                    <div className="count"> {lengthTisch}</div>
-                    <div onClick={handleLengthFurnitureAddTisch}>+</div>
-                </div>
-            </SmallRectangle >;
-        } else if(prediction === highestLabel && prediction.className==="Stuhl") {
-            return <SmallRectangle>
-                <label>Länge</label>
-                <div className="container-row">
-                    <div onClick={handleLengthFurnitureDecreaseStuhl}>-</div>
-                    <div className="count"> {lengthStuhl}</div>
-                    <div onClick={handleLengthFurnitureAddStuhl}>+</div>
-                </div>
-            </SmallRectangle >;
-        }
-
-    }
-
 
 
 
@@ -603,13 +605,13 @@ const TestMoebelerkennung = (props) => {
             <>
     {/*########### Bild aus Firebase laden ##########*/}
                 {imageUrl && <img className="imageurl" src={imageUrl}/>}
-                <div id="label-container">
+                <div>
                     {predictions
                         ? predictions.map((prediction) =>
 
                             <div id={prediction.className} key={prediction.className} className="Label-Klassen">
 {/*########### nur das Label + Wahrscheinlichkeit mit der höchsten Wahrscheinlichkeit rausgefiltert ##########*/}
-                                <h4>{getLabelIfIsHighestPropability(predictions, prediction)}</h4>
+                                <h4 className="margin-top-sm">{getLabelIfIsHighestPropability(predictions, prediction)}</h4>
                             </div>)
                         : ''}
                 </div>
@@ -626,7 +628,7 @@ const TestMoebelerkennung = (props) => {
                             ? predictions.map((prediction) =>
                                 <div id={prediction.className} key={prediction.className} className="Label-Klassen">
 
-                                    <h4>{getLabelIfIsHighestPropability(predictions, prediction)}</h4>
+                                    <h4 className="margin-top-sm">{getLabelIfIsHighestPropability(predictions, prediction)}</h4>
 {/*########### Länge, Anzahl & Gewicht, je nachdem welche Klasse ##########*/}
                                     <form className="moebel-data">
                                         <div>{getInputAmount(predictions, prediction)}</div>
