@@ -1,10 +1,16 @@
 import React, {useState} from 'react';
 import './TapBarList.css';
-import { BiHome  } from "react-icons/bi";
 import TapBar from "./TapBar";
-import {TbArmchair2, TbTruckDelivery, TbCalendarTime} from "react-icons/tb";
-import {GrList} from "react-icons/gr";
-
+import HomeIcon from "../Pictures/Tabbar/home.svg";
+import HomeIconActive from "../Pictures/Tabbar/homeactive.svg";
+import ErkennungIcon from "../Pictures/Tabbar/erkennung.svg";
+import ErkennungIconActive from "../Pictures/Tabbar/erkennungactive.svg";
+import MoebellisteIcon from "../Pictures/Tabbar/moebelliste.svg";
+import MoebellisteIconActive from "../Pictures/Tabbar/Moebellisteactive.svg";
+import ZeitplanIcon from "../Pictures/Tabbar/plan.svg";
+import ZeitplanIconActive from "../Pictures/Tabbar/zeitplanactive.svg";
+import FiremenIcon from "../Pictures/Tabbar/firmen.svg";
+import FiremenIconActive from "../Pictures/Tabbar/firmenactive.svg";
 
 //Struktur vom React js Udemy Kurs " The Complete Guide" von Maximilian Schwarzmüller übernommen
 
@@ -15,32 +21,37 @@ const TapBarList = (props) => {
     const tapbar = [
         {
             id: 'e1',
-            icon: <BiHome size={25} />,
+            active: <img className="content-center eyecatcher" src={HomeIconActive} alt="Nachrichten Icon" height={80} width={80} />,
+            icon: <img className="content-center" src={HomeIcon} alt="Nachrichten Icon" height={25} width={25} />,
             name: 'Home',
             link: '/Home',
         },
         {
             id: 'e2',
-            icon: <TbArmchair2 size={25}/>,
+            active: <img className="content-center eyecatcher" src={ErkennungIconActive} alt="Nachrichten Icon" height={80} width={80} />,
+            icon: <img className="content-center" src={ErkennungIcon} alt="Nachrichten Icon" height={25} width={25} />,
             name: 'Erkennung',
             link: '/TestMoebelerkennung',
         },
         {
             id: 'e3',
-            icon: <GrList size={25}/>,
+            active: <img className="content-center eyecatcher" src={MoebellisteIconActive} alt="Nachrichten Icon" height={80} width={80} />,
+            icon: <img className="content-center" src={MoebellisteIcon} alt="Nachrichten Icon" height={25} width={25} />,
             name: 'Möbelliste',
             link: '/Moebelliste',
 
         },
         {
             id: 'e4',
-            icon: <TbCalendarTime size={25}/>,
+            active: <img className="content-center eyecatcher" src={ZeitplanIconActive} alt="Nachrichten Icon" height={80} width={80} />,
+            icon: <img className="content-center" src={ZeitplanIcon} alt="Nachrichten Icon" height={25} width={25} />,
             name: 'Zeitplan',
             link: '/Zeitplan',
         },
         {
             id: 'e5',
-            icon:  <TbTruckDelivery size={25}/>,
+            active: <img className="content-center eyecatcher" src={FiremenIconActive} alt="Nachrichten Icon" height={80} width={80} />,
+            icon:  <img className="content-center" src={FiremenIcon} alt="Nachrichten Icon" height={25} width={25} />,
             name: 'Firmen',
             link: '/firmen',
         },
@@ -51,7 +62,6 @@ const TapBarList = (props) => {
             <li>
                 <TapBar items={tapbar}/>
             </li>
-
         </ul>
     );
 }

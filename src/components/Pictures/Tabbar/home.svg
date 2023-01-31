@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+  <g id="house-line" transform="translate(-3.661 -3.554)">
+    <g id="Gruppe_216" data-name="Gruppe 216" transform="translate(3.661 3.554)">
+      <path id="Pfad_41" data-name="Pfad 41" d="M19.546,11.082,12.018,3.7a.509.509,0,0,0-.708,0L3.782,11.082a.485.485,0,0,0,.026.668.509.509,0,0,0,.681.026l7.172-7.035,7.172,7.04a.509.509,0,0,0,.681-.026.485.485,0,0,0,.026-.668Z" transform="translate(-3.661 -3.554)" fill="#113352"/>
+      <path id="Pfad_42" data-name="Pfad 42" d="M21.777,38.583H19.252V33.66H14.2v4.923H11.677V31.691l-1.01.985v5.908a1,1,0,0,0,1.01.985h3.535V34.645h3.03v4.923h3.535a1,1,0,0,0,1.01-.985V32.558l-1.01-.985Z" transform="translate(-8.727 -23.568)" fill="#113352"/>
+    </g>
+  </g>
+</svg>

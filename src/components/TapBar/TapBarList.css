@@ -18,3 +18,13 @@ ul {
 li {
     list-style-type: none;
 }
+.content-center {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.5rem;
+}
+.eyecatcher {
+    margin-top: -3.5rem;
+}

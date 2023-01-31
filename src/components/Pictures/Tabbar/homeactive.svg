@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="74" height="74" viewBox="0 0 74 74">
+  <defs>
+    <filter id="Ellipse_4" x="0" y="0" width="74" height="74" filterUnits="userSpaceOnUse">
+      <feOffset dy="-2" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Gruppe_487" data-name="Gruppe 487" transform="translate(-15 -93)">
+    <g transform="matrix(1, 0, 0, 1, 15, 93)" filter="url(#Ellipse_4)">
+      <g id="Ellipse_4-2" data-name="Ellipse 4" transform="translate(9 11)" fill="#fff" stroke="#69d1ff" stroke-width="1.5">
+        <circle cx="28" cy="28" r="28" stroke="none"/>
+        <circle cx="28" cy="28" r="27.25" fill="none"/>
+      </g>
+    </g>
+    <g id="house-line" transform="translate(36.339 116.445)">
+      <g id="Gruppe_216" data-name="Gruppe 216" transform="translate(3.661 3.554)">
+        <path id="Pfad_41" data-name="Pfad 41" d="M27.488,14.845,16.2,3.769a.763.763,0,0,0-1.061,0L3.842,14.845a.728.728,0,0,0,.039,1,.764.764,0,0,0,1.022.039L15.661,5.334l10.758,10.56a.764.764,0,0,0,1.022-.039.728.728,0,0,0,.039-1Z" transform="translate(-3.661 -3.554)" fill="#69d1ff"/>
+        <path id="Pfad_42" data-name="Pfad 42" d="M27.332,42.089H23.544V34.7H15.969v7.384H12.182V31.75l-1.515,1.477v8.861a1.5,1.5,0,0,0,1.515,1.477h5.3V36.181h4.545v7.384h5.3a1.5,1.5,0,0,0,1.515-1.477V33.05l-1.515-1.477Z" transform="translate(-7.757 -19.566)" fill="#69d1ff"/>
+      </g>
+    </g>
+  </g>
+</svg>

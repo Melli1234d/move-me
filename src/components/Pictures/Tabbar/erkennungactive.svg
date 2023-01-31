@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="74" height="74" viewBox="0 0 74 74">
+  <defs>
+    <filter id="Ellipse_4" x="0" y="0" width="74" height="74" filterUnits="userSpaceOnUse">
+      <feOffset dy="-2" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Gruppe_488" data-name="Gruppe 488" transform="translate(-95 -93)">
+    <g transform="matrix(1, 0, 0, 1, 95, 93)" filter="url(#Ellipse_4)">
+      <g id="Ellipse_4-2" data-name="Ellipse 4" transform="translate(9 11)" fill="#fff" stroke="#69d1ff" stroke-width="2">
+        <circle cx="28" cy="28" r="28" stroke="none"/>
+        <circle cx="28" cy="28" r="27" fill="none"/>
+      </g>
+    </g>
+    <g id="sofa" transform="translate(118.5 110.25)">
+      <path id="Pfad_43" data-name="Pfad 43" d="M23.1,18.2V12.689A2.714,2.714,0,0,0,20.7,9.75H6.3a2.714,2.714,0,0,0-2.4,2.939V18.2A3.871,3.871,0,0,0,1.5,22v6.857a1.809,1.809,0,0,0,1.6,1.959h.8V33.75H5.5V30.811h16V33.75h1.6V30.811h.8a1.809,1.809,0,0,0,1.6-1.959V22A3.871,3.871,0,0,0,23.1,18.2ZM6.3,28.852H3.1V22a1.807,1.807,0,0,1,1.6-1.959A1.807,1.807,0,0,1,6.3,22Zm12.8,0H7.9V22.975H19.1Zm.1-7.837H7.8A3.646,3.646,0,0,0,5.5,18.2V12.689a.9.9,0,0,1,.8-.98H20.7a.9.9,0,0,1,.8.98V18.2A3.646,3.646,0,0,0,19.2,21.015Zm4.7,7.837H20.7V22a1.807,1.807,0,0,1,1.6-1.959A1.807,1.807,0,0,1,23.9,22v6.857Z" transform="translate(0 0)" fill="#69d1ff"/>
+    </g>
+  </g>
+</svg>

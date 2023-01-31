@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="74" height="74" viewBox="0 0 74 74">
+  <defs>
+    <filter id="Ellipse_39" x="0" y="0" width="74" height="74" filterUnits="userSpaceOnUse">
+      <feOffset dy="-3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Gruppe_486" data-name="Gruppe 486" transform="translate(-219 -308)">
+    <g transform="matrix(1, 0, 0, 1, 219, 308)" filter="url(#Ellipse_39)">
+      <g id="Ellipse_39-2" data-name="Ellipse 39" transform="translate(9 12)" fill="#fff" stroke="#69d1ff" stroke-width="2">
+        <circle cx="28" cy="28" r="28" stroke="none"/>
+        <circle cx="28" cy="28" r="27" fill="none"/>
+      </g>
+    </g>
+    <g id="data-unstructured" transform="translate(241.007 333)">
+      <path id="Pfad_51" data-name="Pfad 51" d="M6.427,34.713a1.713,1.713,0,1,1-1.713,1.713,1.713,1.713,0,0,1,1.713-1.713m0-1.713a3.427,3.427,0,1,0,3.427,3.427A3.427,3.427,0,0,0,6.427,33Z" transform="translate(0 -12.865)" fill="#69d1ff"/>
+      <path id="Pfad_52" data-name="Pfad 52" d="M21.427,4.713a1.713,1.713,0,1,1-1.713,1.713,1.713,1.713,0,0,1,1.713-1.713m0-1.713a3.427,3.427,0,1,0,3.427,3.427A3.427,3.427,0,0,0,21.427,3Z" transform="translate(-6.433 0)" fill="#69d1ff"/>
+      <path id="Pfad_53" data-name="Pfad 53" d="M36.427,4.713a1.713,1.713,0,1,1-1.713,1.713,1.713,1.713,0,0,1,1.713-1.713m0-1.713a3.427,3.427,0,1,0,3.427,3.427A3.427,3.427,0,0,0,36.427,3Z" transform="translate(-12.865 0)" fill="#69d1ff"/>
+      <path id="Pfad_54" data-name="Pfad 54" d="M23.14,34.713V38.14H19.713V34.713H23.14M24.854,33H18v6.854h6.854Z" transform="translate(-6.433 -12.865)" fill="#69d1ff"/>
+      <path id="Pfad_55" data-name="Pfad 55" d="M24.419,20.255v-4.4a1.713,1.713,0,0,0-1.713-1.713H7.284V9.854h2.57V3H3V9.854H5.57v4.284a1.713,1.713,0,0,0,1.713,1.713H22.705v4.4a3.427,3.427,0,1,0,1.713,0ZM4.713,4.713H8.14V8.14H4.713ZM23.562,25.275a1.713,1.713,0,1,1,1.713-1.713A1.713,1.713,0,0,1,23.562,25.275Z" transform="translate(0 0)" fill="#69d1ff"/>
+    </g>
+  </g>
+</svg>
