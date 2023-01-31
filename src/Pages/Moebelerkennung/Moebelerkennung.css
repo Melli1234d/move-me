@@ -297,8 +297,9 @@ fieldset {
 }
 
 #label-container {
-    margin-top: -3rem;
+    margin-top: 0rem;
     margin-bottom: 0;
     padding-top: 0;
     padding-bottom: 0;
+    height: 10rem;
 }

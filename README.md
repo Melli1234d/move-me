@@ -100,3 +100,4 @@ Bilder & Icons:
 5. Icons: https://fontawesome.com/icons
 6. Bilder im Directory "Pictures": Entweder Fontweseome oder exportiert aus Adobe XD -> Plugin "Auto Icon"
 7. https://de.freepik.com/fotos-kostenlos/junger-kurier-und-sein-kollege-entladen-kartons-aus-lieferwagen_25630693.htm#query=umzug&position=3&from_view=search&track=sph
+8. https://de.freepik.com/fotos-kostenlos/skandinavischer-wohnzimmer-innenarchitektur-zoom-hintergrund_18835794.htm#page=2&query=couch&position=0&from_view=search&track=sph

@@ -7,7 +7,6 @@ import {
 } from 'react-router-dom'
 import Home from "./Pages/Home/Home";
 import Zeitplan from "./Pages/Zeitplan/Zeitplan";
-import MoebelAngaben from "./Pages/Moebelerkennung/MoebelAngaben";
 import TestMoebelerkennung from "./Pages/Moebelerkennung/TestMoebelerkennung";
 import MoebelListe from "./Pages/Moebelerkennung/MoebelListe";
 import Firmen from "./Pages/Firmen/Firmen";
@@ -27,7 +26,6 @@ function App() {
                   <Route path="/FirmenDetail" element={<FirmenDetail/>}/>
                   <Route path="/MoebelListe" element={<MoebelListe/>}/>
                   <Route path="/zeitplan" element={<Zeitplan/>}/>
-                  <Route path="/Moebelangaben" element={<MoebelAngaben/>}/>
               </Routes>
           </BrowserRouter>
       </div>

@@ -1,5 +1,5 @@
 import './Moebelerkennung.css'
-import React, {useContext, useEffect, useState} from 'react';
+import React, { useEffect, useState} from 'react';
 import TapBarList from "../../components/TapBar/TapBarList";
 import Header from "../../components/Header/Header";
 import {
@@ -7,11 +7,9 @@ import {
     collection,
 } from 'firebase/firestore';
 import {firebase, firestore} from "../../firebase";
-
 import Verpackung from "../../components/Pictures/MoebelAngaben/verpckung.png";
 import Zerbrechlich from "../../components/Pictures/MoebelAngaben/zerbrechlich.png";
 import Kratzer from "../../components/Pictures/MoebelAngaben/kratzer.png";
-
 import Kitchen from "../../components/Pictures/Moebel-Angaben/Raum/kitchen.png";
 import Bedroom from "../../components/Pictures/Moebel-Angaben/Raum/bedroom.png";
 import Livingroom from "../../components/Pictures/Moebel-Angaben/Raum/Wohnzimmer-white.png";
@@ -29,16 +27,15 @@ import {getDownloadURL, getStorage, listAll, ref} from "firebase/storage";
 
 const MoebelListe = (besonderheiten) => {
 
-    const [storedImageId, setStoredImageId] = useState();
     const colletionRef = collection(firestore, 'moebel-data');
     const [moebelData, setMoebelData] = useState([]);
-    const [loading, setLoading] = useState(false);
-    const [imageUrl, setImageUrl] = useState();
+    // const [loading, setLoading] = useState(false);
+    // const [imageUrl, setImageUrl] = useState();
 
     const storage = getStorage();
     const imageRef = ref(storage, "images/");
 
-    useEffect(() => {
+    /*useEffect(() => {
         listAll(imageRef).then((response) => {
             response.items.forEach((item) => {
                 getDownloadURL(item).then((url) => {
@@ -46,11 +43,11 @@ const MoebelListe = (besonderheiten) => {
                 });
             });
         });
-    }, []);
+    }, []);*/
 
 
     useEffect(() => {
-        setLoading(true);
+        //setLoading(true);
         // const unsub = onSnapshot(q, (querySnapshot) => {
         const unsub = onSnapshot(colletionRef, (querySnapshot) => {
             const items = [];
@@ -58,7 +55,7 @@ const MoebelListe = (besonderheiten) => {
                 items.push(doc.data());
             });
             setMoebelData(items);
-            setLoading(false);
+            //setLoading(false);
         });
         return () => {
             unsub();
@@ -83,34 +80,34 @@ const MoebelListe = (besonderheiten) => {
 
     //funktion die aus dem Array die höchste Wahrscheinlichkeit raus holt, umgerechnet mal 100 und mit 2 nach komma stellen
     function getLabeltoFirebase(moebel) {
-        if ((moebel.label[0].probability*100).toFixed(2) > (moebel.label[1].probability*100).toFixed(2)) {
-            if ((moebel.label[0].probability*100).toFixed(2) > (moebel.label[2].probability*100).toFixed(2)) {
-                if ((moebel.label[0].probability*100).toFixed(2) > (moebel.label[3].probability*100).toFixed(2)) {
-                    if ((moebel.label[0].probability*100).toFixed(2) > (moebel.label[4].probability*100).toFixed(2)) {
+        if ((moebel.label[0].probability * 100).toFixed(2) > (moebel.label[1].probability * 100).toFixed(2)) {
+            if ((moebel.label[0].probability * 100).toFixed(2) > (moebel.label[2].probability * 100).toFixed(2)) {
+                if ((moebel.label[0].probability * 100).toFixed(2) > (moebel.label[3].probability * 100).toFixed(2)) {
+                    if ((moebel.label[0].probability * 100).toFixed(2) > (moebel.label[4].probability * 100).toFixed(2)) {
                         return "Sofa";
                     }
                 }
             }
-        } else if ((moebel.label[1].probability*100).toFixed(2) > (moebel.label[0].probability*100).toFixed(2)) {
-            if ((moebel.label[1].probability*100).toFixed(2) > (moebel.label[2].probability*100).toFixed(2)) {
-                if ((moebel.label[1].probability*100).toFixed(2) > (moebel.label[3].probability*100).toFixed(2)) {
-                    if ((moebel.label[1].probability*100).toFixed(2) > (moebel.label[4].probability*100).toFixed(2)) {
+        } else if ((moebel.label[1].probability * 100).toFixed(2) > (moebel.label[0].probability * 100).toFixed(2)) {
+            if ((moebel.label[1].probability * 100).toFixed(2) > (moebel.label[2].probability * 100).toFixed(2)) {
+                if ((moebel.label[1].probability * 100).toFixed(2) > (moebel.label[3].probability * 100).toFixed(2)) {
+                    if ((moebel.label[1].probability * 100).toFixed(2) > (moebel.label[4].probability * 100).toFixed(2)) {
                         return "Drehstuhl";
                     }
                 }
             }
-        } else if ((moebel.label[2].probability*100).toFixed(2) > (moebel.label[0].probability*100).toFixed(2)) {
-            if ((moebel.label[2].probability*100).toFixed(2) > (moebel.label[1].probability*100).toFixed(2)) {
-                if ((moebel.label[2].probability*100).toFixed(2) > (moebel.label[3].probability*100).toFixed(2)) {
-                    if ((moebel.label[2].probability*100).toFixed(2) > (moebel.label[4].probability*100).toFixed(2)) {
+        } else if ((moebel.label[2].probability * 100).toFixed(2) > (moebel.label[0].probability * 100).toFixed(2)) {
+            if ((moebel.label[2].probability * 100).toFixed(2) > (moebel.label[1].probability * 100).toFixed(2)) {
+                if ((moebel.label[2].probability * 100).toFixed(2) > (moebel.label[3].probability * 100).toFixed(2)) {
+                    if ((moebel.label[2].probability * 100).toFixed(2) > (moebel.label[4].probability * 100).toFixed(2)) {
                         return "Sitzhocker";
                     }
                 }
             }
-        } else if ((moebel.label[3].probability*100).toFixed(2) > (moebel.label[0].probability*100).toFixed(2)) {
-            if ((moebel.label[3].probability*100).toFixed(2) > (moebel.label[1].probability*100).toFixed(2)) {
-                if ((moebel.label[3].probability*100).toFixed(2) > (moebel.label[2].probability*100).toFixed(2)) {
-                    if ((moebel.label[3].probability*100).toFixed(2) > (moebel.label[4].probability*100).toFixed(2)) {
+        } else if ((moebel.label[3].probability * 100).toFixed(2) > (moebel.label[0].probability * 100).toFixed(2)) {
+            if ((moebel.label[3].probability * 100).toFixed(2) > (moebel.label[1].probability * 100).toFixed(2)) {
+                if ((moebel.label[3].probability * 100).toFixed(2) > (moebel.label[2].probability * 100).toFixed(2)) {
+                    if ((moebel.label[3].probability * 100).toFixed(2) > (moebel.label[4].probability * 100).toFixed(2)) {
                         return "Stuhl";
                     }
                 }

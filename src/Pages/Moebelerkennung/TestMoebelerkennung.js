@@ -38,7 +38,7 @@ const TestMoebelerkennung = (props) => {
     const [predictions, setPredictions] = useState(null); //Vorhersagen sollen gemacht, werden wenn Kamera an
     const [step, setStep] = useState('info'); // Steps -> 'scan', 'done', 'data'
     const [storedImageId, setStoredImageId] = useState(); //Image ID mit URL des Bildes aus Firebase Storage
-    const [imageUrl, setImageUrl] = useState(null);
+    const [imageUrl, setImageUrl] = useState(null); //URL von Firebase Storage Image erstellen
     const [amount, setAmount] = useState();// Allgemeine Anzahl der Möbelstücke, die in Firebase gespeichert wird, gesetzt je nach Klasse
     const [amountSofa, setAmountSofa] = useState(2);// count für Sofa Anzahl
     const [amountTisch, setAmountTisch] = useState(1); //count für Tisch Anzahl
@@ -183,6 +183,13 @@ const TestMoebelerkennung = (props) => {
 
     }
 
+
+//##################################################################################################################################################################################
+    // FUNKTIONEN UM DIE BESTIMMTEN DATEN FÜR DIE JEWEILIGE KLASSE HERAUS ZU BEKOMMEN
+    // es werden immer zwei angaben getätigt:
+    // 1. man muss einmal die Daten nur für die spezielle Klasse angeben, da dies nur gezeigt wird, wenn die Klasse gezeigt wird (Wahl zwischen Sofa,Stuhl,Tisch,Drehstuhl,Sitzhocker -> jede Kalsse hat unterschiedliche Anfangswerte bei Länge,Gewicht,Anzahl)
+    // 2. dann nochmal den allgemeinen Wert setzen, welcher je nachdem welches Möbelstück erkannt wird dann den Wert bekommt, der bei 1. definiert wurde (Länge, Gewicht oder Anzahl wird anhand der erkannten Klasse gesetzt & in Firebase gespeichert)
+//##################################################################################################################################################################################
 
 
 //#############################################################################################################################################################
@@ -346,15 +353,6 @@ const TestMoebelerkennung = (props) => {
         }
 
     }
-
-
-
-//##################################################################################################################################################################################
-    // FUNKTIONEN UM DIE BESTIMMTEN DATEN FÜR DIE JEWEILIGE KLASSE HERAUS ZU BEKOMMEN
-    // es werden immer zwei angaben getätigt:
-    // 1. man muss einmal die Daten nur für die spezielle Klasse angeben, da dies nur gezeigt wird, wenn die Klasse gezeigt wird (Wahl zwischen Sofa,Stuhl,Tisch,Drehstuhl,Sitzhocker -> jede Kalsse hat unterschiedliche Anfangswerte bei Länge,Gewicht,Anzahl)
-    // 2. dann nochmal den allgemeinen Wert setzen, welcher je nachdem welches Möbelstück erkannt wird dann den Wert bekommt, der bei 1. definiert wurde (Länge, Gewicht oder Anzahl wird anhand der erkannten Klasse gesetzt & in Firebase gespeichert)
-//##################################################################################################################################################################################
 
 
 //#############################################################################################################################################################
@@ -564,14 +562,6 @@ const TestMoebelerkennung = (props) => {
         setLengthSitzhocker(lengthSitzhocker - 5); //für das Gewicht vom Sitzhocker, bei jedem Klick geupdatet
         setLength(lengthSitzhocker - 5); //um das Gewicht allgemein auf das Gewicht vom Sitzhocker zu setzen im Möbelstück, was in Firebase gespeichert wird;
     }
-
-
-
-
-
-
-
-
 
 
 
