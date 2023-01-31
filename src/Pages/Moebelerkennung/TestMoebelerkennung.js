@@ -11,7 +11,7 @@ import {
     getDownloadURL,
 } from "firebase/storage";
 import {v4} from "uuid";
-import {addDoc, collection} from "@firebase/firestore";
+import {addDoc, collection, updateDoc} from "@firebase/firestore";
 import {firestore} from "../../firebase";
 import Moebelerkennung from "../../components/Pictures/Moebelerkennung/Couchbild.png";
 import SmallRectangle from "../../components/UI/SmallRectangle";
@@ -39,19 +39,19 @@ const TestMoebelerkennung = (props) => {
     const [step, setStep] = useState('info'); // Steps -> 'scan', 'done', 'data'
     const [storedImageId, setStoredImageId] = useState(); //Image ID mit URL des Bildes aus Firebase Storage
     const [imageUrl, setImageUrl] = useState(null); //URL von Firebase Storage Image erstellen
-    const [amount, setAmount] = useState();// Allgemeine Anzahl der Möbelstücke, die in Firebase gespeichert wird, gesetzt je nach Klasse
+    const [amount, setAmount] = useState(2);// Allgemeine Anzahl der Möbelstücke, die in Firebase gespeichert wird, gesetzt je nach Klasse
     const [amountSofa, setAmountSofa] = useState(2);// count für Sofa Anzahl
     const [amountTisch, setAmountTisch] = useState(1); //count für Tisch Anzahl
     const [amountStuhl, setAmountStuhl] = useState(4);//count für Stuhl Anzahl
     const [amountDrehstuhl, setAmountDrehstuhl] = useState(1);//count für Drehstuhl Anzahl
     const [amountSitzhocker, setAmountSitzhocker] = useState(1);//count für Sofa Anzahl
-    const [length, setLength] = useState();// Allgemeine Länge der Längsten Seite des Möbelstückes, die in Firebase gespeichert wird, gesetzt je nach Klasse
+    const [length, setLength] = useState(100);// Allgemeine Länge der Längsten Seite des Möbelstückes, die in Firebase gespeichert wird, gesetzt je nach Klasse
     const [lengthSofa, setLengthSofa] = useState(200);// count für Sofa Anzahl
     const [lengthTisch, setLengthTisch] = useState(160); //count für Tisch Anzahl
     const [lengthStuhl, setLengthStuhl] = useState(120);//count für Stuhl Anzahl
     const [lengthDrehstuhl, setLengthDrehstuhl] = useState(100);//count für Drehstuhl Anzahl
     const [lengthSitzhocker, setLengthSitzhocker] = useState(60);//count für Sofa Anzahl
-    const [weight, setWeight] = useState();// Allgemeines Gewicht, was in Firebase gespeichert wird, gesetzt je nach Klasse
+    const [weight, setWeight] = useState(50);// Allgemeines Gewicht, was in Firebase gespeichert wird, gesetzt je nach Klasse
     const [weightSofa, setWeightSofa] = useState(100);// count für Sofa Gewicht
     const [weightTisch, setWeightTisch] = useState(50);// count für Tisch Gewicht
     const [weightStuhl, setWeightStuhl] = useState(20);// count für Stuhl Gewicht
@@ -132,6 +132,8 @@ const TestMoebelerkennung = (props) => {
         setStep('data');
     }
 
+
+
 //#############################################################################################################################################################
 //SETZE AUF SCHRITT "INFO" & FÜGE MÖBELSTÜCK IN LISTE HINZU (ID, ANZAHL, LÄNGE,GEWICHT,RAUM,BESONDERHEITEN,URL DES BILDES, LABELS[]
 //#############################################################################################################################################################
@@ -199,7 +201,7 @@ const TestMoebelerkennung = (props) => {
     //FUNKTION UM DAS FELD FÜR ANZAHL ANZUZEIGEN BEI DEN MÖBELANGABEN
     function getInputAmount(predictions, prediction) {//alle label und das einzelne als wert mitgegeben
         let highestLabel = getHighestPrediction(predictions);//funktion aufrufen mit allen labeln
-        if (prediction === highestLabel && prediction.className==="Sofa") {
+        if (prediction === highestLabel && prediction.className === "Sofa") {
             return <SmallRectangle>
                 <label>Anzahl</label>
                 <div className="daten-angabe content-space-between">
@@ -207,9 +209,8 @@ const TestMoebelerkennung = (props) => {
                     <div className="count"> {amountSofa}</div>
                     <div onClick={handleAmountIdenticalFurnitureAddSofa} className="add">+</div>
                 </div>
-            </SmallRectangle >;
-        }
-        else if(prediction === highestLabel && prediction.className==="Sitzhocker") {
+            </SmallRectangle>;
+        } else if (prediction === highestLabel && prediction.className === "Sitzhocker") {
             return <SmallRectangle>
                 <label>Anzahl</label>
                 <div className="daten-angabe content-space-between">
@@ -217,8 +218,8 @@ const TestMoebelerkennung = (props) => {
                     <div className="count"> {amountSitzhocker}</div>
                     <div onClick={handleAmountIdenticalFurnitureAddSitzhocker} className="add">+</div>
                 </div>
-            </SmallRectangle >;
-        } else if(prediction === highestLabel && prediction.className==="Drehstuhl") {
+            </SmallRectangle>;
+        } else if (prediction === highestLabel && prediction.className === "Drehstuhl") {
             return <SmallRectangle>
                 <label>Anzahl</label>
                 <div className="daten-angabe content-space-between">
@@ -226,8 +227,8 @@ const TestMoebelerkennung = (props) => {
                     <div className="count"> {amountDrehstuhl}</div>
                     <div onClick={handleAmountIdenticalFurnitureAddDrehstuhl} className="add">+</div>
                 </div>
-            </SmallRectangle >;
-        } else if(prediction === highestLabel && prediction.className==="Tisch") {
+            </SmallRectangle>;
+        } else if (prediction === highestLabel && prediction.className === "Tisch") {
             return <SmallRectangle>
                 <label>Anzahl</label>
                 <div className="daten-angabe content-space-between">
@@ -235,8 +236,8 @@ const TestMoebelerkennung = (props) => {
                     <div className="count"> {amountTisch}</div>
                     <div onClick={handleAmountIdenticalFurnitureAddTisch} className="add">+</div>
                 </div>
-            </SmallRectangle >;
-        }else if(prediction === highestLabel && prediction.className==="Stuhl") {
+            </SmallRectangle>;
+        } else if (prediction === highestLabel && prediction.className === "Stuhl") {
             return <SmallRectangle>
                 <label>Anzahl</label>
                 <div className="daten-angabe content-space-between">
@@ -244,7 +245,7 @@ const TestMoebelerkennung = (props) => {
                     <div className="count"> {amountStuhl}</div>
                     <div onClick={handleAmountIdenticalFurnitureAddStuhl} className="add">+</div>
                 </div>
-            </SmallRectangle >;
+            </SmallRectangle>;
         }
 
     }

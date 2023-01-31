@@ -17,12 +17,12 @@ import RoundButton from "../../components/UI/RoundButton";
 import SmallHighRoundRectangle from "../../components/UI/SmallHighRoundRectangle";
 
 
-
+//#############################################################################################################################################################
 //tutorial: https://www.youtube.com/watch?v=ad6IavyAHsQ&t=328s
 //tutorial: https://www.youtube.com/watch?v=3ZEz-iposj8
 //link: https://github.com/samfromaway/firebase-tutorial/blob/master/src/SnapshotFirebaseAdvanced.js
 // code: https://github.com/samfromaway/firebase-tutorial/blob/master/src/SnapshotFirebaseAdvanced.js
-
+//############################################################################################################################################################
 //Möbelliste
 
 const MoebelListe = () => {
