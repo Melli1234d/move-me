@@ -3,8 +3,7 @@ import React, {useEffect, useState} from 'react';
 import TapBarList from "../../components/TapBar/TapBarList";
 import Header from "../../components/Header/Header";
 import Umzugsunternehmen from "../../components/Pictures/Umzugsunternehmen/unternehmen1.png";
-import Rezensionen from "../../components/Pictures/Rezensionen.png"
-import Backarrow from "../../components/Pictures/backarrow.png";
+import Backarrow from "../../components/Pictures/arrow-left.svg";
 import {Link} from "react-router-dom";
 import PrimaryColoredButton from "../../components/UI/PrimaryColoredButton";
 import GraySquare from "../../components/UI/GraySquare";
@@ -57,7 +56,6 @@ const FirmenDetail = (props) => {
                         <div className="kriterium">
                             Bewertungen
                         </div>
-                        {/*<img id="rezensionen-trucks" src={Rezensionen} alt="Rezensionen" />*/}
                     </GraySquare>
                 </div>
                 <p> Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua</p>

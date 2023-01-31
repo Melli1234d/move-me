@@ -345,7 +345,6 @@ const Zeitplan = (props) => {
                             <div className="kriterium">
                                 Dauer
                             </div>
-                            {/*<img id="rezensionen-trucks" src={Rezensionen} alt="Rezensionen" />*/}
                         </GraySquare>
                     </div>
                     <p> Terminvorschläge</p>

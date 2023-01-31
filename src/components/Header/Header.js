@@ -23,10 +23,10 @@ const Header = (props) => {
                         <input type="checkbox" />
                         <img id="hamburgericon" src={Hamburger} alt="Nachrichten Icon" height={25} width={25} />
                         <ul id="menu">
-                            <Link to={'/Profil'}>
+                            <Link to={'/Home'}>
                                 <li>Profil</li>
                             </Link>
-                            <Link to={'/Shop'}>
+                            <Link to={'/Home'}>
                                 <li>Shop und Ausleihe</li>
                             </Link>
                             <Link to={'/Home'}>

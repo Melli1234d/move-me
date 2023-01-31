@@ -3,22 +3,15 @@ import React from 'react';
 import {
   BrowserRouter,
   Route,
-  Routes
+  Routes,
 } from 'react-router-dom'
 import Home from "./Pages/Home/Home";
-import Profil from "./Pages/Profil/Profil";
-import Shop from "./Pages/Shop/Shop";
 import Zeitplan from "./Pages/Zeitplan/Zeitplan";
-import MoebelerkennungScannStarten from "./Pages/Moebelerkennung/MoebelerkennungScannStarten";
 import MoebelAngaben from "./Pages/Moebelerkennung/MoebelAngaben";
 import TestMoebelerkennung from "./Pages/Moebelerkennung/TestMoebelerkennung";
 import MoebelListe from "./Pages/Moebelerkennung/MoebelListe";
-import FileUpload from "./Pages/Moebelerkennung/FileUpload";
 import Firmen from "./Pages/Firmen/Firmen";
 import FirmenDetail from "./Pages/Firmen/FirmenDetail";
-
-
-
 
 
 function App() {
@@ -29,16 +22,12 @@ function App() {
               <Routes>
                   <Route index element={<Home/>}/>
                   <Route path="/home" element={<Home/>}/>
-                  <Route path="/profil" element={<Profil/>}/>
                   <Route path="/TestMoebelerkennung" element={<TestMoebelerkennung/>}/>
-                  <Route path="/shop" element={<Shop/>}/>
                   <Route path="/Firmen" element={<Firmen/>}/>
                   <Route path="/FirmenDetail" element={<FirmenDetail/>}/>
                   <Route path="/MoebelListe" element={<MoebelListe/>}/>
                   <Route path="/zeitplan" element={<Zeitplan/>}/>
-                  <Route path="/FileUpload" element={<FileUpload/>}/>
                   <Route path="/Moebelangaben" element={<MoebelAngaben/>}/>
-                  <Route path="/MoebelerkennungScannStarten" element={<MoebelerkennungScannStarten/>}/>
               </Routes>
           </BrowserRouter>
       </div>
