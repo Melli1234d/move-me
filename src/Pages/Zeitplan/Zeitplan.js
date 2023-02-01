@@ -190,7 +190,7 @@ const Zeitplan = (props) => {
        if(task.length === 1) {
            return <ListElement key={task.id}  className="listElement-one">
                <div className="timeplaner">
-                   <p>{task.day} {task.month} {task.year}</p>
+                   <div>{task.day} {task.month} {task.year}</div>
                    <h5>{task.title}</h5>
                </div>
 
@@ -198,7 +198,7 @@ const Zeitplan = (props) => {
        } else if(task.length === 2) {
            return <ListElement key={task.id} className="listElement-two">
                <div className="timeplaner">
-                   <p>{task.day} {task.month} {task.year}</p>
+                   <div>{task.day} {task.month} {task.year}</div>
                    <h5>{task.title}</h5>
                </div>
 
@@ -206,7 +206,7 @@ const Zeitplan = (props) => {
        }if(task.length === 3) {
             return <ListElement key={task.id} className="listElement-tree">
                 <div className="timeplaner">
-                    <p>{task.day} {task.month} {task.year}</p>
+                    <div>{task.day} {task.month} {task.year}</div>
                     <h5>{task.title}</h5>
                 </div>
 
@@ -214,7 +214,7 @@ const Zeitplan = (props) => {
         } if(task.length === 4) {
             return <ListElement key={task.id} className="listElement-four">
                 <div className="timeplaner">
-                    <p>{task.day} {task.month} {task.year}</p>
+                    <div>{task.day} {task.month} {task.year}</div>
                     <h5>{task.title}</h5>
                 </div>
 
@@ -223,7 +223,7 @@ const Zeitplan = (props) => {
         if(task.length === 5) {
             return <ListElement className="listElement-five">
                 <div className="timeplaner">
-                    <p>{task.day} {task.month} {task.year}</p>
+                    <div>{task.day} {task.month} {task.year}</div>
                     <h5>{task.title}</h5>
                 </div>
 
