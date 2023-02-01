@@ -30,6 +30,7 @@ import { doc} from "firebase/firestore";
 const Zeitplan = (props) => {
     const colletionRef = collection(firestore, 'Aufgabenpakete');
     const timeplanRef = collection(firestore, 'Teilaufgaben');
+    const timeplanRefID = collection(firestore, 'KLlY8Unihm4USfLLN2Es');
     const appointmentRef = collection(firestore, 'Termine');
     const [tasks, setTasks] = useState([]);
     const [subtasks, setSubTasks] = useState([]);
@@ -43,101 +44,105 @@ const Zeitplan = (props) => {
     const [hour, setHour] = useState();
     const [minute, setMinute] = useState();
     const [year, setYear] = useState();
+    const unique_id = uuid();
 
-/*    ZEITPLAN ÜBERSICHT "OVERVIEW"*/
+//#############################################################################################################################################################
+// LADEN DER AUFGABENPAKETE IN DER ZEITPLAN ÜBERSICHT "OVERVIEW"
+// ############################################################################################################################################################
 
+    //onSnapshot() = es wird ein Snapshot von den aktuellem Inhalt des Dokuments gemacht, ändert sich der Inhalt wird ein neuer Snapcshot gemacht & Daten werden aktualisiert
     useEffect(() => {
-        // const unsub = onSnapshot(q, (querySnapshot) => {
         const unsub = onSnapshot(colletionRef, (querySnapshot) => {
-            const items = [];
-            querySnapshot.forEach((doc) => {
-                items.push(doc.data());
+            const items = []; //definieren, dass die Items ein Array sind
+            querySnapshot.forEach((doc) => { //Snapshot für jedes einzelne Dokument in der Collection
+                items.push(doc.data()); //Daten werden in den Snapshot geladen
             });
-            setTasks(items);
+            setTasks(items); //sagen, dass die aktuellen Daten die neuen Daten der Aufgabenpakete sind.
         });
         return () => {
             unsub();
-
         };
-
         // eslint-disable-next-line
     }, []);
 
+//#############################################################################################################################################################
+// LADEN DER TEILAUFGABEN IN DER ZEITPLAN ÜBERSICHT "SUBTASKS"
+// ############################################################################################################################################################
 
-
-    /* TEILAUFGABEN ANSICHT "SUBTASKS" */
-
+    //onSnapshot() = es wird ein Snapshot von den aktuellem Inhalt des Dokuments gemacht, ändert sich der Inhalt wird ein neuer Snapcshot gemacht & Daten werden aktualisiert
     useEffect(() => {
         // const unsub = onSnapshot(q, (querySnapshot) => {
         const unsub = onSnapshot(timeplanRef, (querySnapshot) => {
-            const items = [];
-            querySnapshot.forEach((doc) => {
-                items.push(doc.data());
+            const items = []; //definieren, dass die Items ein Array sind
+            querySnapshot.forEach((doc) => { //Snapshot für jedes einzelne Dokument in der Collection
+                items.push(doc.data()); //Daten werden in den Snapshot geladen
             });
-            setSubTasks(items);
+            setSubTasks(items); //sagen, dass die aktuellen Daten die neuen Daten der Subtasks sind.
         });
         return () => {
             unsub();
-
         };
-
         // eslint-disable-next-line
     }, []);
 
+//#############################################################################################################################################################
+// LADEN DER BEREITS FESTGELEGTEN TERMINE IN DER KALENDERANSICHT "CALENDAR"
+// ############################################################################################################################################################
 
-
-
-
-   /* KALENDERANSICHT MIT DEN BEREITS FESTGELEGTEN TERMINEN "CALENDAR" */
-
+//onSnapshot() = es wird ein Snapshot von den aktuellem Inhalt des Dokuments gemacht, ändert sich der Inhalt wird ein neuer Snapcshot gemacht & Daten werden aktualisiert
     useEffect(() => {
         // const unsub = onSnapshot(q, (querySnapshot) => {
         const unsub = onSnapshot(appointmentRef, (querySnapshot) => {
-            const items = [];
-            querySnapshot.forEach((doc) => {
-                items.push(doc.data());
+            const items = []; //definieren, dass die Items ein Array sind
+            querySnapshot.forEach((doc) => { //Snapshot für jedes einzelne Dokument in der Collection
+                items.push(doc.data()); //Daten werden in den Snapshot geladen
             });
-            setAppointments(items);
+            setAppointments(items); //sagen, dass die aktuellen Daten die neuen Daten der Appointments sind.
         });
         return () => {
             unsub();
-
         };
-
         // eslint-disable-next-line
     }, []);
 
 
+//#############################################################################################################################################################
+// WECHSEL IN KALENDER ANSICHT
+// ############################################################################################################################################################
 
-
-
-
-
-
-    //beim Button klicken wird auf Kalender ansicht gewechselt
     const handleClick = async () => {
         setView('calendar');
     }
 
-    //beim Button klicken wird auf die Zeitplan Übersicht ansicht gewechselt
+//#############################################################################################################################################################
+// WECHSEL AUF ZEITPLAN OVERVIEW ÜBERSICHT (AUFGABENPAKETE)
+// ############################################################################################################################################################
+
     const handleOverview = async () => {
         setView('overview');
     }
 
+//#############################################################################################################################################################
+// WECHSEL AUF TEILAUFGABEN ANSICHT
+// ############################################################################################################################################################
 
-    //beim Button klicken wird auf die Teilaufgaben geweselt
     const handleTasks = async () => {
         setView('subtasks');
     }
 
 
-    const unique_id = uuid();
-    //Screen der die Terinauswahl anzeigt
+//#############################################################################################################################################################
+// WECHSEL ZUR TERMIN HINZUFÜGEN ANSICHT, TERMINAUSWAHL ANZEIGEN LASSEN,
+// ############################################################################################################################################################
+
     const handleAddAppointment = async () => {
         setView('addAppointment');
     }
 
-    //Termin hinzufügen Button
+//#############################################################################################################################################################
+// TERMIN ZUR COLLECTION IN FIREBASE HINZUFÜGEN
+// ############################################################################################################################################################
+
     const handleAddDate = async () => {
         addDoc(appointmentRef, {
             id:id,
@@ -151,26 +156,35 @@ const Zeitplan = (props) => {
         setView('calendar');
     }
 
-//bei Teilaufgaben Screen wenn kein Datum gesetzt eige Kalender Icon, wenn Datum gesetzt, zeige Datum
+
+//#############################################################################################################################################################
+// FUNKTION FÜR DEN KALENDER BUTTON, WENN KEIN TERMIN GESETZT DANN ZEIGE KALENDER WENN TERMIN GESETZT ZEIGE DATUM
+// ############################################################################################################################################################
+
     function getDateorIcon(subtask) {
-        if(date === false){
+        if(date === false){ //wenn kein Datum gesetzt wurde, dann return das Kalender Icon
             return <img src={KalenderPlus} alt="Kalender Icon" height={30} width={30} />;
-        } else {
+        } else if(date === true) {
             return <div className="content-column">
-                <div>
-                    <div>{subtask.day}</div>
-                    <div>{subtask.month}</div>
+                <div className="margin-top-sm content-row color-white background-blue time-container-date">
+                    <div>{hour}: </div>
+                    <div>{minute}- </div>
+                    <div>{hour+4}: </div>
+                    <div>{minute}</div>
                 </div>
-                <div className="content-row color-opacity">
-                    <div>{subtask.starthour}: </div>
-                    <div>{subtask.startminute}- </div>
-                    <div>{subtask.endhour}: </div>
-                    <div>{subtask.endminute}</div>
+                <div className="center">
+                    <div className="bigDate">{day}</div>
+                    <div className="bigDate">{month}</div>
                 </div>
+
             </div>
         }
     }
 
+
+//#############################################################################################################################################################
+// DIE LÄNGE DER AUFGABENPAKETE AUSGEBEN IN DER ZEITPLAN ÜBERSICHT
+// ############################################################################################################################################################
     //Bei Zeitplan Übersicht, die Länge des Containers ausgeben, da sie immer unterschiedlich sein kann
     function getLengthofListElement(task) {//alle label und das einzelne als wert mitgegeben
        if(task.length === 1) {
@@ -218,16 +232,13 @@ const Zeitplan = (props) => {
     }
 
 
-
-
-
     return (
 
         <div className="secondary-background">
             <Header/>
 
 
-
+{/*  Aufgabenpakete*/}
             {view === 'overview' &&
                 <>
                     <div className="title">
@@ -246,12 +257,13 @@ const Zeitplan = (props) => {
                 </>
             }
 
+{/*  Kalender & bereits festgelegte Termine */}
 
             {view === 'calendar' &&
-
                 <>
                     <div className="title">
                         <h2> Zeitplan</h2>
+                        {/*  wechseln zu Aufgabenpakete*/}
                         <button onClick={handleOverview} id="kalender-icon">
                             <div className="icon-calender">
                                 <RoundButton id="List-icon" ><img id="calendar" src={ListIcon} alt="Kalender Icon" height={18} width={18} /></RoundButton>
@@ -261,8 +273,8 @@ const Zeitplan = (props) => {
                     <Kalender/>
                     <p className="bold"> Termine: </p>
                     <div className="margin-bottom-m">
+                        {/*  Auflisten aller bisherigen festgelegten Termine */}
                     {appointments.map((appointment) => (
-
                             <ListElement className="white" key={appointment.id}>
                                 <div className="timeplaner">
                                     <div className="bold">{appointment.title} </div>
@@ -277,32 +289,30 @@ const Zeitplan = (props) => {
                                     </div>
                                 </div>
                             </ListElement>
-
-
                     ))}
                     </div>
                 </>
             }
-
-
-
+{/* Teilaufgaben */}
             {view === 'subtasks' &&
                 <>
                     <div className="title">
+                        {/*  zurück zur Übersicht */}
                         <div onClick={handleOverview}  className="leftarrow">
                                 <img src={ArrowLeft} alt="Kalender Icon" height={18} width={18}/>
                         </div>
                         <h2> Teilaufgaben </h2>
 
                     </div>
+                    {/*  Auflisten aller Teilaufgaben */}
                     {subtasks.map((subtask) => (
                         <ListElement className="white" key={subtask.id}>
                             <div className="subtask-container">
                                 <div className="content-column">
-                                    <p className="bold margin-top-sm margin-bottom-sm padding-left-xs">{subtask.title} </p>
-                                    <p className="color-opacity margin-top-sm margin-bottom-sm padding-left-xs">{subtask.paragraph}</p>
+                                    <p className="bold margin-top-sm margin-bottom-sm padding-left-big pagging-top-big">{subtask.title} </p>
+                                    <p className="color-opacity margin-top-sm margin-bottom-sm padding-left-big padding-bottom-big">{subtask.paragraph}</p>
                                 </div>
-                                <div  id="calendaradd" onClick={handleAddAppointment}>{getDateorIcon(subtask)} </div>
+                                <div  id="calendaradd " onClick={handleAddAppointment}>{getDateorIcon(subtask)} </div>
 
                             </div>
 
@@ -310,6 +320,8 @@ const Zeitplan = (props) => {
                     ))}
                 </>
             }
+{/*  Termin hinzufügen */}
+            {/*  Auflisten aller Termine die zur Auswahl stehen  */}
             {view === 'addAppointment' &&
                 <>
                     <div className="title">
@@ -319,8 +331,6 @@ const Zeitplan = (props) => {
                         <h2> Terminplanung </h2>
 
                     </div>
-
-
                     <div className="container-row">
                         <GraySquare className="graueBox">
                             <div className="number">
@@ -349,7 +359,6 @@ const Zeitplan = (props) => {
                     </div>
                     <p> Terminvorschläge</p>
                     <div>
-
                         <div className="content-column">
                             <div className="container-row">
                                 <input type="radio" id="nineteenaug"value="17:00" name="Zeit"
@@ -359,7 +368,7 @@ const Zeitplan = (props) => {
                                            setTitle("Karton packen");
                                            setDay(19);
                                            setMonth("März");
-                                           setHour("17");
+                                           setHour(17);
                                            setMinute("00");
                                            setYear("2023");
                                        }}/>
@@ -388,7 +397,7 @@ const Zeitplan = (props) => {
                                            setTitle("Karton packen");
                                            setDay(20);
                                            setMonth("März");
-                                           setHour("17");
+                                           setHour(17);
                                            setMinute("00");
                                            setYear("2023");
                                        }}/>
@@ -417,7 +426,7 @@ const Zeitplan = (props) => {
                                            setTitle("Karton packen");
                                            setDay(21);
                                            setMonth("März");
-                                           setHour("17");
+                                           setHour(17);
                                            setMinute("00");
                                            setYear("2023");
                                        }}/>
@@ -446,7 +455,7 @@ const Zeitplan = (props) => {
                                            setTitle("Karton packen");
                                            setDay(22);
                                            setMonth("März");
-                                           setHour("17");
+                                           setHour(17);
                                            setMinute("00");
                                            setYear("2023");
                                        }}/>
@@ -468,20 +477,12 @@ const Zeitplan = (props) => {
                             </div>
 
                         </div>
-                    <button onClick={handleAddDate} className="right margin-bottom-m margin-top-m"> Temrin hinzufügen</button>
+                    <button onClick={handleAddDate} className="right margin-bottom-m margin-top-m"> Termin hinzufügen</button>
                     </div>
 
                 </>
             }
-
-
-
-
-
-
             <TapBarList/>
-
-
         </div>
     );
 }

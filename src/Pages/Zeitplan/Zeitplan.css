@@ -156,3 +156,37 @@
 .margin-bottom-m {
     margin-bottom: 10rem;
 }
+
+
+.time-container-date {
+    padding: 0.2rem 0.5rem 0.2rem 0.5rem;
+    border-radius: 5px;
+
+}
+
+.bigDate {
+    color: #113352;
+    font-size: 1.2rem;
+}
+
+.gesetztesDatum {
+    background-color: #113352;
+}
+
+.padding-left-big {
+    padding-left: 1rem;
+}
+.padding-top-big {
+    padding-top: 1rem;
+}
+
+.padding-bottom-big {
+    padding-bottom: 1rem;
+}
+
+
+.border-primary {
+    border-left: 1px solid #113352;
+    border-right: 1px solid #113352;
+    border-bottom: 1px solid #113352;
+}
