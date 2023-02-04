@@ -87,7 +87,7 @@ const MoebelListe = () => {
             if (propabilityone > propabilitytwo) {
                 if (propabilityone > propabilitythree) {
                     if (propabilityone > propabilityfour) {
-                        return "Drehstuhl";
+                        return "Tisch";
                     }
                 }
             }
@@ -95,7 +95,7 @@ const MoebelListe = () => {
             if (propabilitytwo > propabilityone) {
                 if (propabilitytwo > propabilitythree) {
                     if (propabilitytwo > propabilityfour) {
-                        return "Sitzhocker";
+                        return "Stuhl";
                     }
                 }
             }
@@ -103,12 +103,12 @@ const MoebelListe = () => {
             if (propabilitythree > propabilityone) {
                 if (propabilitythree > propabilitytwo) {
                     if (propabilitythree > propabilityfour) {
-                        return "Stuhl";
+                        return "Drehstuhl";
                     }
                 }
             }
         } else {
-            return "Tisch";
+            return "Sitzhocker";
         }
     }
 
