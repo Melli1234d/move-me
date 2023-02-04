@@ -263,6 +263,7 @@ fieldset {
 
 .data-container {
     margin-bottom: 8rem;
+    margin-top: 8rem;
 }
 
 
@@ -303,3 +304,11 @@ fieldset {
     padding-bottom: 0;
     height: 10rem;
 }
+
+
+/*#Stuhl.Label-Klassen  {
+    margin-top: -5rem;
+}
+#Stuhl.Label-Klassen  {
+    margin-top: -5rem;
+}*/

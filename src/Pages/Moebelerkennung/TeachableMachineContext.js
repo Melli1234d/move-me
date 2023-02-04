@@ -8,7 +8,7 @@ import React from 'react';
 //#############################################################################################################################################################
 
 
-const URL = 'tm-my-image-model-6/'; //definieren des Pfades von dem Teachable Machine Modell
+const URL = 'tm-my-image-model-7/'; //definieren des Pfades von dem Teachable Machine Modell
 const TeachableMachineWrapper = {
 //#############################################################################################################################################################
 // KAMERA STARTEN & MODEL DEFINIEREN

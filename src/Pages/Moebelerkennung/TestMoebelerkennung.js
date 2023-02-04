@@ -118,7 +118,7 @@ const TestMoebelerkennung = (props) => {
         })
 
         await tm.stop();//kamera geht aus wenn foto gemacht wird
-        tm.webcam.canvas.remove(); //camera Canvas wird removt wenn Foto aufgenommen -> damit oben nciht ein leerer weißer container zu sehen ist
+        tm.webcam.canvas.remove(); //camera Canvas wird removt wenn Foto aufgenommen -> damit oben nicht ein leerer weißer container zu sehen ist
         setHasPhoto(true); //foto wurde gemacht
         setStep('done');
     }
