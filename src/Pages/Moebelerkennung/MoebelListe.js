@@ -5,6 +5,7 @@ import Header from "../../components/Header/Header";
 import {
     onSnapshot,
     collection,
+    doc,
 } from 'firebase/firestore';
 import {firebase, firestore} from "../../firebase";
 import Verpackung from "../../components/Pictures/MoebelAngaben/verpckung.png";
@@ -15,6 +16,8 @@ import Bedroom from "../../components/Pictures/Moebel-Angaben/Raum/bedroom.png";
 import Livingroom from "../../components/Pictures/Moebel-Angaben/Raum/Wohnzimmer-white.png";
 import RoundButton from "../../components/UI/RoundButton";
 import SmallHighRoundRectangle from "../../components/UI/SmallHighRoundRectangle";
+import {updateDoc} from "@firebase/firestore";
+import SmallRectangle from "../../components/UI/SmallRectangle";
 
 
 //#############################################################################################################################################################
