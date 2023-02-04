@@ -572,6 +572,7 @@ const TestMoebelerkennung = (props) => {
             <Header/>
     {/*########### In den Container wird das Kamera Canvas gepackt ##########*/}
             <div ref={divEl} id="webcam-container"></div>
+    {/*########### Kamera anmachen ##########*/}
             {step === 'info' &&
                 <>
                     {/*Das Bild ist von: https://de.freepik.com/fotos-kostenlos/skandinavischer-wohnzimmer-innenarchitektur-zoom-hintergrund_18835794.htm#page=2&query=couch&position=0&from_view=search&track=sph*/}
@@ -586,12 +587,14 @@ const TestMoebelerkennung = (props) => {
                     <button onClick={handleClick} id="scan-starten">Scan starten</button>
                 </>
             }
+    {/*########### Foto machen, Kamera aus & Bild in Firebase lagern ##########*/}
             {step === 'scan' &&
                 <>
     {/*########### Foto machen, Kamera aus & Bild in Firebase lagern ##########*/}
                     <button onClick={takePhoto} id="foto-machen">Foto machen</button>
                 </>
             }
+    {/*########### Bild aus Firebase laden  & Label laden ##########*/}
             {step === 'done' &&
             <>
     {/*########### Bild aus Firebase laden ##########*/}
@@ -608,7 +611,7 @@ const TestMoebelerkennung = (props) => {
                 </div>
                 <button id="weiter-button"onClick={handleComplete}>Weiter</button>
             </>}
-
+    {/*########### Möbeldaten angeben ##########*/}
             {step === 'data' &&
                 <>
 {/*########### vorher gemachte Foto ##########*/}
