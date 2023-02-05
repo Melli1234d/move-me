@@ -26,6 +26,7 @@ Code + CSS:
 16. https://css-tricks.com/using-requestanimationframe-with-react-hooks/
 17. https://codepen.io/eliza-rjb/pen/xmbEWX
 18. https://github.com/googlecreativelab/teachablemachine-community/issues/73
+19. https://www.youtube.com/watch?v=lW8NWB1cvMA
 
 
 Bilder & Icons:

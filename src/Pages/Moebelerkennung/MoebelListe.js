@@ -18,6 +18,7 @@ import RoundButton from "../../components/UI/RoundButton";
 import SmallHighRoundRectangle from "../../components/UI/SmallHighRoundRectangle";
 import {updateDoc} from "@firebase/firestore";
 import SmallRectangle from "../../components/UI/SmallRectangle";
+import Edit from "../../components/Edit/Edit";
 
 
 //#############################################################################################################################################################
@@ -25,13 +26,14 @@ import SmallRectangle from "../../components/UI/SmallRectangle";
 //tutorial: https://www.youtube.com/watch?v=3ZEz-iposj8
 //link: https://github.com/samfromaway/firebase-tutorial/blob/master/src/SnapshotFirebaseAdvanced.js
 // code: https://github.com/samfromaway/firebase-tutorial/blob/master/src/SnapshotFirebaseAdvanced.js
+//https://www.youtube.com/watch?v=lW8NWB1cvMA
 //############################################################################################################################################################
 //Möbelliste
 
 const MoebelListe = () => {
     const colletionRef = collection(firestore, 'moebel-data'); //Referenz zu der Collection in Firebase, wo die Möbelstücke gespeichert wurden
     const [moebelData, setMoebelData] = useState([]); //Alle Möbelstücke
-
+    const [editbox, setEditBox] = useState(false);
 
 //#############################################################################################################################################################
 // LADEN DER INHALTE DER COLLECTION "MOEBEL-DATA" AUS FIREBASE
@@ -161,14 +163,16 @@ const MoebelListe = () => {
                                     <div className="moebel-daten-length-width">
                                         <div className="moebel-laenge-gewicht">{moebel.length}cm, {moebel.weight}kg
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
 
-
+                            <button>löschen</button>
+                            <button onClick={()=> setEditBox(true)}> bearbeiten</button>
+                            {editbox === true && <Edit moebel={moebel} setEditBox={setEditBox}/> }
                         </SmallHighRoundRectangle>
                     ))}
+
                 </div>
 
             </div>
