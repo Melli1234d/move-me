@@ -193,7 +193,7 @@ const MoebelListe = () => {
 
                             <button onClick={() => deleteData(moebel)}>löschen</button>
                             <button onClick={()=> setEditBox(true)}> bearbeiten</button>
-                            {editbox === true && <> <form   key={moebel.id} style={{
+                            {editbox === true && <> <form style={{
                                 marginTop: "1rem",
                             }}>
                                 <SmallRectangle>
