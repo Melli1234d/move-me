@@ -247,11 +247,19 @@ const Zeitplan = (props) => {
                             </div>
                         </button>
                     </div>
+
                     <div className="timeplan-grid">
                         {tasks.map((task) => (
                             <div key={task.id} onClick={handleTasks} id={task.id}>{getLengthofListElement(task)}</div>
                         ))}
                     </div>
+                    <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut
+                        labore et dolore magna aliquyam erat, sed diam voluptua Lorem ipsum dolor sit amet, consetetur
+                        sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
+                        sed diam voluptua Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut
+                        labore et dolore magna aliquyam erat, sed diam voluptua Lorem ipsum dolor sit amet, consetetur
+                        sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
+                        sed diam voluptua</p>
                 </>
             }
 
