@@ -1,11 +1,15 @@
 import React, {useState} from 'react';
 
 import SmallRectangle from "../UI/SmallRectangle";
-import {addDoc, getDocs, getFirestore, updateDoc} from "@firebase/firestore";
+import {addDoc, getDocs, getFirestore, updateDoc, deleteDoc} from "@firebase/firestore";
 import {firestore} from "../../firebase";
 import * as db from '@firebase/firestore'
 import firebase, {collection} from "firebase/firestore";
+import {doc} from "@firebase/firestore";
 //Struktur vom React js Udemy Kurs " The Complete Guide" von Maximilian Schwarzmüller übernommen
+
+
+//code: https://github.com/samfromaway/firebase-tutorial/blob/master/src/SnapshotFirebaseAdvanced.js
 
 const Edit = ({moebel, setEditBox}) => {
     const [amount, setAmount] = useState(2);// Allgemeine Anzahl der Möbelstücke, die in Firebase gespeichert wird, gesetzt je nach Klasse
@@ -14,33 +18,27 @@ const Edit = ({moebel, setEditBox}) => {
     const colletionRef = collection(firestore, 'moebel-data'); //Referenz zu der Collection in Firebase, wo die Möbelstücke gespeichert wurden
 
 
-
-    /*function editDoc(updatedDoc) {
-        colletionRefUpdate.doc(updatedDoc.id).update(updatedDoc)
-    }*/
-
-    function editDocTest() {
-
-        /*updateDoc(colletionRef,{
+    async function deleteSchool(moebel) {
+        try {
+            const moebelRef = doc(colletionRef, moebel.id);
+            await deleteDoc(moebelRef, moebelRef);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+    async function editData(moebel) {
+        const updatedMoebel = {
             amount: amount,
             length: length,
             weight: weight,
-        })*/
-        db.collection(colletionRef).doc(moebel.id).update({
-            weight: weight,
-            length: length,
-            amount: amount,
-        })
-        /*db.collection(colletionRef).doc(moebel.id).update({
-            weight: weight,
-            length: length,
-            amount: amount,
-        })*/
-       /*db.collection('moebel-date').doc('ICTKVCWDXCWqosotCOxv').update({
-           weight: weight,
-           length: length,
-           amount: amount,
-           })*/
+        };
+
+        try {
+            const moebelRef = doc(colletionRef, moebel.id);
+            updateDoc(moebelRef, updatedMoebel);
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     return (
@@ -72,8 +70,7 @@ const Edit = ({moebel, setEditBox}) => {
                 </SmallRectangle >
             </form>
             <button onClick={() => {
-                editDocTest()
-                /*editDoc({weight: weight, length: length, amount: amount, id: moebel.id})*/
+                editData()
                 setEditBox(false)
             }}>update</button>
         </div>

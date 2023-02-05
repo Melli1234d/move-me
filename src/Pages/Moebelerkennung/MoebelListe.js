@@ -16,7 +16,7 @@ import Bedroom from "../../components/Pictures/Moebel-Angaben/Raum/bedroom.png";
 import Livingroom from "../../components/Pictures/Moebel-Angaben/Raum/Wohnzimmer-white.png";
 import RoundButton from "../../components/UI/RoundButton";
 import SmallHighRoundRectangle from "../../components/UI/SmallHighRoundRectangle";
-import {updateDoc} from "@firebase/firestore";
+import {deleteDoc, updateDoc} from "@firebase/firestore";
 import SmallRectangle from "../../components/UI/SmallRectangle";
 import Edit from "../../components/Edit/Edit";
 
@@ -34,7 +34,9 @@ const MoebelListe = () => {
     const colletionRef = collection(firestore, 'moebel-data'); //Referenz zu der Collection in Firebase, wo die Möbelstücke gespeichert wurden
     const [moebelData, setMoebelData] = useState([]); //Alle Möbelstücke
     const [editbox, setEditBox] = useState(false);
-
+    const [amount, setAmount] = useState(2);// Allgemeine Anzahl der Möbelstücke, die in Firebase gespeichert wird, gesetzt je nach Klasse
+    const [length, setLength] = useState(100);// Allgemeine Länge der Längsten Seite des Möbelstückes, die in Firebase gespeichert wird, gesetzt je nach Klasse
+    const [weight, setWeight] = useState(50);// Allgemeines Gewicht, was in Firebase gespeichert wird, gesetzt je nach Klasse
 //#############################################################################################################################################################
 // LADEN DER INHALTE DER COLLECTION "MOEBEL-DATA" AUS FIREBASE
 //############################################################################################################################################################
@@ -117,7 +119,29 @@ const MoebelListe = () => {
         }
     }
 
+    function deleteData(moebel) {
+        try {
+            const moebelRef = doc(colletionRef, moebel.id);
+            deleteDoc(moebelRef, moebelRef);
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
+    function editData(moebel) {
+        const updatedMoebel = {
+            amount: amount,
+            length: length,
+            weight: weight,
+        };
+
+        try {
+            const moebelRef = doc(colletionRef, moebel.id);
+            updateDoc(moebelRef, updatedMoebel);
+        } catch (error) {
+            console.error(error);
+        }
+    }
     return (
         <div className="secondary-background">
             <Header/>
@@ -167,9 +191,38 @@ const MoebelListe = () => {
                                 </div>
                             </div>
 
-                            <button>löschen</button>
+                            <button onClick={() => deleteData(moebel)}>löschen</button>
                             <button onClick={()=> setEditBox(true)}> bearbeiten</button>
-                            {editbox === true && <Edit moebel={moebel} setEditBox={setEditBox}/> }
+                            {editbox === true && <> <form   key={moebel.id} style={{
+                                marginTop: "1rem",
+                            }}>
+                                <SmallRectangle>
+                                    <label> Anzahl</label>
+                                    <input type="text" placeholder={moebel.amount}
+                                           onChange={(event)=>{
+                                               setAmount(event.target.value);
+                                           }}/>
+                                </SmallRectangle>
+                                <SmallRectangle>
+                                    <label>Länge</label>
+                                    <input type="text" placeholder={moebel.length}
+                                           onChange={(event)=>{
+                                               setLength(event.target.value);
+                                           }}/>
+                                </SmallRectangle >
+
+                                <SmallRectangle>
+                                    <label> Gewicht</label>
+                                    <input type="text" placeholder={moebel.weight}
+                                           onChange={(event)=>{
+                                               setWeight(event.target.value);
+                                           }}/>
+                                </SmallRectangle >
+                            </form>
+                                <button onClick={() => {
+                                    editData(moebel)
+                                    setEditBox(false)
+                                }}>update</button></> }
                         </SmallHighRoundRectangle>
                     ))}
 
