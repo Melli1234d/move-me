@@ -21,24 +21,55 @@
   .timeplan-grid {
       overflow-x: scroll;
       display: grid;
-      grid-template-columns: auto auto;
+
+      grid-template:
+    'one one one one two two two empty'
+    'three three three three three four four empty'
+    'five five six six six six six six';
       grid-column-gap: 1rem;
+      padding-left: 2.5rem;
+      padding-right: 2.5rem;
+  }
+
+
+  #one {
+      grid-area: one;
+  }
+  #two {
+      grid-area: two;
+  }
+  #three {
+      grid-area: three;
+  }
+  #four {
+      grid-area: four;
+  }
+  #five {
+      grid-area: five;
+  }
+  #six {
+      grid-area: six;
   }
 
   .listElement-one {
       width: 100px;
+
   }
   .listElement-two {
       width: 200px;
+
   }
   .listElement-three {
       width: 300px;
+
   }
   .listElement-four{
       width: 400px;
+
   }
   .listElement-five {
       width: 500px;
+
   }
 
   p.bold {
@@ -189,4 +220,9 @@
     border-left: 1px solid #113352;
     border-right: 1px solid #113352;
     border-bottom: 1px solid #113352;
+}
+
+.Zeitplanüberschrift {
+    margin-top: 0;
+    margin-bottom: 0;
 }

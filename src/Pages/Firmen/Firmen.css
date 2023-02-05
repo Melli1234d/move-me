@@ -155,7 +155,8 @@ a {
 
 .number {
     color: #113352;
-    font-size: 20pt;
+    font-size: 16pt;
+    margin-bottom: 0.5rem;
     margin-top: 1rem;
     text-align: center;
 }

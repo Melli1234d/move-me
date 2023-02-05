@@ -188,43 +188,41 @@ const Zeitplan = (props) => {
     //Bei Zeitplan Übersicht, die Länge des Containers ausgeben, da sie immer unterschiedlich sein kann
     function getLengthofListElement(task) {//alle label und das einzelne als wert mitgegeben
        if(task.length === 1) {
-           return <ListElement key={task.id}  className="listElement-one">
-               <div className="timeplaner">
-                   <div>{task.day} {task.month} {task.year}</div>
-                   <h5>{task.title}</h5>
+           return <ListElement key={task.id} id={task.id} className="listElement-one">
+               <div className="timeplaner" >
+                   <h5 className="Zeitplanüberschrift">Bis: {task.day} {task.month} {task.year}</h5>
                </div>
 
            </ListElement>;
        } else if(task.length === 2) {
-           return <ListElement key={task.id} className="listElement-two">
-               <div className="timeplaner">
-                   <div>{task.day} {task.month} {task.year}</div>
-                   <h5>{task.title}</h5>
+           return <ListElement key={task.id} id={task.id} className="listElement-two" >
+               <div className="timeplaner" >
+                   <h5 className="Zeitplanüberschrift"> Bis: {task.day} {task.month} {task.year}</h5>
                </div>
 
            </ListElement>;
        }if(task.length === 3) {
-            return <ListElement key={task.id} className="listElement-tree">
-                <div className="timeplaner">
-                    <div>{task.day} {task.month} {task.year}</div>
-                    <h5>{task.title}</h5>
+            return <ListElement key={task.id} id={task.id} className="listElement-tree">
+                <div className="timeplaner" >
+
+                    <h5 className="Zeitplanüberschrift"> Bis: {task.day} {task.month} {task.year}</h5>
                 </div>
 
             </ListElement>;
         } if(task.length === 4) {
-            return <ListElement key={task.id} className="listElement-four">
-                <div className="timeplaner">
-                    <div>{task.day} {task.month} {task.year}</div>
-                    <h5>{task.title}</h5>
+            return <ListElement key={task.id} id={task.id} className="listElement-four"  >
+                <div className="timeplaner" >
+
+                    <h5 className="Zeitplanüberschrift">Bis: {task.day} {task.month} {task.year}</h5>
                 </div>
 
             </ListElement>;
         }
         if(task.length === 5) {
-            return <ListElement className="listElement-five">
-                <div className="timeplaner">
-                    <div>{task.day} {task.month} {task.year}</div>
-                    <h5>{task.title}</h5>
+            return <ListElement  className="listElement-five" >
+                <div className="timeplaner" >
+
+                    <h5 className="Zeitplanüberschrift">Bis: {task.day} {task.month} {task.year}</h5>
                 </div>
 
             </ListElement>;
@@ -251,7 +249,7 @@ const Zeitplan = (props) => {
                     </div>
                     <div className="timeplan-grid">
                         {tasks.map((task) => (
-                            <div key={task.id} onClick={handleTasks}>{getLengthofListElement(task)}</div>
+                            <div key={task.id} onClick={handleTasks} id={task.id}>{getLengthofListElement(task)}</div>
                         ))}
                     </div>
                 </>
