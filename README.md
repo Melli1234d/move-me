@@ -27,6 +27,7 @@ Code + CSS:
 17. https://codepen.io/eliza-rjb/pen/xmbEWX
 18. https://github.com/googlecreativelab/teachablemachine-community/issues/73
 19. https://www.youtube.com/watch?v=lW8NWB1cvMA
+20. https://stackoverflow.com/questions/46900430/firestore-getting-documents-id-from-collection
 
 
 Bilder & Icons:

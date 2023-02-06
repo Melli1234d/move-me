@@ -32,6 +32,8 @@ import {setDoc} from "@firebase/firestore";
 //CODE: angelehnt an Code Beispiel der automatisch von Teachable Machine generiert wird
 //CODE: Photo nach Firebase hochladen: or github: https://github.com/machadop1407/firebase-file-upload
 //CODE: https://github.com/googlecreativelab/teachablemachine-community/issues/73
+// https://stackoverflow.com/questions/46900430/firestore-getting-documents-id-from-collection
+//https://github.com/samfromaway/firebase-tutorial/blob/master/src/firebase.js
 //#############################################################################################################################################################
 
 const TestMoebelerkennung = (props) => {
