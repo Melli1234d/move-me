@@ -34,6 +34,7 @@ import {setDoc} from "@firebase/firestore";
 //CODE: https://github.com/googlecreativelab/teachablemachine-community/issues/73
 // https://stackoverflow.com/questions/46900430/firestore-getting-documents-id-from-collection
 //https://github.com/samfromaway/firebase-tutorial/blob/master/src/firebase.js
+// https://www.youtube.com/watch?v=PhDq-QrdIko
 //#############################################################################################################################################################
 
 const TestMoebelerkennung = (props) => {
@@ -140,27 +141,11 @@ const TestMoebelerkennung = (props) => {
 //#############################################################################################################################################################
 //SETZE AUF SCHRITT "INFO" & FÜGE MÖBELSTÜCK IN LISTE HINZU (ID, ANZAHL, LÄNGE,GEWICHT,RAUM,BESONDERHEITEN,URL DES BILDES, LABELS[]
 //#############################################################################################################################################################
-    const handleDone = ()=>{
-        setStep('info');
-        const id = doc.payload.id;
-
-        // neues möbelstück anlegen in der Firebase Database collection "moebel-data" (Pfad definiert in moebelCollectionRef)
-        addDoc(moebelCollectionRef,{
-            id: unique_id,
-            amount: amount,
-            length: length,
-            weight: weight,
-            room: room,
-            besonderheiten: besonderheiten,
-            storedImageId: storedImageId,
-            label: label,
-        })
-    }
-
 
     async function addMoebel() {
         setStep('info');
 
+        // neues möbelstück anlegen in der Firebase Database collection "moebel-data" (Pfad definiert in moebelCollectionRef)
         const newMoebel = {
             id: id,
             amount: amount,
@@ -174,7 +159,7 @@ const TestMoebelerkennung = (props) => {
 
         try {
             const moebelRef = doc(moebelCollectionRef, id);
-            await setDoc(moebelRef, newMoebel);
+            await setDoc(moebelRef, newMoebel); //neues Möbelstück in Firebase setzen
         } catch (error) {
             console.error(error);
         }

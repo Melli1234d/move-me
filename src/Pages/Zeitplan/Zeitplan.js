@@ -24,13 +24,15 @@ import BigRectangle from "../../components/UI/BigRectangle";
 import {getDoc, updateDoc} from "@firebase/firestore";
 import * as db from "@firebase/firestore";
 import { doc} from "firebase/firestore";
+
+
 //code: https://github.com/samfromaway/firebase-tutorial/blob/master/src/SnapshotFirebaseAdvanced.js
+//code:https://www.youtube.com/watch?v=PhDq-QrdIko
 
 
 const Zeitplan = (props) => {
     const colletionRef = collection(firestore, 'Aufgabenpakete');
     const timeplanRef = collection(firestore, 'Teilaufgaben');
-    const timeplanRefID = collection(firestore, 'KLlY8Unihm4USfLLN2Es');
     const appointmentRef = collection(firestore, 'Termine');
     const [tasks, setTasks] = useState([]);
     const [subtasks, setSubTasks] = useState([]);

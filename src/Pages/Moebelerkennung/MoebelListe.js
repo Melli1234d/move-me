@@ -20,9 +20,6 @@ import SmallHighRoundRectangle from "../../components/UI/SmallHighRoundRectangle
 import { deleteDoc, updateDoc} from "@firebase/firestore";
 import SmallRectangle from "../../components/UI/SmallRectangle";
 
-
-
-
 //#############################################################################################################################################################
 //tutorial: https://www.youtube.com/watch?v=ad6IavyAHsQ&t=328s
 //tutorial: https://www.youtube.com/watch?v=3ZEz-iposj8
@@ -30,6 +27,9 @@ import SmallRectangle from "../../components/UI/SmallRectangle";
 // code: https://github.com/samfromaway/firebase-tutorial/blob/master/src/SnapshotFirebaseAdvanced.js
 //https://www.youtube.com/watch?v=lW8NWB1cvMA
 //############################################################################################################################################################
+
+
+
 //Möbelliste
 
 const MoebelListe = () => {
@@ -132,8 +132,8 @@ const MoebelListe = () => {
         console.log('gelöscht');
         console.log(moebel.id);
         try {
-            const moebelRef = doc(colletionRef, moebel.id);
-            await deleteDoc(moebelRef, moebelRef);
+            const moebelRef = doc(colletionRef, moebel.id); //definieren des Pfades vom Dokument + id wird mit gegeben
+            await deleteDoc(moebelRef, moebelRef); //er soll das Dokument löschen
         } catch (error) {
             console.error(error);
         }
@@ -230,9 +230,8 @@ const MoebelListe = () => {
                         </div>
                     </>}
 
-                {view === 'edit' &&
+                {view === 'edit' && editbox === true &&
                     <>
-
                         <div className="edit-container">
                             {moebelData.map((moebel) => (
                                 <div key={moebel.id}>

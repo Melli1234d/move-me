@@ -315,16 +315,14 @@ fieldset {
 }
 
 
-/*#Stuhl.Label-Klassen  {
-    margin-top: -5rem;
-}
-#Stuhl.Label-Klassen  {
-    margin-top: -5rem;
-}*/
 
 
 input::placeholder {
     font-weight: bold;
     opacity: 0.5;
     color: #113352;
+}
+
+.moebel-edit {
+    padding-bottom: 4rem;
 }
