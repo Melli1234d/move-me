@@ -16,9 +16,11 @@ import Bedroom from "../../components/Pictures/Moebel-Angaben/Raum/bedroom.png";
 import Livingroom from "../../components/Pictures/Moebel-Angaben/Raum/Wohnzimmer-white.png";
 import RoundButton from "../../components/UI/RoundButton";
 import SmallHighRoundRectangle from "../../components/UI/SmallHighRoundRectangle";
-import {deleteDoc, updateDoc} from "@firebase/firestore";
+import {addDoc, deleteDoc, updateDoc} from "@firebase/firestore";
 import SmallRectangle from "../../components/UI/SmallRectangle";
 import Edit from "../../components/Edit/Edit";
+import * as db from "@firebase/firestore";
+
 
 
 //#############################################################################################################################################################
@@ -119,14 +121,26 @@ const MoebelListe = () => {
         }
     }
 
-    function deleteData(moebel) {
+/*
+    const res = await db.collection('cities').add({
+        name: 'Tokyo',
+        country: 'Japan'
+    });
+
+    console.log('Added document with ID: ', res.id);*/
+
+    async function deleteData(moebel) {
+
+        console.log('gelöscht');
+        console.log(moebel.id);
         try {
             const moebelRef = doc(colletionRef, moebel.id);
-            deleteDoc(moebelRef, moebelRef);
+            await deleteDoc(moebelRef, moebelRef);
         } catch (error) {
             console.error(error);
         }
     }
+
 
     function editData(moebel) {
         const updatedMoebel = {
@@ -189,40 +203,41 @@ const MoebelListe = () => {
                                         </div>
                                     </div>
                                 </div>
+                                <button onClick={() => deleteData(moebel)}>löschen</button>
+                                <button onClick={()=> setEditBox(true)}> bearbeiten</button>
+                                {editbox === true && <> <form style={{
+                                    marginTop: "1rem",
+                                }}>
+                                    <SmallRectangle>
+                                        <label> Anzahl</label>
+                                        <input type="text" placeholder={moebel.amount}
+                                               onChange={(event)=>{
+                                                   setAmount(event.target.value);
+                                               }}/>
+                                    </SmallRectangle>
+                                    <SmallRectangle>
+                                        <label>Länge</label>
+                                        <input type="text" placeholder={moebel.length}
+                                               onChange={(event)=>{
+                                                   setLength(event.target.value);
+                                               }}/>
+                                    </SmallRectangle >
+
+                                    <SmallRectangle>
+                                        <label> Gewicht</label>
+                                        <input type="text" placeholder={moebel.weight}
+                                               onChange={(event)=>{
+                                                   setWeight(event.target.value);
+                                               }}/>
+                                    </SmallRectangle >
+                                </form>
+                                    <button onClick={() => {
+                                        editData(moebel)
+                                        setEditBox(false)
+                                    }}>update</button></> }
                             </div>
 
-                            <button onClick={() => deleteData(moebel)}>löschen</button>
-                            <button onClick={()=> setEditBox(true)}> bearbeiten</button>
-                            {editbox === true && <> <form style={{
-                                marginTop: "1rem",
-                            }}>
-                                <SmallRectangle>
-                                    <label> Anzahl</label>
-                                    <input type="text" placeholder={moebel.amount}
-                                           onChange={(event)=>{
-                                               setAmount(event.target.value);
-                                           }}/>
-                                </SmallRectangle>
-                                <SmallRectangle>
-                                    <label>Länge</label>
-                                    <input type="text" placeholder={moebel.length}
-                                           onChange={(event)=>{
-                                               setLength(event.target.value);
-                                           }}/>
-                                </SmallRectangle >
 
-                                <SmallRectangle>
-                                    <label> Gewicht</label>
-                                    <input type="text" placeholder={moebel.weight}
-                                           onChange={(event)=>{
-                                               setWeight(event.target.value);
-                                           }}/>
-                                </SmallRectangle >
-                            </form>
-                                <button onClick={() => {
-                                    editData(moebel)
-                                    setEditBox(false)
-                                }}>update</button></> }
                         </SmallHighRoundRectangle>
                     ))}
 

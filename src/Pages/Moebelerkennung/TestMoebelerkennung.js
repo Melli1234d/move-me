@@ -11,7 +11,7 @@ import {
     getDownloadURL,
 } from "firebase/storage";
 import {v4} from "uuid";
-import {addDoc, collection, updateDoc} from "@firebase/firestore";
+import {addDoc, collection, updateDoc, doc} from "@firebase/firestore";
 import {firestore} from "../../firebase";
 import Moebelerkennung from "../../components/Pictures/Moebelerkennung/Couchbild.png";
 import SmallRectangle from "../../components/UI/SmallRectangle";
@@ -23,7 +23,8 @@ import Livingroom from "../../components/Pictures/Moebel-Angaben/Raum/livingroom
 import Verpackung from "../../components/Pictures/MoebelAngaben/verpckung.png";
 import Zerbrechlich from "../../components/Pictures/MoebelAngaben/zerbrechlich.png";
 import Kratzer from "../../components/Pictures/MoebelAngaben/kratzer.png";
-
+import { v4 as uuidv4 } from 'uuid';
+import {setDoc} from "@firebase/firestore";
 
 //#############################################################################################################################################################
 //CODE: https://www.youtube.com/watch?v=0iteBJ-fuRA
@@ -139,10 +140,11 @@ const TestMoebelerkennung = (props) => {
 //#############################################################################################################################################################
     const handleDone = ()=>{
         setStep('info');
+        const id = doc.payload.id;
 
         // neues möbelstück anlegen in der Firebase Database collection "moebel-data" (Pfad definiert in moebelCollectionRef)
         addDoc(moebelCollectionRef,{
-            id:id,
+            id: unique_id,
             amount: amount,
             length: length,
             weight: weight,
@@ -153,6 +155,28 @@ const TestMoebelerkennung = (props) => {
         })
     }
 
+
+    async function addMoebel() {
+        setStep('info');
+
+        const newMoebel = {
+            id: id,
+            amount: amount,
+            length: length,
+            weight: weight,
+            room: room,
+            besonderheiten: besonderheiten,
+            storedImageId: storedImageId,
+            label: label,
+        };
+
+        try {
+            const moebelRef = doc(moebelCollectionRef, id);
+            await setDoc(moebelRef, newMoebel);
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
 
 //#############################################################################################################################################################
@@ -726,7 +750,7 @@ const TestMoebelerkennung = (props) => {
 
                         </BigRectangle>
 {/*########### zur Möbelliste hinzufügen ##########*/}
-                        <button className="right" onClick={handleDone}> Hinzufügen</button>
+                        <button className="right" onClick={() => addMoebel()}> Hinzufügen</button>
                     </div>
 
                 </>}

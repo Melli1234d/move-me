@@ -11,6 +11,7 @@ import TestMoebelerkennung from "./Pages/Moebelerkennung/TestMoebelerkennung";
 import MoebelListe from "./Pages/Moebelerkennung/MoebelListe";
 import Firmen from "./Pages/Firmen/Firmen";
 import FirmenDetail from "./Pages/Firmen/FirmenDetail";
+import SnapshotFirebaseAdvanced from "./Pages/Moebelerkennung/SnapshotFirebaseAdvanced";
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
                   <Route path="/Firmen" element={<Firmen/>}/>
                   <Route path="/FirmenDetail" element={<FirmenDetail/>}/>
                   <Route path="/MoebelListe" element={<MoebelListe/>}/>
+                  <Route path="/SnapshotFirebaseAdvanced" element={<SnapshotFirebaseAdvanced/>}/>
                   <Route path="/zeitplan" element={<Zeitplan/>}/>
               </Routes>
           </BrowserRouter>
