@@ -6,6 +6,7 @@ import {
     onSnapshot,
     collection,
     doc,
+    getDoc
 } from 'firebase/firestore';
 import {firebase, firestore} from "../../firebase";
 import Verpackung from "../../components/Pictures/MoebelAngaben/verpckung.png";
@@ -40,7 +41,7 @@ const MoebelListe = () => {
     const [amount, setAmount] = useState(2);// Allgemeine Anzahl der Möbelstücke, die in Firebase gespeichert wird, gesetzt je nach Klasse
     const [length, setLength] = useState(100);// Allgemeine Länge der Längsten Seite des Möbelstückes, die in Firebase gespeichert wird, gesetzt je nach Klasse
     const [weight, setWeight] = useState(50);// Allgemeines Gewicht, was in Firebase gespeichert wird, gesetzt je nach Klasse
-
+    const [clicked, setClicked] = useState(false);
 //#############################################################################################################################################################
 // LADEN DER INHALTE DER COLLECTION "MOEBEL-DATA" AUS FIREBASE
 //############################################################################################################################################################
@@ -158,9 +159,20 @@ const MoebelListe = () => {
         }
     }
 
-    const handleEdit = () => {
+    function handleEdit(moebel) {
+        console.log(moebel);
         setEditBox(true);
         setView('edit');
+        setClicked(true);
+    }
+
+
+    function handlereturnClickedElement(moebel) {
+
+        if(clicked === true){
+            return <p> {moebel.id} </p>
+        }
+
     }
 
     return (
@@ -198,19 +210,16 @@ const MoebelListe = () => {
                             {moebelData.map((moebel) => (
                                 <SmallHighRoundRectangle key={moebel.id}>
                                     <div className="moebel-container">
-
                                         <img id={moebel.storedImageId} className="imgfirebase" src={moebel.storedImageId}/>
-
                                         <div className="moebel-container-item">
                                             <div className="moebel-daten-icon">
                                                 <div className="moebel-item-content">
                                                     {getLabeltoIcon(moebel)}
                                                 </div>
-                                                <div onClick={handleEdit} className="moebel-item-content">
+                                                <div onClick={() => handleEdit(moebel.id)} className="moebel-item-content">
                                                     <img id="edit-img" src={EditIcon} alt="Kitchen" height={20} width={18}/>
                                                 </div>
                                             </div>
-
                                             <div className="moebel-daten-title-amount">
                                                 <div className="moebel-title">{getLabeltoFirebase(moebel)} ({moebel.amount})
                                                 </div>
@@ -220,10 +229,7 @@ const MoebelListe = () => {
                                                 </div>
                                             </div>
                                         </div>
-
                                     </div>
-
-
                                 </SmallHighRoundRectangle>
                             ))}
 
@@ -235,8 +241,10 @@ const MoebelListe = () => {
                         <div className="edit-container">
                             {moebelData.map((moebel) => (
                                 <div key={moebel.id}>
-                                    <div className="moebel-edit">
 
+
+                                    <div className="moebel-edit">
+                                        {handlereturnClickedElement(moebel)}
                                         <img id={moebel.storedImageId} className="imgfirebaseedit" src={moebel.storedImageId}/>
                                         <form className="moebel-data" style={{marginTop: "1rem"}}>
                                             <SmallRectangle>
