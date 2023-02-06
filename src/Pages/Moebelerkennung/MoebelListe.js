@@ -17,10 +17,9 @@ import Livingroom from "../../components/Pictures/Moebel-Angaben/Raum/Wohnzimmer
 import EditIcon from "../../components/Pictures/Moebelerkennung/edit.svg";
 import RoundButton from "../../components/UI/RoundButton";
 import SmallHighRoundRectangle from "../../components/UI/SmallHighRoundRectangle";
-import {addDoc, deleteDoc, updateDoc} from "@firebase/firestore";
+import { deleteDoc, updateDoc} from "@firebase/firestore";
 import SmallRectangle from "../../components/UI/SmallRectangle";
-import Edit from "../../components/Edit/Edit";
-import * as db from "@firebase/firestore";
+
 
 
 
