@@ -14,6 +14,7 @@ import Kratzer from "../../components/Pictures/MoebelAngaben/kratzer.png";
 import Kitchen from "../../components/Pictures/Moebel-Angaben/Raum/kitchen.png";
 import Bedroom from "../../components/Pictures/Moebel-Angaben/Raum/bedroom.png";
 import Livingroom from "../../components/Pictures/Moebel-Angaben/Raum/Wohnzimmer-white.png";
+import EditIcon from "../../components/Pictures/Moebelerkennung/edit.svg";
 import RoundButton from "../../components/UI/RoundButton";
 import SmallHighRoundRectangle from "../../components/UI/SmallHighRoundRectangle";
 import {addDoc, deleteDoc, updateDoc} from "@firebase/firestore";
@@ -36,13 +37,14 @@ const MoebelListe = () => {
     const colletionRef = collection(firestore, 'moebel-data'); //Referenz zu der Collection in Firebase, wo die Möbelstücke gespeichert wurden
     const [moebelData, setMoebelData] = useState([]); //Alle Möbelstücke
     const [editbox, setEditBox] = useState(false);
+    const [view, setView] = useState('list'); //edit
     const [amount, setAmount] = useState(2);// Allgemeine Anzahl der Möbelstücke, die in Firebase gespeichert wird, gesetzt je nach Klasse
     const [length, setLength] = useState(100);// Allgemeine Länge der Längsten Seite des Möbelstückes, die in Firebase gespeichert wird, gesetzt je nach Klasse
     const [weight, setWeight] = useState(50);// Allgemeines Gewicht, was in Firebase gespeichert wird, gesetzt je nach Klasse
+
 //#############################################################################################################################################################
 // LADEN DER INHALTE DER COLLECTION "MOEBEL-DATA" AUS FIREBASE
 //############################################################################################################################################################
-
 
     //onSnapshot() = es wird ein Snapshot von den aktuellem Inhalt des Dokuments gemacht, ändert sich der Inhalt wird ein neuer Snapcshot gemacht & Daten werden aktualisiert
     useEffect(() => {
@@ -121,13 +123,10 @@ const MoebelListe = () => {
         }
     }
 
-/*
-    const res = await db.collection('cities').add({
-        name: 'Tokyo',
-        country: 'Japan'
-    });
 
-    console.log('Added document with ID: ', res.id);*/
+//#############################################################################################################################################################
+// FUNKTION DIE DAS MÖBELSTÜCK LÖSCHT
+//#############################################################################################################################################################
 
     async function deleteData(moebel) {
 
@@ -141,6 +140,9 @@ const MoebelListe = () => {
         }
     }
 
+//#############################################################################################################################################################
+// FUNKTION DIE DAS MÖBELSTÜCK BEARBEITET
+//#############################################################################################################################################################
 
     function editData(moebel) {
         const updatedMoebel = {
@@ -156,92 +158,130 @@ const MoebelListe = () => {
             console.error(error);
         }
     }
+
+    const handleEdit = () => {
+        setEditBox(true);
+        setView('edit');
+    }
+
     return (
         <div className="secondary-background">
             <Header/>
+
             <div className="Moebel-list-container">
                 <h2> Möbel Liste </h2>
-                <div className="firma-row">
-                    <div className="center">
-                        <RoundButton className="icon-checked">
-                            <img className="firma-img" src={Livingroom} alt="Kitchen" height={18} width={19}/>
-                        </RoundButton>
-                        <div className="icon-label-checked">Wohnzimmer</div>
+                {view === 'list' &&
+                    <>
+                    <div className="firma-row">
+                        <div className="center">
+                            <RoundButton className="icon-checked">
+                                <img className="firma-img" src={Livingroom} alt="Kitchen" height={18} width={19}/>
+                            </RoundButton>
+                            <div className="icon-label-checked">Wohnzimmer</div>
+                        </div>
+                        <div className="center">
+                            <RoundButton>
+                                <img className="firma-img" src={Kitchen} alt="Livingroom" height={18} width={18}/>
+                            </RoundButton>
+                            <div className="icon-label">Küche</div>
+                        </div>
+                        <div className="center">
+                            <RoundButton>
+                                <img className="firma-img" src={Bedroom} alt="Bedroom" height={18} width={18}/>
+                            </RoundButton>
+                            <div className="icon-label">Schlafzimmer</div>
+                        </div>
+
+
                     </div>
-                    <div className="center">
-                        <RoundButton>
-                            <img className="firma-img" src={Kitchen} alt="Livingroom" height={18} width={18}/>
-                        </RoundButton>
-                        <div className="icon-label">Küche</div>
-                    </div>
-                    <div className="center">
-                        <RoundButton>
-                            <img className="firma-img" src={Bedroom} alt="Bedroom" height={18} width={18}/>
-                        </RoundButton>
-                        <div className="icon-label">Schlafzimmer</div>
-                    </div>
 
+                        <div className="grid">
+                            {moebelData.map((moebel) => (
+                                <SmallHighRoundRectangle key={moebel.id}>
+                                    <div className="moebel-container">
 
-                </div>
-                <div className="grid">
-                    {moebelData.map((moebel) => (
-                        <SmallHighRoundRectangle key={moebel.id}>
-                            <div className="moebel-container">
+                                        <img id={moebel.storedImageId} className="imgfirebase" src={moebel.storedImageId}/>
 
-                                <img id={moebel.storedImageId} className="imgfirebase" src={moebel.storedImageId}/>
+                                        <div className="moebel-container-item">
+                                            <div className="moebel-daten-icon">
+                                                <div className="moebel-item-content">
+                                                    {getLabeltoIcon(moebel)}
+                                                </div>
+                                                <div onClick={handleEdit} className="moebel-item-content">
+                                                    <img id="edit-img" src={EditIcon} alt="Kitchen" height={20} width={18}/>
+                                                </div>
+                                            </div>
 
-                                <div className="moebel-container-item">
-                                    <div className="moebel-daten-icon">
-                                        <div className="moebel-item-content">{getLabeltoIcon(moebel)}</div>
-                                    </div>
-                                    <div className="moebel-daten-title-amount">
-                                        <div className="moebel-title">{getLabeltoFirebase(moebel)} ({moebel.amount})
+                                            <div className="moebel-daten-title-amount">
+                                                <div className="moebel-title">{getLabeltoFirebase(moebel)} ({moebel.amount})
+                                                </div>
+                                            </div>
+                                            <div className="moebel-daten-length-width">
+                                                <div className="moebel-laenge-gewicht">{moebel.length}cm, {moebel.weight}kg
+                                                </div>
+                                            </div>
                                         </div>
+
                                     </div>
-                                    <div className="moebel-daten-length-width">
-                                        <div className="moebel-laenge-gewicht">{moebel.length}cm, {moebel.weight}kg
+
+
+                                </SmallHighRoundRectangle>
+                            ))}
+
+                        </div>
+                    </>}
+
+                {view === 'edit' &&
+                    <>
+
+                        <div className="edit-container">
+                            {moebelData.map((moebel) => (
+                                <div key={moebel.id}>
+                                    <div className="moebel-edit">
+
+                                        <img id={moebel.storedImageId} className="imgfirebaseedit" src={moebel.storedImageId}/>
+                                        <form className="moebel-data" style={{marginTop: "1rem"}}>
+                                            <SmallRectangle>
+                                                <label> Anzahl</label>
+                                                <input type="text" placeholder={moebel.amount}
+                                                       onChange={(event)=>{
+                                                           setAmount(event.target.value);
+                                                       }}/>
+                                            </SmallRectangle>
+                                            <SmallRectangle>
+                                                <label>Länge</label>
+                                                <input type="text" placeholder={moebel.length}
+                                                       onChange={(event)=>{
+                                                           setLength(event.target.value);
+                                                       }}/>
+                                            </SmallRectangle >
+
+                                            <SmallRectangle>
+                                                <label> Gewicht</label>
+                                                <input type="text" placeholder={moebel.weight}
+                                                       onChange={(event)=>{
+                                                           setWeight(event.target.value);
+                                                       }}/>
+                                            </SmallRectangle >
+                                        </form>
+                                        <div className="moebel-data margin-top-m">
+                                            <button onClick={() => deleteData(moebel)}>Löschen</button>
+                                            <button onClick={() => {
+                                                editData(moebel)
+                                                setEditBox(false)
+                                                setView('list')
+                                            }}> Aktualisieren</button>
                                         </div>
+
                                     </div>
+
+
                                 </div>
-                                <button onClick={() => deleteData(moebel)}>löschen</button>
-                                <button onClick={()=> setEditBox(true)}> bearbeiten</button>
-                                {editbox === true && <> <form style={{
-                                    marginTop: "1rem",
-                                }}>
-                                    <SmallRectangle>
-                                        <label> Anzahl</label>
-                                        <input type="text" placeholder={moebel.amount}
-                                               onChange={(event)=>{
-                                                   setAmount(event.target.value);
-                                               }}/>
-                                    </SmallRectangle>
-                                    <SmallRectangle>
-                                        <label>Länge</label>
-                                        <input type="text" placeholder={moebel.length}
-                                               onChange={(event)=>{
-                                                   setLength(event.target.value);
-                                               }}/>
-                                    </SmallRectangle >
+                            ))}
 
-                                    <SmallRectangle>
-                                        <label> Gewicht</label>
-                                        <input type="text" placeholder={moebel.weight}
-                                               onChange={(event)=>{
-                                                   setWeight(event.target.value);
-                                               }}/>
-                                    </SmallRectangle >
-                                </form>
-                                    <button onClick={() => {
-                                        editData(moebel)
-                                        setEditBox(false)
-                                    }}>update</button></> }
-                            </div>
+                        </div>
+                    </>}
 
-
-                        </SmallHighRoundRectangle>
-                    ))}
-
-                </div>
 
             </div>
 
