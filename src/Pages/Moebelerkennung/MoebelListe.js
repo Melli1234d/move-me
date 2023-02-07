@@ -93,39 +93,14 @@ const MoebelListe = () => {
         console.log("four:" +propabilityfour);
 
 
-        if (probabilityzero > propabilityone) {
-            if (probabilityzero > propabilitytwo) {
-                if (probabilityzero > propabilitythree) {
-                    if (probabilityzero > propabilityfour) {
-
+        if (probabilityzero > propabilityone > propabilitytwo > propabilitythree > propabilityfour) {
                         return "Sofa";
-                    }
-                }
-            }
-        } else if (propabilityone > probabilityzero) {
-            if (propabilityone > propabilitytwo) {
-                if (propabilityone > propabilitythree) {
-                    if (propabilityone > propabilityfour) {
+        } else if (propabilityone > probabilityzero > propabilitytwo > propabilitythree > propabilityfour) {
                         return "Tisch";
-                    }
-                }
-            }
-        } else if (propabilitytwo > probabilityzero) {
-            if (propabilitytwo > propabilityone) {
-                if (propabilitytwo > propabilitythree) {
-                    if (propabilitytwo > propabilityfour) {
+        } else if (propabilitytwo > probabilityzero > propabilityone > propabilitythree > propabilityfour) {
                         return "Stuhl";
-                    }
-                }
-            }
-        } else if (propabilitythree > probabilityzero) {
-            if (propabilitythree > propabilityone) {
-                if (propabilitythree > propabilitytwo) {
-                    if (propabilitythree > propabilityfour) {
+        } else if (propabilitythree > probabilityzero > propabilityone > propabilitytwo > propabilityfour) {
                         return "Drehstuhl";
-                    }
-                }
-            }
         } else {
             return "Sitzhocker";
         }
