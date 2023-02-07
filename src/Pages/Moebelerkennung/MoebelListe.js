@@ -33,6 +33,7 @@ import SmallRectangle from "../../components/UI/SmallRectangle";
 //Möbelliste
 
 const MoebelListe = () => {
+
     const colletionRef = collection(firestore, 'moebel-data'); //Referenz zu der Collection in Firebase, wo die Möbelstücke gespeichert wurden
     const [moebelData, setMoebelData] = useState([]); //Alle Möbelstücke
     const [editbox, setEditBox] = useState(false);
