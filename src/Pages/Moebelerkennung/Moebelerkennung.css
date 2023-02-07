@@ -314,7 +314,9 @@ fieldset {
     height: 10rem;
 }
 
-
+p#erklärung-scan {
+    color: #113352;
+}
 
 
 input::placeholder {

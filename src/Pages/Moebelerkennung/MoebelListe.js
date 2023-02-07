@@ -6,7 +6,6 @@ import {
     onSnapshot,
     collection,
     doc,
-    getDoc
 } from 'firebase/firestore';
 import {firebase, firestore} from "../../firebase";
 import Verpackung from "../../components/Pictures/MoebelAngaben/verpckung.png";
@@ -41,7 +40,7 @@ const MoebelListe = () => {
     const [amount, setAmount] = useState(2);// Allgemeine Anzahl der Möbelstücke, die in Firebase gespeichert wird, gesetzt je nach Klasse
     const [length, setLength] = useState(100);// Allgemeine Länge der Längsten Seite des Möbelstückes, die in Firebase gespeichert wird, gesetzt je nach Klasse
     const [weight, setWeight] = useState(50);// Allgemeines Gewicht, was in Firebase gespeichert wird, gesetzt je nach Klasse
-    const [clicked, setClicked] = useState(false);
+
 //#############################################################################################################################################################
 // LADEN DER INHALTE DER COLLECTION "MOEBEL-DATA" AUS FIREBASE
 //############################################################################################################################################################
@@ -80,16 +79,25 @@ const MoebelListe = () => {
 //#############################################################################################################################################################
 
     function getLabeltoFirebase(moebel) {
-        let probabilityzero = ( moebel.label[0].probability * 100).toFixed(2); //umrechnen
-        let propabilityone = (moebel.label[1].probability * 100).toFixed(2); //umrechnen
-        let propabilitytwo = (moebel.label[2].probability * 100).toFixed(2); //umrechnen
-        let propabilitythree = (moebel.label[3].probability * 100).toFixed(2); //umrechnen
-        let propabilityfour = (moebel.label[4].probability * 100).toFixed(2); //umrechnen
+        const probabilityzero = ( moebel.label[0].probability * 100).toFixed(2); //umrechnen
+        const propabilityone = (moebel.label[1].probability * 100).toFixed(2); //umrechnen
+        const propabilitytwo = (moebel.label[2].probability * 100).toFixed(2); //umrechnen
+        const propabilitythree = (moebel.label[3].probability * 100).toFixed(2); //umrechnen
+        const propabilityfour = (moebel.label[4].probability * 100).toFixed(2); //umrechnen
+
+
+        console.log("null:" +probabilityzero);
+        console.log("one:" +propabilityone);
+        console.log("two:" +propabilitytwo);
+        console.log("three:" +propabilitythree);
+        console.log("four:" +propabilityfour);
+
 
         if (probabilityzero > propabilityone) {
             if (probabilityzero > propabilitytwo) {
                 if (probabilityzero > propabilitythree) {
                     if (probabilityzero > propabilityfour) {
+
                         return "Sofa";
                     }
                 }
@@ -163,16 +171,6 @@ const MoebelListe = () => {
         console.log(moebel);
         setEditBox(true);
         setView('edit');
-        setClicked(true);
-    }
-
-
-    function handlereturnClickedElement(moebel) {
-
-        if(clicked === true){
-            return <p> {moebel.id} </p>
-        }
-
     }
 
     return (
@@ -210,7 +208,9 @@ const MoebelListe = () => {
                             {moebelData.map((moebel) => (
                                 <SmallHighRoundRectangle key={moebel.id}>
                                     <div className="moebel-container">
+
                                         <img id={moebel.storedImageId} className="imgfirebase" src={moebel.storedImageId}/>
+
                                         <div className="moebel-container-item">
                                             <div className="moebel-daten-icon">
                                                 <div className="moebel-item-content">
@@ -220,6 +220,7 @@ const MoebelListe = () => {
                                                     <img id="edit-img" src={EditIcon} alt="Kitchen" height={20} width={18}/>
                                                 </div>
                                             </div>
+
                                             <div className="moebel-daten-title-amount">
                                                 <div className="moebel-title">{getLabeltoFirebase(moebel)} ({moebel.amount})
                                                 </div>
@@ -229,7 +230,10 @@ const MoebelListe = () => {
                                                 </div>
                                             </div>
                                         </div>
+
                                     </div>
+
+
                                 </SmallHighRoundRectangle>
                             ))}
 
@@ -241,10 +245,8 @@ const MoebelListe = () => {
                         <div className="edit-container">
                             {moebelData.map((moebel) => (
                                 <div key={moebel.id}>
-
-
                                     <div className="moebel-edit">
-                                        {handlereturnClickedElement(moebel)}
+
                                         <img id={moebel.storedImageId} className="imgfirebaseedit" src={moebel.storedImageId}/>
                                         <form className="moebel-data" style={{marginTop: "1rem"}}>
                                             <SmallRectangle>

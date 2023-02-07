@@ -14,16 +14,16 @@ const HomeCategorieList = (props) => {
     const homecategories = [
         {
             id: 'e1',
-            title: 'Home',
+            title: 'Profil',
             button: 'weiter',
-            paragraph: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua',
+            paragraph: 'Erstelle ein Profil mit deinen Umzugsdaten und Wünschen. Schicke dein Profil an Umzugsunternehmen und ziehe stressarm um.',
             picture: require('../Pictures/BildUmzug.png'),
             contentclass: 'left',
         },
         {
             id: 'e2',
             title: 'Zeit- und Organisationsplan',
-            paragraph: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua',
+            paragraph: 'Lege für jede anfallende Aufgaben einen Termin fest. Verknüpfe den Kalender und plane Deine Aufgaben passend zu Deinem Alltag',
             button: 'weiter',
             picture: require('../Pictures/BildPlanen.png'),
             contentclass: 'right',
@@ -31,7 +31,7 @@ const HomeCategorieList = (props) => {
         {
             id: 'e3',
             title: 'Möbelliste ',
-            paragraph: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua',
+            paragraph: 'Speichere dein Interieur in eine Möbelliste. Gebe individuelle Daten an, um es Umzugsunternehmen einfacher zu machen, Deinen Umzug zu planen!',
             button: 'weiter',
             picture: require('../Pictures/BildMöbel.png'),
             contentclass: 'left',
@@ -39,7 +39,7 @@ const HomeCategorieList = (props) => {
         {
             id: 'e4',
             title: 'Community',
-            paragraph: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua',
+            paragraph: 'Ziehst Du demnächst in eine andere Stadt um, wissen aber noch nicht welche Gegend zu Dir passt? Mach dich schlau und finde die Wohngegend abgestimmt auf Deine Bedürfnisse.',
             button: 'weiter',
             picture: require('../Pictures/BildCommunity.png'),
             contentclass: 'right',
