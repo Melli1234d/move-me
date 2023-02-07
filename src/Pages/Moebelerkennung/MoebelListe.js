@@ -85,14 +85,6 @@ const MoebelListe = () => {
         const propabilitythree = (moebel.label[3].probability * 100).toFixed(2); //umrechnen
         const propabilityfour = (moebel.label[4].probability * 100).toFixed(2); //umrechnen
 
-
-        console.log("null:" +probabilityzero);
-        console.log("one:" +propabilityone);
-        console.log("two:" +propabilitytwo);
-        console.log("three:" +propabilitythree);
-        console.log("four:" +propabilityfour);
-
-
         if (probabilityzero > propabilityone > propabilitytwo > propabilitythree > propabilityfour) {
                         return "Sofa";
         } else if (propabilityone > probabilityzero > propabilitytwo > propabilitythree > propabilityfour) {
