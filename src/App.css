@@ -4,6 +4,7 @@
 h2, p, button, h3,h4 {
     padding-left: 2.5rem;
     padding-right: 2.5rem;
+    color: #113352;
 }
 p,button {
     font-size: 12pt;

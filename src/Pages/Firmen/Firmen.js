@@ -45,8 +45,8 @@ const Firmen = (props) => {
         <div className="secondary-background">
             <Header/>
             <div className="Moebel-list-container">
-                <h2> Firmen </h2>
-                <div className="firma-row">
+                <h2 className="firma-h4 primary-color padding-bottom-big ">Umzugsunternehmen</h2>
+                <div className="firma-row padding-bottom-big">
                     <div className="center">
                         <RoundButton className="icon-checked">
                             <img className="firma-img" src={Umzug} alt="Firma" height={18} width={19}/>
@@ -68,11 +68,8 @@ const Firmen = (props) => {
 
 
                 </div>
-                <h4 className="firma-h4">Umzugsunternehmen</h4>
-                <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut
-                    labore et dolore magna aliquyam erat, sed diam voluptua Lorem ipsum dolor sit amet, consetetur
-                    sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
-                    sed diam voluptua</p>
+
+                <p className="primary-color">Du kannst Dir über die nachfolgenden Firmen einen Überblick verschaffen. Schaue dir an, welche Firma für dich in Frage kommt, und schicke ihnen eine Anfrage. Dein Profil wird an die Umzugsunternehmen übergeben.</p>
                 <div className="scroll-container">
                     <div className="scrollen">
 

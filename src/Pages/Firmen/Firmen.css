@@ -43,6 +43,10 @@
 
     margin-bottom: 2rem;
 }
+#firma-bewerung {
+    width: 3rem;
+    height: 3rem;
+}
 
 .firma-title {
     font-size: 12pt;
@@ -113,9 +117,8 @@
 }
 
 .firma-h4{
-    margin-top: 1rem;
+    margin-top: 2rem;
     margin-bottom: 0.5rem;
-    font-weight: normal;
 }
 
 a {
@@ -186,11 +189,21 @@ a {
     margin-left: 2.5rem;
     margin-right: 2.5rem;
     border-radius: 10px;
-    width: 80%;
+    width: 72%;
     background-color: #F4F5F7;
+    padding: 1rem;
 }
 
 .bewertung-nutzer {
     display: flex;
     flex-direction: row;
+}
+.primary-color {
+    color: #113352;
+}
+.name {
+    margin-left: 1rem;
+    margin-top: 1rem;
+    font-weight: 600;
+    color: #113352;
 }

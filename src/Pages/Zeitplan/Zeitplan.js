@@ -255,13 +255,7 @@ const Zeitplan = (props) => {
                             <div key={task.id} onClick={handleTasks} id={task.id}>{getLengthofListElement(task)}</div>
                         ))}
                     </div>
-                    <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut
-                        labore et dolore magna aliquyam erat, sed diam voluptua Lorem ipsum dolor sit amet, consetetur
-                        sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
-                        sed diam voluptua Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut
-                        labore et dolore magna aliquyam erat, sed diam voluptua Lorem ipsum dolor sit amet, consetetur
-                        sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
-                        sed diam voluptua</p>
+                    <p>Der Zeitplan gibt die eine Übersicht auf die ganzen zusammenhängenden Pakete. Klicke auf ein Paket drauf um die Teilaufgaben einzusehen, oder änder die Listenansicht in die Kalenderansicht.</p>
                 </>
             }
 

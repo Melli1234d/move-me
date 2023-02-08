@@ -3,6 +3,7 @@ import React, {useEffect, useState} from 'react';
 import TapBarList from "../../components/TapBar/TapBarList";
 import Header from "../../components/Header/Header";
 import Umzugsunternehmen from "../../components/Pictures/Umzugsunternehmen/unternehmen1.png";
+import ProfilbildBewertung from "../../components/Pictures/Umzugsunternehmen/profilbild-bewertung.svg";
 import Backarrow from "../../components/Pictures/arrow-left.svg";
 import {Link} from "react-router-dom";
 import PrimaryColoredButton from "../../components/UI/PrimaryColoredButton";
@@ -58,18 +59,18 @@ const FirmenDetail = (props) => {
                         </div>
                     </GraySquare>
                 </div>
-                <p> Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua</p>
+                <p> Wir von Umzugsfred sind eine kompetente Umzugsfirma in der Berliner Region, die sich auf Privatumzüge konzentriert. Seit den 1980 Jahren haben wir ein Familienbetrieb. Die Zufriedenheit der Kunden ist uns sehr wichtig. Wir bieten die Möglichkeit von Schwertransporten.</p>
                 <h5 className="h5-firma"> Kostenvoranschlag</h5>
-                <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua</p>
+                <p>Hole dir einen kostenlosen Kostenvoranschlag von uns! Wir generieren den Preis anhand deiner Daten im Profil. Bitte achte darauf, dass die Möbelliste so gut wie fertig ist. Änderungen sind später dennoch möglich.</p>
                 <PrimaryColoredButton> Anfragen</PrimaryColoredButton>
 
                 <div className="biggreybox-bewertungen">
                     <div className="bewertung-nutzer">
-                        <div> Profilbild</div>
-                        <div className="name"> Max Mustermann</div>
+                        <img id="firma-bewerung" src={ProfilbildBewertung} alt="Firma" />
+                        <div className="name"> Martin Reck </div>
                     </div>
                     <p>
-                        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua
+                        Sehr nette Mitarbeiter! Der Umzug lief reibungslos ab. Es gab keine Komplikationen. Ich bin sehr zufrieden, gerne nächstes Mal wieder!
                     </p>
 
                 </div>
