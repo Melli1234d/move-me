@@ -3,6 +3,7 @@ import React, {useEffect, useState} from 'react';
 
 import TapBarList from "../../components/TapBar/TapBarList";
 //bild: https://de.freepik.com/fotos-kostenlos/junger-kurier-und-sein-kollege-entladen-kartons-aus-lieferwagen_25630693.htm#query=umzug&position=3&from_view=search&track=sph
+// XD Plugin "Auto Icon"
 import Umzugsunternehmen from "../../components/Pictures/Umzugsunternehmen/unternehmen1.png"
 
 import Header from "../../components/Header/Header";

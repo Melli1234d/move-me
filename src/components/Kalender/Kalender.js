@@ -4,7 +4,7 @@ import ArrowLeft from "../../components/Pictures/arrow-left.svg";
 import ArrowRight from "../../components/Pictures/arrow-right.svg";
 
 //Kalender angelehnt an: https://codepen.io/eliza-rjb/pen/xmbEWX
-
+// XD Plugin "Auto Icon"
 const Kalender = (props) => {
     const [view, setView] = useState('overview'); // 'april'
 

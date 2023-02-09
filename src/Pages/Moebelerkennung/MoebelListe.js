@@ -26,6 +26,7 @@ import SmallRectangle from "../../components/UI/SmallRectangle";
 //link: https://github.com/samfromaway/firebase-tutorial/blob/master/src/SnapshotFirebaseAdvanced.js
 // code: https://github.com/samfromaway/firebase-tutorial/blob/master/src/SnapshotFirebaseAdvanced.js
 //https://www.youtube.com/watch?v=lW8NWB1cvMA
+// XD Plugin "Auto Icon"
 //############################################################################################################################################################
 
 

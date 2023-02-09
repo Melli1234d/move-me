@@ -9,7 +9,7 @@ import {Link} from "react-router-dom";
 import PrimaryColoredButton from "../../components/UI/PrimaryColoredButton";
 import GraySquare from "../../components/UI/GraySquare";
 //bild: https://de.freepik.com/fotos-kostenlos/junger-kurier-und-sein-kollege-entladen-kartons-aus-lieferwagen_25630693.htm#query=umzug&position=3&from_view=search&track=sph
-
+//profilbild Bewertung: aus XD Plugin "User Profil"
 const FirmenDetail = (props) => {
 
 

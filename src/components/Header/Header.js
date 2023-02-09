@@ -8,7 +8,7 @@ import {Link} from "react-router-dom";
 
 
 //HAMBURGER MENU CODE: https://codepen.io/erikterwan/pen/EVzeRP CSS UND HTML, Links angepasst
-
+// XD Plugin "Auto Icon"
 const Header = (props) => {
 
 

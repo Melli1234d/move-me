@@ -8,7 +8,7 @@ import HomeCategories from "./HomeCategories";
 //BIld 2:https://de.freepik.com/fotos-kostenlos/glueckliche-familie-die-beim-umzug-in-ein-neues-zuhause-wohnungsplaene-durchgeht_26922775.htm#query=Umzug%20planen&position=8&from_view=search&track=sph
 //Bild 3:https://de.freepik.com/fotos-kostenlos/schliessen-sie-die-elegante-dekoration-des-hauses_19867506.htm#query=Möbel&position=25&from_view=search&track=ais
 //Bild 4:https://de.freepik.com/fotos-kostenlos/glueckliches-ueberglueckliches-geschaeftsteam-feiert-unternehmenssieg_21149733.htm#query=menschengruppe&position=2&from_view=search&track=sph
-
+// XD Plugin "Auto Icon"
 
 const HomeCategorieList = (props) => {
     const homecategories = [

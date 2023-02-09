@@ -28,7 +28,7 @@ import { doc} from "firebase/firestore";
 
 //code: https://github.com/samfromaway/firebase-tutorial/blob/master/src/SnapshotFirebaseAdvanced.js
 //code:https://www.youtube.com/watch?v=PhDq-QrdIko
-
+// XD Plugin "Auto Icon"
 
 const Zeitplan = (props) => {
     const colletionRef = collection(firestore, 'Aufgabenpakete');
