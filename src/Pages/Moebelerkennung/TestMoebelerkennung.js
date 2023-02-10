@@ -76,7 +76,7 @@ const TestMoebelerkennung = (props) => {
 
 
 //#############################################################################################################################################################
-    //ANIMATION FRAME DER DEN LOOP STÄNDIG DURCHLÄUFT UND IN ECHTZEIT UPDATET WENN KAMERA GESTARTET
+//ANIMATION FRAME DER DEN LOOP STÄNDIG DURCHLÄUFT UND IN ECHTZEIT UPDATET WENN KAMERA GESTARTET
 //#############################################################################################################################################################
     useAnimationFrame(deltaTime => {
         if (tm.started) { //Funktion startet im context definiert
@@ -89,12 +89,12 @@ const TestMoebelerkennung = (props) => {
 //#############################################################################################################################################################
 //BUTTON KLICKEN UM KAMERA ZU STARTEN UND DAS CANVAS ALS KIND ELEMENT HINZUFÜGEN &
 //VORHERSAGEN WERDEN IM HINTERGRUND GETROFFEN (DEFINIERT IN USEANIMATIONFRAME)
-    // & STEP "SCAN"
+// & STEP "SCAN"
 // #############################################################################################################################################################
     const handleClick = async () => {
         await tm.start(); // Kamera starten
         divEl.current.appendChild(tm.webcam.canvas); //in dem div das webcam canvas erscheinen lassen
-        setStep('scan');
+        setStep('scan'); //Ansicht auf Scan setzen
     }
 
 //#############################################################################################################################################################
@@ -113,7 +113,8 @@ const TestMoebelerkennung = (props) => {
             };
             const imageRef = ref(storage, `images/${imageId}`);//Namen für Bild mit random erstellter ID in den Order "images" im Storage von Firebase speichern
 
-            uploadBytes(imageRef, imageBlob, metadata).then((snapshot) => { //Bild in Firebase speichern, mitgegeben wird der Pfad wo es gespeichert wird (ImageRef), imageBlob als Objekt was gespeichert wird und wie es gespeichert wird (metatada -> png)
+            uploadBytes(imageRef, imageBlob, metadata).then((snapshot) => { //Bild in Firebase speichern, mitgegeben wird der Pfad wo es gespeichert wird (ImageRef)
+                                                                            // (ImageRef), imageBlob als Objekt was gespeichert wird und wie es gespeichert wird (metatada -> png)
                 getDownloadURL(snapshot.ref).then((url) => { //snapshot machen, diese als referenz für die url benutzen, url ist im Stoage
                     setImageUrl(url); //image url auf die eben erstellte URL des Bildes setzen, die unten verwendet wird
                     setStoredImageId(url); //Stored Image ID soll die URL sein die eben erstellt wurde, diese wird in Firebase gespeicher
@@ -124,7 +125,7 @@ const TestMoebelerkennung = (props) => {
         await tm.stop();//kamera geht aus wenn foto gemacht wird
         tm.webcam.canvas.remove(); //camera Canvas wird removt wenn Foto aufgenommen -> damit oben nicht ein leerer weißer container zu sehen ist
         setHasPhoto(true); //foto wurde gemacht
-        setStep('done');
+        setStep('done'); //Step zu "done"
     }
 
 
@@ -133,7 +134,7 @@ const TestMoebelerkennung = (props) => {
 //GEMACHTE FOTO BESTÄTIGEN UND AUF "DATA" SCREEN WECHSELN
 //#############################################################################################################################################################
     const handleComplete = ()=>{
-        setStep('data');
+        setStep('data'); //Step zu "Data"
     }
 
 
@@ -143,10 +144,10 @@ const TestMoebelerkennung = (props) => {
 //#############################################################################################################################################################
 
     async function addMoebel() {
-        setStep('info');
+        setStep('info'); //Sicht auf die anfängliche Info Sicht stellen
 
-        // neues möbelstück anlegen in der Firebase Database collection "moebel-data" (Pfad definiert in moebelCollectionRef)
-        const newMoebel = {
+        // neues Objekt mit Möbelstück anlegen in der Firebase Database collection "moebel-data" (Pfad definiert in moebelCollectionRef)
+        const newMoebel = { //die Daten die angelegt werden, der zweite Wert sind die gesetzten Werte
             id: id,
             amount: amount,
             length: length,
@@ -160,7 +161,7 @@ const TestMoebelerkennung = (props) => {
         try {
             const moebelRef = doc(moebelCollectionRef, id);
             await setDoc(moebelRef, newMoebel); //neues Möbelstück in Firebase setzen
-        } catch (error) {
+        } catch (error) { //falls ein Fehler auftritt einfach in der Konsle den Fehler anzeigen lassen
             console.error(error);
         }
     }

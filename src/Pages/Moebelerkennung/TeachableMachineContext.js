@@ -14,15 +14,15 @@ const TeachableMachineWrapper = {
 // KAMERA STARTEN & MODEL DEFINIEREN
 //#############################################################################################################################################################
     async start(){
-        const modelURL = URL + "model.json";
-        const metadataURL = URL + "metadata.json";
-        const model = await tmImage.load(modelURL, metadataURL); //dem model wird die url und die metadaten mit gegeben
+        const modelURL = URL + "model.json"; //definieren des Pfades
+        const metadataURL = URL + "metadata.json"; //definieren des Pfades
+        const model = await tmImage.load(modelURL, metadataURL); //dem model wird die url und die metadaten mit gegeben, Modell wird geladen
         const flip = true; // kamera umdrehen
         const webcam = new tmImage.Webcam(200, 200, flip); // neue Camera Webcam erstellen mit breite, höhe und gefliptem Bild im Container
         await webcam.setup({ facingMode: "environment" }); // Zugang zur Kamera anfragen
         await webcam.play(); //webcam geht an
-        this.model = model;
-        this.webcam = webcam;
+        this.model = model; //das aktuelle model ist das modell
+        this.webcam = webcam; //die aktuelle webcam ist die webcam
         this.started = true; //wird gestartet
     },
 //#############################################################################################################################################################
