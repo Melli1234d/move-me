@@ -21,15 +21,14 @@ const Firmen = (props) => {
     const colletionRef = collection(firestore, 'umzugsunternehmen');
     const [firma, setFirma] = useState([]);
 
-
+//onSnapshot() = es wird ein Snapshot von den aktuellem Inhalt des Dokuments gemacht, ändert sich der Inhalt wird ein neuer Snapcshot gemacht & Daten werden aktualisiert
     useEffect(() => {
-        // const unsub = onSnapshot(q, (querySnapshot) => {
         const unsub = onSnapshot(colletionRef, (querySnapshot) => {
-            const items = [];
-            querySnapshot.forEach((doc) => {
-                items.push(doc.data());
+            const items = []; //definieren, dass die Items ein Array sind
+            querySnapshot.forEach((doc) => { //Snapshot für jedes einzelne Dokument in der Collection
+                items.push(doc.data()); //Daten werden in den Snapshot geladen
             });
-            setFirma(items);
+            setFirma(items); //sagen, dass die aktuellen Daten die neuen Daten der Firmen sind.
         });
         return () => {
             unsub();
