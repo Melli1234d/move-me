@@ -17,12 +17,12 @@ export const useAnimationFrame = callback => {
     const previousTimeRef = React.useRef();
 
     const animate = time => {
-        if (previousTimeRef.current != undefined) { //wenn die derzeitige vorherige Zeit undefiniert,
-            const deltaTime = time - previousTimeRef.current; //  zeit - derzeitige vorherige Zeit = aktuelle Zeit
+        if (previousTimeRef.current != undefined) { //wenn eine aktuelle vorhergehende Zeitreferenz haben
+            const deltaTime = time - previousTimeRef.current; //  berechnet Differenz zwischen Jetzt und der vorhergehenden Zeit (die Zeit die die Animation brauchte)
             callback(deltaTime) //wiedergeben der deltatime
         }
-        previousTimeRef.current = time;
-        requestRef.current = window.requestAnimationFrame(animate); //wiedergeben des animierten Bildes als Kamera Loop
+        previousTimeRef.current = time;//aktuelle Zeit wird als vorhergehende aktuelle Zeit gesetzt
+        requestRef.current = window.requestAnimationFrame(animate); //aimierte Bild wird herausgegeben
     }
 
     React.useEffect(() => {
