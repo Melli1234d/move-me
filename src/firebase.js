@@ -9,12 +9,12 @@ import firebase from "firebase/firestore";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyAXKcBEUQ-Ey9rqaRon8VQiyjdV5YawZDQ",
+    apiKey: "key",
     authDomain: "move-me-webapp.firebaseapp.com",
     projectId: "move-me-webapp",
     storageBucket: "move-me-webapp.appspot.com",
     messagingSenderId: "1087452600725",
-    appId: "1:1087452600725:web:09b64ad9da5aa8c5397e9c",
+    appId: "id",
 };
 
 
