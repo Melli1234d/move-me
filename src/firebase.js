@@ -13,7 +13,7 @@ const firebaseConfig = {
     authDomain: "move-me-webapp.firebaseapp.com",
     projectId: "move-me-webapp",
     storageBucket: "move-me-webapp.appspot.com",
-    messagingSenderId: "1087452600725",
+    messagingSenderId: "messageid",
     appId: "id",
 };
 
